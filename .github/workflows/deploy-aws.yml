@@ -19,8 +19,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: lab2you-web-app
-          environment_name: Lab2you-web-app-env
+          application_name: sample3-web-react-app
+          environment_name: Sample3-web-react-app-env
           version_label: ${{ github.sha }}
           existing_bucket_name: elasticbeanstalk-us-east-1-842413253702
           region: us-east-2
