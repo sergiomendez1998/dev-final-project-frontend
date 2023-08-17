@@ -7,8 +7,8 @@ import { UsersApp } from './UsersApp'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
         <UsersApp />
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 )
