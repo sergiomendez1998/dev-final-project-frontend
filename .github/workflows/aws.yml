@@ -2,7 +2,7 @@ name: Deploy master web
 on:
   push:
     branches:
-    - "Docker-compose-CI/CD-AWS-Beanstalk"
+    - main
 
 jobs:
   build:
