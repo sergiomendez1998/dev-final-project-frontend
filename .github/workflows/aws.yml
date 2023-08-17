@@ -23,5 +23,5 @@ jobs:
         application_name: sample3-web-react-app
         environment_name: Sample3-web-react-app-env
         version_label: 1.01
-        region: us-west-2
+        region: us-east-2
         deployment_package: deploy.zip
