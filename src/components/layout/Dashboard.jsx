@@ -1,3 +1,4 @@
+import { Footer } from "./Footer";
 
 export const Dashboard = () => {
     return (
@@ -90,7 +91,7 @@ export const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section>               
             </div>
         </>
     );
