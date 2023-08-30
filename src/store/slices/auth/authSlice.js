@@ -34,7 +34,6 @@ export const authSlice = createSlice({
       sessionStorage.removeItem('token');
       sessionStorage.removeItem('login');
       sessionStorage.clear();
-      console.log('newState for logout', newState);
       return newState;
     },
   },

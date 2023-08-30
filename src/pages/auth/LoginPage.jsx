@@ -40,12 +40,12 @@ export const LoginPage = () => {
 
   return (
     <section className="flex h-screen w-screen flex-col justify-center items-center md:flex-row">
-      <div className="flex w-full items-center justify-center  px-6  md:mx-auto :w-1/2 md:max-w-md lg:max-w-full lg:px-16 xl:px-12">
-        <div className="h-100 w-[75%]">
+      <div className="flex w-full items-center justify-center px-6 md:mx-auto xl:max-w-xl md:max-w-md lg:max-w-lg lg:px-16 xl:px-12">
+        <div className="h-100 w-full p-4 md:p-0">
           {
             response && <Response message={response.message} type={response.success}/>
           }
-          <h1 className="mt-12 text-black text-xl font-bold leading-tight dark:text-gray-50 md:text-2xl text-center">
+          <h1 className="mb-10 text-3xl font-bold leading-tight text-center">
             Bienvenido a Lab2You
           </h1>
           <form onSubmit={handleSubmit}>
@@ -92,18 +92,18 @@ export const LoginPage = () => {
           </p>
         </div>
       </div>
-      <div className="hidden bg-sky-600 md:flex h-screen w-100 flex-col align-center justify-center">
-        <h3 className="text-white text-center py-4 font-bold">Lab2You</h3>
-        <div className="px-5 flex justify-center flex-col">
+      <div className="hidden bg-sky-600 md:flex h-screen w-1/2 flex-col items-center justify-center">
+        <h3 className="text-white text-center text-4xl py-4 font-bold">Lab2You</h3>
+        <div className="w-[80%] flex justify-center flex-col">
           <img
-            src="https://source.unsplash.com/random"
+            src="/dist/img/logo.jpg"
             alt=""
             className="w-full h-96"
           />
-          <h5 className="px-9 text-white text-center pt-2">
+          <p className="text-white text-xl text-center pt-2">
             Agenda tu visita en un solo click, en lab2you tu eres nuestra
             prioridad
-          </h5>
+          </p>
         </div>
       </div>
     </section>

@@ -3,7 +3,7 @@ import React from 'react';
 export const InputForm = ({label, name, type, id, value,error, onChange,onBlur, placeholder}) => {
   return (
     <div className='mt-4'>
-      <label className="block text-gray-600">{label}</label>
+      <label className="font-bold block text-gray-600">{label}</label>
       <input
         type={type}
         name={name}
@@ -17,7 +17,7 @@ export const InputForm = ({label, name, type, id, value,error, onChange,onBlur, 
         onChange={onChange}
         onBlur={onBlur}
       />
-      <p className='text-red font-bold'>{error}</p>
+      <p className='text-red-600 font-bold'>{error}</p>
     </div>
   );
 };

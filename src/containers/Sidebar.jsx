@@ -97,7 +97,7 @@ export const Sidebar = () => {
         variants={Nav_animation}
         initial={{ x: isTabletMid ? -250 : 0 }}
         animate={open ? 'open' : 'closed'}
-        className="bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-white shadow-xl z-[999] max-w-[16rem]  w-[16rem] 
+        className="bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black text-white shadow-xl z-[999] max-w-[16rem]  w-[16rem] 
             overflow-hidden md:relative fixed
          h-screen "
       >
@@ -146,7 +146,7 @@ export const Sidebar = () => {
               </AnimatedLink>
             </li>
             <li>
-              <a href="#" className="link text-red font-bold" onClick={handlerLogout}>
+              <a href="#" className="link text-red-600 font-bold" onClick={handlerLogout}>
                 <SlLogout size={23} className="min-w-max" />
                 Salir
               </a>
@@ -185,7 +185,7 @@ export const Sidebar = () => {
           <IoIosArrowBack size={25} />
         </motion.div>
       </motion.div>
-      <div className="m-3 md:hidden  " onClick={() => setOpen(true)}>
+      <div className="m-3 md:hidden  relative z-[995]" onClick={() => setOpen(true)}>
         <MdMenu size={25} />
       </div>
     </div>

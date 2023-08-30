@@ -8,6 +8,7 @@ export default {
       },
       colors: {
         content: "rgb(15 23 42/var(--tw-bg-opacity))",
+        opaque: "rgba(0, 0, 0, 0.15)",
       }
     },
   },
