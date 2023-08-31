@@ -1,4 +1,5 @@
 import { InputForm } from '../../components/inputs/InputForm';
+import { AnimatedLink } from '../../components/links/AnimatedLink';
 import { Response } from '../../components/messages/Response';
 import { useForm } from '../../hooks/useForm';
 import { useLogin } from '../../hooks/useLogin';
@@ -32,7 +33,7 @@ export const LoginPage = () => {
     return handlerLogin(form);
   };
 
-  const { form, errors, handleBlur, handleChange, handleSubmit, response } = useForm(
+  const { form, errors, handleChange, handleSubmit, response } = useForm(
     initialForm,
     validateForm,
     petition
@@ -54,7 +55,6 @@ export const LoginPage = () => {
               id={'email'}
               label={'Correo Electronico'}
               onChange={handleChange}
-              onBlur={handleBlur}
               placeholder={'Ingrese su correo electronico'}
               type={'email'}
               value={form.email}
@@ -65,14 +65,13 @@ export const LoginPage = () => {
               id={'password'}
               label={'contraseña'}
               onChange={handleChange}
-              onBlur={handleBlur}
               placeholder={'Ingrese su contraseña'}
               type={'password'}
               value={form.password}
               error={errors.password}
             />
             <div className="mt-2 text-right">
-              <a className="text-sm font-semibold text-gray-700 hover:text-rose-700 focus:text-rose-700">
+              <a className="text-sm font-semibold text-cyan-500 hover:text-cyan-700 focus:text-cyan-900">
                 Olvido su Contraseña?
               </a>
             </div>
@@ -86,9 +85,9 @@ export const LoginPage = () => {
           <hr className="my-6 w-full border-gray-300" />
           <p className="mt-8 text-gray-600 text-end">
             No Tienes Cuenta?{' '}
-            <a className="font-semibold text-cyan-500 hover:text-rose-700">
+            <AnimatedLink to={"/register"} className="text-cyan-500 hover:text-cyan-700 focus:text-cyan-900">
               Registrate
-            </a>
+            </AnimatedLink>
           </p>
         </div>
       </div>

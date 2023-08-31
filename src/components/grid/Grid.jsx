@@ -3,8 +3,7 @@ import React from 'react';
 export const Grid = ({children,xs, sm, md, lg, xl}) => {
     const colClasses = [
         'grid',
-        xs || sm || md || lg || xl ? '' : 'grid-cols-4',
-        xs ? `xs:grid-cols-${xs}` : '',
+        xs ? `grid-cols-${xs}` : 'grid-cols-1',
         sm ? `sm:grid-cols-${sm}` : '',
         md ? `md:grid-cols-${md}` : '',
         lg ? `lg:grid-cols-${lg}` : '',

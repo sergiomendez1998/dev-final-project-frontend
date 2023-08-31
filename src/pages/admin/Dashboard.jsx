@@ -3,6 +3,7 @@ import { DashboardItem } from '../../components/cards/DashboardItem';
 import GridTemplate from '../../components/Grid';
 import { Grid } from '../../components/grid/Grid';
 
+
 export const Dashboard = () => {
   return (
     <div className="mx-2">
@@ -20,7 +21,7 @@ export const Dashboard = () => {
       </div>
 
       <section className="mx-5">
-        <Grid xl={4} lg={3} md={2} sm={1}>
+        <Grid xs={1} lg={4}>
           <DashboardItem
             title="Usuarios Activos"
             number="150"
@@ -48,7 +49,7 @@ export const Dashboard = () => {
           />
         </Grid>
       </section>
-      <GridTemplate />
+      {/* <GridTemplate /> */}
     </div>
   );
 };

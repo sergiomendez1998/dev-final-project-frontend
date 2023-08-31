@@ -8,6 +8,8 @@ import ProtectedRoute from './ProtectedRoute';
 import { ProtectedLogin } from './ProtectedLogin';
 import { useAuth } from '../hooks/useAuth';
 import { Dashboard } from '../pages/admin/Dashboard';
+import { NotFound } from '../pages/error/NotFound.jsx';
+import { RegisterPage } from '../pages/auth/RegisterPage.jsx';
 
 export const Browser = () => {
   const { isLogedIn } = useAuth();
@@ -35,8 +37,19 @@ export const Browser = () => {
               </ProtectedLogin>
             }
           />
+          <Route
+            path="/register"
+            element={
+              <ProtectedLogin>
+                <RegisterPage />
+              </ProtectedLogin>
+            }
+          />
           <Route path="/registrar" element={<RegisterNewUserModal />} />
-          <Route path="*" element={<p>Pagina No Existe</p>} />
+          <Route
+            path="*"
+            element={<NotFound Message={'Pagina No Existe'} Number={404} />}
+          />
         </Routes>
       </Root>
     </BrowserRouter>

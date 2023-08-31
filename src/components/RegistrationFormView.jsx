@@ -1,4 +1,3 @@
-import {RegisterPage} from "../pages/RegisterPage.jsx";
 import {RegisterForm} from "./RegisterForm.jsx";
 
 export const RegistrationFormView = () => {

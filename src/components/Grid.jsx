@@ -7,20 +7,20 @@ const GridTemplate = () => {
   return (
     <div className="container mx-auto">
       <Row>
-        <Col>
+        <Col sm={6}>
           <div className="bg-gray-200 p-4">1 of 4</div>
         </Col>
-        <Col>
+        <Col sm={6}>
           <div className="bg-gray-200 p-4">2 of 4 (wider)</div>
         </Col>
-        <Col>
+        <Col sm={6}>
           <div className="bg-gray-200 p-4">3 of 4</div>
         </Col>
-        <Col>
+        <Col sm={6} >
           <div className="bg-gray-200 p-4">4 of 4</div>
         </Col>
       </Row>
-      <Grid>
+      <Grid xs={1} sm={1} md={2} lg={3} xl={4}> 
         <div className="bg-gray-200 p-4">1 of 4</div>
         <div className="bg-gray-200 p-4">2 of 4 (wider)</div>
         <div className="bg-gray-200 p-4">3 of 4</div>
