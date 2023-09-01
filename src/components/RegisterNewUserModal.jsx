@@ -1,4 +1,3 @@
-import {Navbar} from "./layout/Navbar.jsx";
 import {RegisterForm} from "./RegisterForm.jsx";
 import {NavLink} from "react-router-dom";
 

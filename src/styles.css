@@ -1,41 +1,164 @@
-.abrir-modal {
-    background-color: rgba(0, 0, 0, 0.7);
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&family=Play:wght@700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background: #f1f1f1;
+  }
+  h1 {
+    @apply text-xl font-medium capitalize;
+  }
 }
 
-.animacion {
-    animation-duration: 2s;
-    animation-fill-mode: both;
-    -webkit-animation-duration: 2s;
-    -webkit-animation-fill-mode: both;
+.dashboard-item .icon-dashboard svg {
+  font-size: 70px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  transition: -webkit-transform 0.3s linear;
+  transition: transform 0.3s linear;
+  transition: transform 0.3s linear, -webkit-transform 0.3s linear;
 }
 
-.fadeIn {
-    animation-name: fadeIn;
-    -webkit-animation-name: fadeIn;
+.dashboard-item .icon-dashboard svg:hover {
+  scale: 1.1;
 }
 
-@keyframes fadeIn {
-    0% {
-        opacity: 0
-    }
-
-    to {
-        opacity: 1
-    }
+.link {
+  @apply p-2.5 flex rounded-md gap-6 items-center md:cursor-pointer cursor-default duration-300 font-bold;
 }
 
-@-webkit-keyframes fadeIn {
-    0% {
-        opacity: 0
-    }
+.active {
+  @apply text-blue-600 bg-black;
+}
 
-    to {
-        opacity: 1
-    }
+main {
+  view-transition-name: main;
+}
+
+::view-transition-old(main) {
+  animation: 200ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+    1000ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+}
+
+::view-transition-new(main) {
+  animation: 1000ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+    1000ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+}
+
+.page-wrap {
+  min-height: 86.5vh;
+}
+
+.login {
+  -webkit-box-shadow: -1px -1px 23px 0px rgba(0, 0, 0, 0.72);
+  -moz-box-shadow: -1px -1px 23px 0px rgba(0, 0, 0, 0.72);
+  box-shadow: -1px -1px 23px 0px rgba(0, 0, 0, 0.72);
+  border-bottom-right-radius: 10%;
+  border-bottom-left-radius: 10%;
+}
+
+.login form {
+  border-bottom-right-radius: 10%;
+  border-bottom-left-radius: 10%;
+}
+
+.img-link {
+  -webkit-box-shadow: -1px -1px 23px 0px rgba(0, 0, 0, 0.72);
+  -moz-box-shadow: -1px -1px 23px 0px rgba(0, 0, 0, 0.72);
+  box-shadow: -1px -1px 23px 0px rgba(0, 0, 0, 0.72);
+  position: relative;
+  background-color: white;
+  top: 40px;
+  left: 75px;
+  z-index: 10;
+  height: 135px;
+  width: 135px;
+}
+
+.text-loading {
+  position: relative;
+  top: -10%;
+}
+
+.intermittent {
+  animation-name: mover;
+  animation-duration: 2s;
+  animation-iteration-count: unset;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+.loading {
+  animation-name: loading;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+  animation-fill-mode: forwards;
+}
+
+.rotate-enter {
+  transform: rotate(-90deg);
+}
+
+.rotate-exit {
+  transform: rotate(0deg);
+}
+
+.rotate-enter-active {
+  transform: rotate(0deg);
+}
+
+.rotate-exit-active {
+  transform: rotate(-90deg);
+}
+
+.rotate-enter-active,
+.rotate-exit-active {
+  transition: transform 200ms;
+}
+
+@keyframes mover {
+  0% {
+    opacity: 20%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes loading {
+  0% {
+    opacity: 30%;
+  }
+  100% {
+    opacity: 90%;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-from-right {
+  from {
+    transform: translateX(60px);
+  }
+}
+
+@keyframes slide-to-left {
+  to {
+    transform: translateX(-60px);
+  }
 }

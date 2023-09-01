@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { findAll, remove, save, update } from "../services/userService";
 import { useDispatch, useSelector } from "react-redux";
 import { initialUserForm, addUser, removeUser, updateUser, loadingUsers, onUserSelectedForm, onOpenForm, onCloseForm, loadingError } from "../store/slices/users/usersSlice";
-import { useAuth } from "../auth/hooks/useAuth";
+import { useLogin } from "./useLogin";
 
 export const useUsers = () => {
     
@@ -12,7 +12,7 @@ export const useUsers = () => {
 
     const navigate = useNavigate();
 
-    const { login, handlerLogout } = useAuth();
+    const { login, handlerLogout } = useLogin();
 
     const getUsers = async () => {
 

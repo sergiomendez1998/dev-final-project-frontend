@@ -4,6 +4,7 @@ import {FaAddressBook, FaEnvelope, FaLock, FaPhone, FaUser} from "react-icons/fa
 import {useState} from "react";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+
 export const RegisterForm = () => {
     const [validated, setValidated] = useState(false);
 

@@ -1,50 +1,42 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const authSlice = createSlice({
+  name: 'auth',
+  initialState: JSON.parse(sessionStorage.getItem('login')) || {
+    isLogedIn: false,
+    name: undefined,
+    email: undefined,
+    token: undefined,
+    role: undefined,
+  },
+  reducers: {
+    onLogin: (state, action) => {
+      const newState = {
+        ...state,
+        isLogedIn: true,
+        ...action.payload,
+      };
 
-    name: 'auth',
-    initialState: JSON.parse(sessionStorage.getItem('login')) || {
+      sessionStorage.setItem('login', JSON.stringify(newState));
+
+      sessionStorage.setItem('token', `Bearer ${newState.token}`);
+
+      return newState;
+    },
+    onLogout: () => {
+      const newState = {
         isAuth: false,
         isAdmin: false,
         user: undefined,
         token: undefined,
         roles: [],
+      };
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('login');
+      sessionStorage.clear();
+      return newState;
     },
-    reducers: {
-        onLogin: (state, action) => {
-            const newState = {
-                ...state,
-                isAuth: true,
-                isAdmin: action.payload.isAdmin,
-                user: action.payload.user,
-                token: action.payload.token,
-                roles: action.payload.roles,
-            };
-
-            sessionStorage.setItem('login', JSON.stringify(
-                newState
-            ));
-
-            sessionStorage.setItem('token', `Bearer ${newState.token}`);
-            console.log('checking item', newState);
-
-            return newState;
-        },
-        onLogout: (state, action) => {
-           const newState = {
-                isAuth: false,
-                isAdmin: false,
-                user: undefined,
-                token: undefined,
-                roles: [],
-           }
-            sessionStorage.removeItem('token');
-            sessionStorage.removeItem('login');
-            sessionStorage.clear();
-           console.log('newState for logout', newState);
-           return newState;
-        }
-    }
+  },
 });
 
-export const {onLogin, onLogout} = authSlice.actions;
+export const { onLogin, onLogout } = authSlice.actions;

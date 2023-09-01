@@ -1,10 +1,10 @@
-import usersApi from "../apis/usersApi";
+import { api } from "../apis/usersApi";
 
 const BASE_URL = '';
 
 export const findAll = async() => {
     try {
-        const response = await usersApi.get(BASE_URL);
+        const response = await api.get(BASE_URL);
         return response;
     } catch (error) {
         console.error(error);
@@ -14,7 +14,7 @@ export const findAll = async() => {
 
 export const save = async ({ username, email, password, admin }) => {
     try {
-        return await usersApi.post(BASE_URL, {
+        return await api.post(BASE_URL, {
             username,
             email,
             password,
@@ -27,7 +27,7 @@ export const save = async ({ username, email, password, admin }) => {
 
 export const update = async({ id, username, email, admin }) => {
     try {
-        return await usersApi.put(`${BASE_URL}/${id}`, {
+        return await api.put(`${BASE_URL}/${id}`, {
             username,
             email,
             admin,
