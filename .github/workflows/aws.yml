@@ -1,8 +1,8 @@
-name: Deploy on Tag
+name: Deploy master web
 on:
   push:
-    tags:
-      - '*'
+    branches:
+    - main
 
 jobs:
   build:
@@ -11,10 +11,6 @@ jobs:
 
     - name: Checkout source code
       uses: actions/checkout@v2
-
-    - name: Extract version number from tag
-      id: extract_version
-      run: echo "::set-output name=version::${GITHUB_REF#refs/tags/}"
 
     - name: Generate deployment package
       run: zip -r deploy.zip . -x '*.git*'
@@ -26,6 +22,6 @@ jobs:
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         application_name: sample3-web-react-app
         environment_name: Sample3-web-react-app-env
-        version_label: ${{ steps.extract_version.outputs.version }}
+        version_label: 1.0.4
         region: us-east-2
         deployment_package: deploy.zip
