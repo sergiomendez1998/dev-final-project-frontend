@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import { RegistrationFormView } from '../components/RegistrationFormView.jsx';
 import { Layout } from '../containers/Layout';
 import { LoginPage } from '../pages/auth/LoginPage';
@@ -10,6 +10,7 @@ import { useAuth } from '../hooks/useAuth';
 import { Dashboard } from '../pages/admin/Dashboard';
 import { NotFound } from '../pages/error/NotFound.jsx';
 import { RegisterPage } from '../pages/auth/RegisterPage.jsx';
+import { URL_BASE_APP } from '../config/constants.js';
 
 export const Browser = () => {
   const { isLogedIn } = useAuth();
@@ -17,7 +18,7 @@ export const Browser = () => {
   const Root = isLogedIn ? Layout : LayoutLogin;
 
   return (
-    <BrowserRouter basename='/portal'>
+    <HashRouter basename={URL_BASE_APP}>
       <Root>
         <Routes>
           <Route
@@ -52,6 +53,6 @@ export const Browser = () => {
           />
         </Routes>
       </Root>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
