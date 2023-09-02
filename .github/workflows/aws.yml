@@ -23,8 +23,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: sample3-web-react-app
-          environment_name: Sample3-web-react-app-env
+          application_name: Lab2You-web-app
+          environment_name: Lab2You-web-app-env
           version_label: ${{ steps.extract_version.outputs.version }}
           region: us-east-2
           deployment_package: deploy.zip
