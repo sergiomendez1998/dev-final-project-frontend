@@ -1,6 +1,7 @@
 import { InputForm } from '../../components/inputs/InputForm';
 import { AnimatedLink } from '../../components/links/AnimatedLink';
 import { Response } from '../../components/messages/Response';
+import { IMAGE_PREFIX } from '../../config/constants';
 import { useForm } from '../../hooks/useForm';
 import { useLogin } from '../../hooks/useLogin';
 
@@ -100,7 +101,11 @@ export const LoginPage = () => {
           Lab2You
         </h3>
         <div className="w-[80%] flex justify-center flex-col">
-          <img src="/img/logo.jpg" alt="" className="w-full h-96" />
+          <img
+            src={`${IMAGE_PREFIX}img/logo.jpg`}
+            alt=""
+            className="w-full h-96"
+          />
           <p className="text-white text-xl text-center pt-2">
             Agenda tu visita en un solo click, en lab2you tu eres nuestra
             prioridad

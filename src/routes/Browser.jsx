@@ -17,7 +17,7 @@ export const Browser = () => {
   const Root = isLogedIn ? Layout : LayoutLogin;
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/portal'>
       <Root>
         <Routes>
           <Route
