@@ -84,7 +84,7 @@ export const RegisterPage = () => {
       <h3 className="text-center mt-6 text-gray-400 px-4">
         Porfavor ingresa los campos solicitados para crear tu cuenta
       </h3>
-      <form onSubmit={handleSubmit}>
+      <form className='w-[75%] mx-auto'  onSubmit={handleSubmit}>
         <Row className="justify-center">
           <Col sm={12} md={6}>
             <InputForm
