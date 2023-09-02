@@ -100,7 +100,7 @@ export const LoginPage = () => {
           Lab2You
         </h3>
         <div className="w-[80%] flex justify-center flex-col">
-          <img src="/dist/img/logo.jpg" alt="" className="w-full h-96" />
+          <img src="/img/logo.jpg" alt="" className="w-full h-96" />
           <p className="text-white text-xl text-center pt-2">
             Agenda tu visita en un solo click, en lab2you tu eres nuestra
             prioridad

@@ -49,7 +49,6 @@ export const Dashboard = () => {
           />
         </Grid>
       </section>
-      {/* <GridTemplate /> */}
     </div>
   );
 };
