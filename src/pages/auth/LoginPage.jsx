@@ -64,7 +64,7 @@ export const LoginPage = () => {
             <InputForm
               name={'password'}
               id={'password'}
-              label={'contraseña'}
+              label={'Contraseña'}
               onChange={handleChange}
               placeholder={'Ingrese su contraseña'}
               type={'password'}
@@ -73,9 +73,9 @@ export const LoginPage = () => {
               className={'input-form input-form-login py-4'}
             />
             <div className="mt-2 text-right">
-              <a className="text-sm font-semibold text-cyan-500 hover:text-cyan-700 focus:text-cyan-900">
+              <AnimatedLink to={"foward-password"} className="text-sm font-semibold text-cyan-500 hover:text-cyan-700 focus:text-cyan-900">
                 Olvido su Contraseña?
-              </a>
+              </AnimatedLink>
             </div>
             <button
               type="submit"
@@ -104,7 +104,7 @@ export const LoginPage = () => {
           <img
             src={`${IMAGE_PREFIX}img/logo.jpg`}
             alt=""
-            className="w-full h-96"
+            className="w-full h-96 rounded-3xl"
           />
           <p className="text-white text-xl text-center pt-2">
             Agenda tu visita en un solo click, en lab2you tu eres nuestra

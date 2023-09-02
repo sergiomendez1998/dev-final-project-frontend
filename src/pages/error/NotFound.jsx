@@ -5,7 +5,7 @@ import { Row } from '../../components/grid/Row';
 
 export const NotFound = ({Message, Number}) => {
   return (
-    <div className="container">
+    <div className="container mx-auto">
       <Row className="justify-center items-center min-h-[80vh]">
         <Col xs={12} className="text-center">
           <span className="text-8xl font-bold d-block">{Number}</span>

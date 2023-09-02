@@ -79,7 +79,7 @@ export const RegisterPage = () => {
   );
 
   return (
-    <div className="container my-4 mx-auto w-screen">
+    <div className="container my-4 mx-auto lg:px-14 md:px-10 px-5">
       <h1 className="text-center text-5xl text-cyan-600 font-bold">Lab2You</h1>
       <h3 className="text-center mt-6 text-gray-400 px-4">
         Porfavor ingresa los campos solicitados para crear tu cuenta
@@ -96,7 +96,7 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Cui}
               error={errors.Cui}
-              className={"input-form input-form-login py-2"}
+              className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -109,7 +109,7 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Nit}
               error={errors.Nit}
-              className={"input-form input-form-login py-2"}
+              className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -122,7 +122,7 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Nombre}
               error={errors.Nombre}
-             className={"input-form input-form-login py-2"}
+              className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -135,7 +135,7 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Apellido}
               error={errors.Apellido}
-             className={"input-form input-form-login py-2"}
+              className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -148,7 +148,7 @@ export const RegisterPage = () => {
               type={'address'}
               value={form.Direccion}
               error={errors.Direccion}
-             className={"input-form input-form-login py-2"}
+              className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -161,7 +161,7 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Genero}
               error={errors.Genero}
-             className={"input-form input-form-login py-2"}
+              className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -174,7 +174,7 @@ export const RegisterPage = () => {
               type={'number'}
               value={form.Telefono}
               error={errors.Telefono}
-             className={"input-form input-form-login py-2"}
+              className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -187,7 +187,7 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Profesion}
               error={errors.Profesion}
-             className={"input-form input-form-login py-2"}
+              className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -200,7 +200,7 @@ export const RegisterPage = () => {
               type={'email'}
               value={form.Correo}
               error={errors.Correo}
-             className={"input-form input-form-login py-2"}
+              className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -213,13 +213,13 @@ export const RegisterPage = () => {
               type={'password'}
               value={form.Contraseña}
               error={errors.Contraseña}
-             className={"input-form input-form-login py-2"}
+              className={'input-form input-form-login py-2'}
             />
           </Col>
-          <div className='w-full px-4 flex justify-center'>
+          <div className="w-full px-4 flex justify-center">
             <button
               type="submit"
-              className="mt-6 md:w-[50%] w-full block rounded-3xl bg-sky-500 hover:bg-sky-600 py-2 text-white"
+              className="mt-6 lg:w-[35%] md:w-[50%] w-[95%] font-bold block rounded-3xl bg-sky-500 hover:bg-sky-600 py-2 text-white"
             >
               Registrarme y Crear Una Cuenta
             </button>
