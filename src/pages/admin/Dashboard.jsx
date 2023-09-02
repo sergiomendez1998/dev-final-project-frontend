@@ -1,6 +1,5 @@
 import { IoIosPeople } from 'react-icons/io';
 import { DashboardItem } from '../../components/cards/DashboardItem';
-import GridTemplate from '../../components/Grid';
 import { Grid } from '../../components/grid/Grid';
 
 
