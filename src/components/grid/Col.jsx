@@ -1,12 +1,11 @@
 import React from 'react';
 
-export const Col = ({ children, xs, sm, md, lg, className }) => {
+export const Col = ({ children,xs, sm, md, lg, className }) => {
   const colClasses = [
-    'w-full',
-    xs ? `w-${xs}/12` : '',
-    sm ? `sm:w-${sm}/12` : '',
-    md ? `md:w-${md}/12` : '',
-    lg ? `lg:w-${lg}/12` : '',
+    xs ? `col-${xs}` : 'col',
+    sm ? `col-sm-${sm}` : '',
+    md ? `col-md-${md}` : '',
+    lg ? `col-lg-${lg}` : '',
     className,
     'px-2',
   ];

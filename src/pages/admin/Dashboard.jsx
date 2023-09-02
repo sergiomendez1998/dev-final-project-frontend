@@ -21,7 +21,7 @@ export const Dashboard = () => {
       </div>
 
       <section className="mx-5">
-        <Grid xs={1} lg={4}>
+        <Grid sm={2} md={2} lg={3} xl={4}>
           <DashboardItem
             title="Usuarios Activos"
             number="150"

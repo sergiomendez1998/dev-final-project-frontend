@@ -1,4 +1,3 @@
-import GridTemplate from '../../components/Grid';
 import { Col } from '../../components/grid/Col';
 import { Row } from '../../components/grid/Row';
 import { InputForm } from '../../components/inputs/InputForm';
@@ -87,7 +86,7 @@ export const RegisterPage = () => {
       </h3>
       <form onSubmit={handleSubmit}>
         <Row className="justify-center">
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6}>
             <InputForm
               name={'Cui'}
               id={'Cui'}
@@ -97,10 +96,10 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Cui}
               error={errors.Cui}
-              py={2}
+              className={"input-form input-form-login py-2"}
             />
           </Col>
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6}>
             <InputForm
               name={'Nit'}
               id={'Nit'}
@@ -110,10 +109,10 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Nit}
               error={errors.Nit}
-              py={2}
+              className={"input-form input-form-login py-2"}
             />
           </Col>
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6}>
             <InputForm
               name={'Nombre'}
               id={'Nombre'}
@@ -123,10 +122,10 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Nombre}
               error={errors.Nombre}
-              py={2}
+             className={"input-form input-form-login py-2"}
             />
           </Col>
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6}>
             <InputForm
               name={'Apellido'}
               id={'Apellido'}
@@ -136,10 +135,10 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Apellido}
               error={errors.Apellido}
-              py={2}
+             className={"input-form input-form-login py-2"}
             />
           </Col>
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6}>
             <InputForm
               name={'Direccion'}
               id={'Direccion'}
@@ -149,10 +148,10 @@ export const RegisterPage = () => {
               type={'address'}
               value={form.Direccion}
               error={errors.Direccion}
-              py={2}
+             className={"input-form input-form-login py-2"}
             />
           </Col>
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6}>
             <InputForm
               name={'Genero'}
               id={'Genero'}
@@ -162,10 +161,10 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Genero}
               error={errors.Genero}
-              py={2}
+             className={"input-form input-form-login py-2"}
             />
           </Col>
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6}>
             <InputForm
               name={'Telefono'}
               id={'Telefono'}
@@ -175,10 +174,10 @@ export const RegisterPage = () => {
               type={'number'}
               value={form.Telefono}
               error={errors.Telefono}
-              py={2}
+             className={"input-form input-form-login py-2"}
             />
           </Col>
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6}>
             <InputForm
               name={'Profesion'}
               id={'Profesión'}
@@ -188,10 +187,10 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.Profesion}
               error={errors.Profesion}
-              py={2}
+             className={"input-form input-form-login py-2"}
             />
           </Col>
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6}>
             <InputForm
               name={'Correo'}
               id={'Correo'}
@@ -201,10 +200,10 @@ export const RegisterPage = () => {
               type={'email'}
               value={form.Correo}
               error={errors.Correo}
-              py={2}
+             className={"input-form input-form-login py-2"}
             />
           </Col>
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6}>
             <InputForm
               name={'Contraseña'}
               id={'Contraseña'}
@@ -214,15 +213,17 @@ export const RegisterPage = () => {
               type={'password'}
               value={form.Contraseña}
               error={errors.Contraseña}
-              py={2}
+             className={"input-form input-form-login py-2"}
             />
           </Col>
-          <button
-            type="submit"
-            className="mt-6 w-[50%] block w-full rounded-3xl bg-sky-500 px-4 py-3 font-semibold text-white hover:bg-sky-400 focus:bg-sky-400"
-          >
-            Registrarme y Crear Una Cuenta
-          </button>
+          <div className='w-full px-4 flex justify-center'>
+            <button
+              type="submit"
+              className="mt-6 md:w-[50%] w-full block rounded-3xl bg-sky-500 hover:bg-sky-600 py-2 text-white"
+            >
+              Registrarme y Crear Una Cuenta
+            </button>
+          </div>
           <Col>
             <p className="mt-2 text-gray-600 text-center">
               Ya tienes cuenta?{' '}

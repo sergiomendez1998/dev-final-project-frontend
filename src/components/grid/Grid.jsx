@@ -1,13 +1,12 @@
 import React from 'react';
 
-export const Grid = ({children,xs, sm, md, lg, xl}) => {
+export const Grid = ({children,sm, md, lg, xl}) => {
     const colClasses = [
         'grid',
-        xs ? `grid-cols-${xs}` : 'grid-cols-1',
-        sm ? `sm:grid-cols-${sm}` : '',
-        md ? `md:grid-cols-${md}` : '',
-        lg ? `lg:grid-cols-${lg}` : '',
-        xl ? `xl:grid-cols-${xl}` : '',
+        sm ? `gcol-sm-${sm}` :  'grid-flow-col',
+        md ? `gcol-md-${md}` : '',
+        lg ? `gcol-lg-${lg}` : '',
+        xl ? `gcol-xl-${xl}` : '',
         'px-2',
         'gap-4'
       ];
