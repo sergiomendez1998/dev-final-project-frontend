@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export const useForm = (initialForm, validateForm, peticion) => {
   const [form, setForm] = useState(initialForm);
@@ -30,9 +31,10 @@ export const useForm = (initialForm, validateForm, peticion) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setResponse("");
-    setErrors(validateForm(form));
+    const valErr = validateForm(form);
+    setErrors(valErr);
     setLoading(true);
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(valErr).length === 0) {
       try {
         const response = await peticion(form);
         setForm(initialForm);
@@ -42,6 +44,11 @@ export const useForm = (initialForm, validateForm, peticion) => {
       }
     } else {
       setResponse("");
+      Swal.fire(
+        'Hay errores en el formulario',
+        `Completa los campos ${(Object.keys(valErr).map(x => `${x} `))} correctamente`,
+        'error'
+      );
     }
     setLoading(false);
   };

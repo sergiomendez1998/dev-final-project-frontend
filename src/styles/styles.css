@@ -12,4 +12,22 @@
   }
 }
 
+.w-33 {
+  @apply w-2/3;
+}
+
+.w-100 {
+  @apply w-full;
+}
+
+.height-10 {
+  @apply h-11;
+  transition: all 0.4s ease-in-out;
+}
+
+.height-24 {
+  @apply h-24;
+  transition: all 0.4s ease-in-out;
+}
+
 @tailwind utilities;

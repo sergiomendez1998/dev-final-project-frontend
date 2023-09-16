@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { loginUser } from '../services/authService';
 import { useDispatch, useSelector } from 'react-redux';
 import { onLogin, onLogout } from '../store/slices/auth/authSlice';
@@ -23,6 +22,7 @@ export const useLogin = () => {
 
   const handlerLogout = () => {
     dispatch(onLogout());
+    navigate('/login');
   };
 
   return {

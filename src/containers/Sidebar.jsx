@@ -101,9 +101,8 @@ export const Sidebar = () => {
             overflow-hidden md:relative fixed
          h-screen "
       >
-        <div className="flex items-center gap-2.5 font-medium border-b py-3 border-slate-300  mx-3">
-          <img src="/dist/img/logo.jpg" width={45} alt="" />
-          <span className="ms-3 text-xl whitespace-pre">LAB2YOU</span>
+        <div className="flex items-center justify-center gap-2.5 font-medium border-b py-3 border-slate-300 mx-3">
+          <img src="/dist/img/logo.jpg" className={`${!open ? 'w-100 height-10' : 'w-33 height-24'} rounded-xl`} alt="" />
         </div>
 
         <div className="flex flex-col  h-full">
@@ -115,7 +114,7 @@ export const Sidebar = () => {
               </AnimatedLink>
             </li>
             <li>
-              <AnimatedLink to={'/authentication'} className="link">
+              <AnimatedLink to={'/request/create'} className="link">
                 <BsPerson size={23} className="min-w-max" />
                 Authentication
               </AnimatedLink>

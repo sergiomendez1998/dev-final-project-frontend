@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Grid = ({children,sm, md, lg, xl}) => {
+export const Grid = ({children,sm, md, lg, xl, className}) => {
     const colClasses = [
         'grid',
         sm ? `gcol-sm-${sm}` :  'grid-flow-col',
@@ -8,7 +8,8 @@ export const Grid = ({children,sm, md, lg, xl}) => {
         lg ? `gcol-lg-${lg}` : '',
         xl ? `gcol-xl-${xl}` : '',
         'px-2',
-        'gap-4'
+        'gap-4',
+        className
       ];
   return (
     <div className={colClasses.join(" ")}>

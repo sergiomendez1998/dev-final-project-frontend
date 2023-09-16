@@ -1,12 +1,17 @@
-import { api } from "../apis/usersApi";
+import { api } from '../apis/usersApi';
 
-export const loginUser = async ({email, password}) => {
-    try {
-        return await api.post('/login', {
-            email,
-            password,
-        });
-    } catch (error) {
-        throw error;
-    }
-}
+export const loginUser = async (form) => {
+  try {
+    return await api.post('/login', form);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const registerUser = async (form) => {
+  try {
+    return await api.post('/customer/register', form);
+  } catch (error) {
+    console.log(error);
+  }
+};

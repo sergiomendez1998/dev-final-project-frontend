@@ -3,23 +3,31 @@ main {
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
+  from {
+    opacity: 0;
+  }
 }
 
 @keyframes fade-out {
-  to { opacity: 0; }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes slide-from-right {
-  from { transform: translateX(30px); }
+  from {
+    transform: translateX(30px);
+  }
 }
 
 @keyframes slide-to-left {
-  to { transform: translateX(-30px); }
+  to {
+    transform: translateX(-30px);
+  }
 }
 
 ::view-transition-old(main) {
-  animation: 200ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+  animation: 150ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
     1000ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
 }
 
@@ -27,7 +35,6 @@ main {
   animation: 300ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
     1000ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
 }
-
 
 .dashboard-item .icon-dashboard svg {
   font-size: 70px;
@@ -52,12 +59,29 @@ main {
 }
 
 .input-form {
-  @apply w-full border
+  @apply w-full border;
+}
+
+.input-form-internal {
+  @apply mt-2 rounded-md bg-sky-100 px-4 focus:border-sky-500 focus:bg-white focus:outline-none;
 }
 
 .input-form-login {
-  @apply mt-2 rounded-3xl bg-sky-100 px-4 focus:border-sky-500 focus:bg-white focus:outline-none
+  @apply mt-2 rounded-3xl bg-sky-100 px-4 focus:border-sky-500 focus:bg-white focus:outline-none;
 }
 
+.btn {
+  @apply px-3 py-1 rounded-2xl text-center no-underline align-middle border-2 duration-300 disabled:opacity-50;
+}
 
+.btn-primary {
+  @apply text-white bg-indigo-800 border-indigo-900 hover:bg-indigo-600 hover:border-indigo-600 disabled:opacity-50;
+}
 
+.btn-success {
+  @apply text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 disabled:opacity-50;
+}
+
+.btn-danger {
+  @apply text-white bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 disabled:opacity-50;
+}

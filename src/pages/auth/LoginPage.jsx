@@ -104,7 +104,7 @@ export const LoginPage = () => {
           <img
             src={`${IMAGE_PREFIX}img/logo.jpg`}
             alt=""
-            className="w-full h-96 rounded-3xl"
+            className="w-full h-96 rounded-3xl "
           />
           <p className="text-white text-xl text-center pt-2">
             Agenda tu visita en un solo click, en lab2you tu eres nuestra

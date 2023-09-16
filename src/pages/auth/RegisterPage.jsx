@@ -1,67 +1,94 @@
 import { Col } from '../../components/grid/Col';
 import { Row } from '../../components/grid/Row';
 import { InputForm } from '../../components/inputs/InputForm';
+import { InputSelect } from '../../components/inputs/InputSelect';
 import { AnimatedLink } from '../../components/links/AnimatedLink';
 import { useForm } from '../../hooks/useForm';
+import { registerUser } from '../../services/authService';
+import { convertToCustomerRegister } from '../../util/utilConvert';
 
 const initialForm = {
-  Cui: '',
-  Nit: '',
-  Nombre: '',
-  Apellido: '',
-  Direccion: '',
-  Genero: '',
-  Telefono: '',
-  Profesion: '',
-  Correo: '',
-  Contraseña: '',
+  cui: '',
+  nit: '',
+  firstName: '',
+  lastName: '',
+  address: '',
+  gender: '',
+  phoneNumber: '',
+  occupation: '',
+  email: '',
+  password: '',
 };
+
+const genderData = [
+  {
+    id: 1,
+    name: 'Masculino',
+  },
+  {
+    id: 2,
+    name: 'Femenino',
+  },
+  {
+    id: 3,
+    name: 'Otro',
+  },
+];
 
 const validateForm = (form) => {
   const errors = {};
-  if (!form.Cui.trim()) {
-    errors.Cui = 'El campo Cui es requerido';
-  } else if (form.Cui.length < 13) {
-    errors.Cui = 'El Cui debe tener al menos 13 caracteres';
+  if (form.cui.trim().length === 0) {
+    errors.cui = 'El campo es requerido';
+  } else if (form.cui.trim().length !== 13) {
+    errors.cui = 'El campo debe tener 13 digitos';
   }
-  if (!form.Nit.trim()) {
-    errors.Nit = 'El campo Nit es requerido';
-  } else if (form.Nit.length < 9) {
-    errors.Nit = 'El Nit debe tener al menos 9 caracteres';
+
+  if (form.nit.trim().length === 0) {
+    errors.nit = 'El campo es requerido';
+  } else if (form.nit.trim().length !== 9) {
+    errors.nit = 'El campo debe tener 9 digitos';
   }
-  if (!form.Nombre.trim()) {
-    errors.Nombre = 'El campo Nombre es requerido';
-  } else if (form.Nombre.length < 3) {
-    errors.Nombre = 'El Nombre debe tener al menos 3 caracteres';
+
+  if (form.firstName.trim().length === 0) {
+    errors.firstName = 'El campo es requerido';
   }
-  if (!form.Apellido.trim()) {
-    errors.Apellido = 'El campo Apellido es requerido';
-  } else if (form.Apellido.length < 3) {
-    errors.Apellido = 'El Apellido debe tener al menos 3 caracteres';
+
+  if (form.lastName.trim().length === 0) {
+    errors.lastName = 'El campo es requerido';
   }
-  if (!form.Direccion.trim()) {
-    errors.Direccion = 'El campo Direccion es requerido';
-  } else if (form.Direccion.length < 3) {
-    errors.Direccion = 'El Direccion debe tener al menos 3 caracteres';
+
+  if (form.address.trim().length === 0) {
+    errors.address = 'El campo es requerido';
   }
-  if (!form.Genero.trim()) {
-    errors.Genero = 'El campo Genero es requerido';
+
+  if (form.gender.trim().length === 0) {
+    errors.gender = 'El campo es requerido';
   }
-  if (!form.Telefono.trim()) {
-    errors.Telefono = 'El campo Telefono es requerido';
-  } else if (form.Telefono.length < 8) {
-    errors.Telefono = 'El Telefono debe tener al menos 8 caracteres';
+
+  if (form.phoneNumber.trim().length === 0) {
+    errors.phoneNumber = 'El campo es requerido';
+  } else if (form.phoneNumber.trim().length !== 8) {
+    errors.phoneNumber = 'El campo debe tener 8 digitos';
   }
-  if (!form.Profesion.trim()) {
-    errors.Profesion = 'El campo Profesion es requerido';
+
+  if (form.occupation.trim().length === 0) {
+    errors.occupation = 'El campo es requerido';
   }
-  if (!form.Correo.trim()) {
-    errors.Correo = 'El campo Correo es requerido';
+
+  if (form.email.trim().length === 0) {
+    errors.email = 'El campo es requerido';
+  } else if (
+    !/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(
+      form.email
+    )
+  ) {
+    errors.email = 'El correo no es valido';
   }
-  if (!form.Contraseña.trim()) {
-    errors.Contraseña = 'El campo Contraseña es requerido';
-  } else if (form.Contraseña.length < 5) {
-    errors.Contraseña = 'El Contraseña debe tener al menos 8 caracteres';
+
+  if (form.password.trim().length === 0) {
+    errors.password = 'El campo es requerido';
+  } else if (form.password.trim().length < 6) {
+    errors.password = 'La contraseña debe tener al menos 6 caracteres';
   }
 
   return errors;
@@ -69,7 +96,9 @@ const validateForm = (form) => {
 
 export const RegisterPage = () => {
   const petition = async (form) => {
-    console.log(form);
+    const customer = convertToCustomerRegister(form);
+    const response = await registerUser(customer);
+    console.log(response);
   };
 
   const { form, errors, handleChange, handleSubmit } = useForm(
@@ -84,135 +113,139 @@ export const RegisterPage = () => {
       <h3 className="text-center mt-6 text-gray-400 px-4">
         Porfavor ingresa los campos solicitados para crear tu cuenta
       </h3>
-      <form className='w-[75%] mx-auto'  onSubmit={handleSubmit}>
+      <form className="w-[75%] mx-auto" onSubmit={handleSubmit}>
         <Row className="justify-center">
           <Col sm={12} md={6}>
             <InputForm
-              name={'Cui'}
+              name={'cui'}
               id={'Cui'}
               label={'CUI (13 Digitos)'}
               onChange={handleChange}
               placeholder={'Ingrese su correo electronico'}
               type={'text'}
-              value={form.Cui}
-              error={errors.Cui}
+              value={form.cui}
+              error={errors.cui}
               className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
             <InputForm
-              name={'Nit'}
+              name={'nit'}
               id={'Nit'}
               label={'NIT (9 Digitos)'}
               onChange={handleChange}
               placeholder={'Ingrese su NIT'}
               type={'text'}
-              value={form.Nit}
-              error={errors.Nit}
+              value={form.nit}
+              error={errors.nit}
               className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
             <InputForm
-              name={'Nombre'}
+              name={'firstName'}
               id={'Nombre'}
               label={'Nombre'}
               onChange={handleChange}
               placeholder={'Ingrese sus Nombres'}
               type={'text'}
-              value={form.Nombre}
-              error={errors.Nombre}
+              value={form.firstName}
+              error={errors.firstName}
               className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
             <InputForm
-              name={'Apellido'}
+              name={'lastName'}
               id={'Apellido'}
               label={'Apellido'}
               onChange={handleChange}
               placeholder={'Ingrese sus Apellidos'}
               type={'text'}
-              value={form.Apellido}
-              error={errors.Apellido}
+              value={form.lastName}
+              error={errors.lastName}
               className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
             <InputForm
-              name={'Direccion'}
+              name={'address'}
               id={'Direccion'}
               label={'Direccion'}
               onChange={handleChange}
               placeholder={'Ingrese su Dirección'}
               type={'address'}
-              value={form.Direccion}
-              error={errors.Direccion}
+              value={form.address}
+              error={errors.address}
               className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
-            <InputForm
-              name={'Genero'}
+            <InputSelect
+              name={'gender'}
               id={'Genero'}
               label={'Genero'}
               onChange={handleChange}
               placeholder={'Ingrese Genero'}
               type={'text'}
-              value={form.Genero}
-              error={errors.Genero}
+              value={form.gender}
+              error={errors.gender}
+              data={genderData}
+              idField={'name'}
+              nameField={'name'}
+              unSelectedValue={''}
               className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
             <InputForm
-              name={'Telefono'}
+              name={'phoneNumber'}
               id={'Telefono'}
               label={'Telefono (8 Digitos)'}
               onChange={handleChange}
               placeholder={'Ingrese su Telefono'}
               type={'number'}
-              value={form.Telefono}
-              error={errors.Telefono}
+              value={form.phoneNumber}
+              error={errors.phoneNumber}
               className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
             <InputForm
-              name={'Profesion'}
+              name={'occupation'}
               id={'Profesión'}
               label={'Profesión'}
               onChange={handleChange}
               placeholder={'Ingrese su Profesión'}
               type={'text'}
-              value={form.Profesion}
-              error={errors.Profesion}
+              value={form.occupation}
+              error={errors.occupation}
               className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
             <InputForm
-              name={'Correo'}
+              name={'email'}
               id={'Correo'}
               label={'Correo Electronico'}
               onChange={handleChange}
               placeholder={'Ingrese su Correo'}
               type={'email'}
-              value={form.Correo}
-              error={errors.Correo}
+              value={form.email}
+              error={errors.email}
               className={'input-form input-form-login py-2'}
             />
           </Col>
           <Col sm={12} md={6}>
             <InputForm
-              name={'Contraseña'}
+              name={'password'}
               id={'Contraseña'}
               label={'Contraseña'}
               onChange={handleChange}
               placeholder={'Ingrese su contraseña'}
               type={'password'}
-              value={form.Contraseña}
-              error={errors.Contraseña}
+              value={form.password}
+              error={errors.password}
               className={'input-form input-form-login py-2'}
             />
           </Col>
