@@ -12,6 +12,7 @@ import { NotFound } from '../pages/error/NotFound.jsx';
 import { RegisterPage } from '../pages/auth/RegisterPage.jsx';
 import { URL_BASE_APP } from '../config/constants.js';
 import { CatalogPage } from '../pages/admin/CatalogPage.jsx';
+import { CreateRequestPage } from '../pages/external/CreateRequestPage.jsx';
 
 export const Browser = () => {
   const { isLogedIn } = useAuth();
@@ -47,14 +48,14 @@ export const Browser = () => {
               </ProtectedLogin>
             }
           />
-          {/* <Route
+          <Route
             path="/request/create"
             element={
               <ProtectedRoute>
                 <CreateRequestPage/>
               </ProtectedRoute>
             }
-          /> */}
+          />
            <Route
             path="/catalog"
             element={
