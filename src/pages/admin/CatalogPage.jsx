@@ -24,14 +24,14 @@ const catalogColumns = [
 
 export const CatalogPage = () => {
   const [catalogType, setCatalogType] = useState(CATALOGS.department);
-  const { data, error, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['catalog', catalogType],
     queryFn: () => getAllCatalogs(catalogType),
   });
 
   return (
     <div>
-      <HeaderPage title="Catalogo" />
+      <HeaderPage title="Catalogo" pref='Consultar' />
 
       <Col xs={12} lg={6}>
         <InputSelect

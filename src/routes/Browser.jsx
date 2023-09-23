@@ -1,8 +1,6 @@
 import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
-import { RegistrationFormView } from '../components/RegistrationFormView.jsx';
 import { Layout } from '../containers/Layout';
 import { LoginPage } from '../pages/auth/LoginPage';
-import { RegisterNewUserModal } from '../components/RegisterNewUserModal';
 import { LayoutLogin } from '../containers/LayoutLogin';
 import ProtectedRoute from './ProtectedRoute';
 import { ProtectedLogin } from './ProtectedLogin';
@@ -13,6 +11,7 @@ import { RegisterPage } from '../pages/auth/RegisterPage.jsx';
 import { URL_BASE_APP } from '../config/constants.js';
 import { CatalogPage } from '../pages/admin/CatalogPage.jsx';
 import { CreateRequestPage } from '../pages/external/CreateRequestPage.jsx';
+import { CreateCatalogPage } from '../pages/admin/CreateCatalogPage.jsx';
 
 export const Browser = () => {
   const { isLogedIn } = useAuth();
@@ -31,7 +30,6 @@ export const Browser = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/registrationForm" element={<RegistrationFormView />} />
           <Route
             path="/login"
             element={
@@ -52,19 +50,26 @@ export const Browser = () => {
             path="/request/create"
             element={
               <ProtectedRoute>
-                <CreateRequestPage/>
+                <CreateRequestPage />
               </ProtectedRoute>
             }
           />
-           <Route
+          <Route
             path="/catalog"
             element={
               <ProtectedRoute>
-                <CatalogPage/>
+                <CatalogPage />
               </ProtectedRoute>
             }
           />
-          <Route path="/registrar" element={<RegisterNewUserModal />} />
+          <Route
+            path="/catalog/create"
+            element={
+              <ProtectedRoute>
+                <CreateCatalogPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="*"
             element={<NotFound Message={'Pagina No Existe'} Number={404} />}
