@@ -1,7 +1,4 @@
 import React from 'react';
-import { Row } from './grid/Row';
-import { Col } from './grid/Col';
-import { Grid } from './grid/Grid';
 
 const GridTemplate = () => {
   return (
