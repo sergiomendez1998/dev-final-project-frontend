@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import { Stepper } from '../../components/step/Stepper';
 import { HeaderPage } from '../../components/layout/HeaderPage';
 import { Col } from '../../components/grid/Col';
 import { Row } from '../../components/grid/Row';
-import { Stepper } from '../../components/Stepper/Stepper';
 import { GeneralRequest } from '../../components/forms/GeneralRequest';
 import { SupportRequest } from '../../components/forms/SupportRequest';
 import { CompleteForm } from '../../components/forms/CompleteForm';
 import { useForm } from '../../hooks/useForm';
+
 
 const initialForm = {
   requestType: 0,
