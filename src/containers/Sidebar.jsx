@@ -114,7 +114,7 @@ export const Sidebar = () => {
               </AnimatedLink>
             </li>
             <li>
-              <AnimatedLink to={'/request/create'} className="link">
+              <AnimatedLink to={'/catalog'} className="link">
                 <BsPerson size={23} className="min-w-max" />
                 Authentication
               </AnimatedLink>
