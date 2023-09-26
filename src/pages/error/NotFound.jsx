@@ -1,16 +1,16 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { AnimatedLink } from '../../components/links/AnimatedLink';
 import { Col } from '../../components/grid/Col';
 import { Row } from '../../components/grid/Row';
 
-export const NotFound = ({Message, Number}) => {
+export const NotFound = ({ Message, Number }) => {
   return (
     <div className="container mx-auto">
-      <Row className="justify-center items-center min-h-[80vh]">
+      <Row className="min-h-[80vh] items-center justify-center">
         <Col xs={12} className="text-center">
-          <span className="text-8xl font-bold d-block">{Number}</span>
-          <div className="mb-4 italic text-3xl">{Message}</div>
-          <AnimatedLink to={'/'} className="btn btn-link text-sky-700">
+          <span className="block text-8xl font-bold">{Number}</span>
+          <div className="mb-4 text-3xl italic">{Message}</div>
+          <AnimatedLink to={'/'} className="text-sky-700 hover:text-sky-900">
             Regresar Al Inicio
           </AnimatedLink>
         </Col>
@@ -19,3 +19,7 @@ export const NotFound = ({Message, Number}) => {
   );
 };
 
+NotFound.propTypes = {
+  Message: PropTypes.string.isRequired,
+  Number: PropTypes.number.isRequired,
+};

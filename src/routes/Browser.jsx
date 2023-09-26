@@ -1,4 +1,4 @@
-import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from '../containers/Layout';
 import { LoginPage } from '../pages/auth/LoginPage';
 import { LayoutLogin } from '../containers/LayoutLogin';
@@ -63,7 +63,7 @@ export const Browser = () => {
             }
           />
           <Route
-            path="/catalog/create"
+            path="/catalog/create/:type"
             element={
               <ProtectedRoute>
                 <CreateCatalogPage />

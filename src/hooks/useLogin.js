@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../services/authService';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { onLogin, onLogout } from '../store/slices/auth/authSlice';
 
 export const useLogin = () => {

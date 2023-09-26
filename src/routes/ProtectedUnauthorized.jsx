@@ -1,8 +1,8 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { useEnterprise } from "../hooks/useEnterprise";
-import { useError } from "../hooks/useError";
+import PropTypes from 'prop-types';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import { useEnterprise } from '../hooks/useEnterprise';
+import { useError } from '../hooks/useError';
 
 const ProtectedUnauthorized = ({ children }) => {
   const { isLoggedIn, isAdmin } = useAuth();
@@ -31,6 +31,10 @@ const ProtectedUnauthorized = ({ children }) => {
   }
 
   return children;
+};
+
+ProtectedUnauthorized.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default ProtectedUnauthorized;

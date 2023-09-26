@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { Stepper } from '../../components/step/Stepper';
 import { HeaderPage } from '../../components/layout/HeaderPage';
@@ -8,7 +8,6 @@ import { GeneralRequest } from '../../components/forms/GeneralRequest';
 import { SupportRequest } from '../../components/forms/SupportRequest';
 import { CompleteForm } from '../../components/forms/CompleteForm';
 import { useForm } from '../../hooks/useForm';
-
 
 const initialForm = {
   requestType: 0,
@@ -24,19 +23,19 @@ const validateForm = (form) => {
   const errors = {};
 
   if (form.description === '') {
-    errors.description = 'El campo descripcion es requerido'
+    errors.description = 'El campo descripcion es requerido';
   }
 
-  if(form.email === ''){
-    errors.email = 'El campo correo electronico es requerido'
+  if (form.email === '') {
+    errors.email = 'El campo correo electronico es requerido';
   }
 
-  if(form.phone === ''){
-    errors.phone = 'El campo telefono es requerido'
+  if (form.phone === '') {
+    errors.phone = 'El campo telefono es requerido';
   }
 
-  if(form.noSupport === ''){
-    errors.noSupport = 'El campo no. soporte es requerido'
+  if (form.noSupport === '') {
+    errors.noSupport = 'El campo no. soporte es requerido';
   }
 
   return errors;
@@ -55,7 +54,7 @@ export const CreateRequestPage = () => {
     }
   };
 
-  const request = (e) => {
+  const request = () => {
     console.log('submit');
     Swal.fire({
       title: 'Desea crear la solicitud?',
@@ -101,11 +100,11 @@ export const CreateRequestPage = () => {
   return (
     <section>
       <HeaderPage title="Solicitud" pref="Crear" />
-      <div className="mx-auto lg:w-3/4 w-full mt-5 mb-5">
+      <div className="mx-auto my-5 w-full lg:w-3/4">
         <Stepper steps={stepArray} currentStepNumber={currentStep} />
       </div>
       <form className="flex flex-col items-center">
-        <Row className="md:w-3/4 w-full shadow-[0px_20px_20px_10px_#00000024] p-10 rounded-xl">
+        <Row className="w-full rounded-xl p-10 shadow-[0px_20px_20px_10px_#00000024] md:w-3/4">
           {currentStepComponent()}
           <Col
             xs={12}
@@ -126,7 +125,9 @@ export const CreateRequestPage = () => {
             <button
               type={currentStep < 2 ? 'button' : 'submit'}
               className="btn btn-primary"
-              onClick={(e) => currentStep < 2 ? handleClick('next') : handleSubmit(e)}
+              onClick={(e) =>
+                currentStep < 2 ? handleClick('next') : handleSubmit(e)
+              }
               disabled={currentStep == 3}
             >
               {currentStep < 2 ? 'Siguiente' : 'Finalizar'}

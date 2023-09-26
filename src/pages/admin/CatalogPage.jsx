@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HeaderPage } from '../../components/layout/HeaderPage';
 import { Col } from '../../components/grid/Col';
 import { InputSelect } from '../../components/inputs/InputSelect';
 import { CATALOGS, CATALOGS_NAME } from '../../config/constants';
 import { getAllCatalogs } from '../../services/catalogService';
-import { Catalog } from '../../components/tables/Catalog';
+import { TableRoot } from '../../components/tables/TableeRoot';
+import { Row } from '../../components/grid/Row';
+import { FaPlus } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const catalogColumns = [
   {
@@ -31,9 +34,9 @@ export const CatalogPage = () => {
 
   return (
     <div>
-      <HeaderPage title="Catalogo" pref='Consultar' />
-
-      <Col xs={12} lg={6}>
+      <HeaderPage title="Catalogos" pref="Consultar" />
+     <Row className='items-center justify-center'>
+     <Col xs={12} lg={6}>
         <InputSelect
           name={'catalogType'}
           id={'tipe'}
@@ -49,11 +52,17 @@ export const CatalogPage = () => {
           className={'input-form input-form-internal py-3'}
         />
       </Col>
-      <Catalog
+      <Col lg={6} xs={12}>
+        <Link to={`/catalog/create/${catalogType}`} className='btn btn-primary mt-4 flex justify-between py-3 font-bold md:mt-11'>
+          <FaPlus/> Crear Nuevo Item
+        </Link>
+      </Col>
+     </Row>
+      <TableRoot
         columns={catalogColumns}
-        data={data}
+        data={data ?? []}
         loading={isLoading}
-        title={catalogType}
+        title={catalogType}        
       />
     </div>
   );

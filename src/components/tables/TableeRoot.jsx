@@ -1,11 +1,14 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import DataTable from 'react-data-table-component';
 import { compactGrid } from '../../theme/tableTheme';
 import { LoadingComponent } from '../loading/LoadingComponent';
 import { MesajeNoData } from '../messages/MesajeNoData';
 import { PAGINATION_OPTIONS, SELECTED_MESSAGE } from '../../config/constants';
+import { FaFileExcel } from 'react-icons/fa';
+import { Button } from 'flowbite-react';
+import { exportToExcel } from '../../util/cleanDataToExcel';
 
-export const Catalog = ({ data, columns, title, loading }) => {
+export const TableRoot = ({ data, columns, title, loading, xslsConvert }) => {
   return (
     <div className="container py-4">
       <DataTable
@@ -13,6 +16,15 @@ export const Catalog = ({ data, columns, title, loading }) => {
         pagination
         striped
         highlightOnHover
+        subHeader={true}
+        subHeaderComponent={
+          <Button
+            onClick={() => exportToExcel(data, xslsConvert, title)}
+            color="success"
+          >
+            <FaFileExcel />
+          </Button>
+        }
         theme="individuality"
         contextMessage={SELECTED_MESSAGE}
         title={`Catalogo de ${title}`}
@@ -23,11 +35,19 @@ export const Catalog = ({ data, columns, title, loading }) => {
         progressComponent={<LoadingComponent />}
         noDataComponent={
           <MesajeNoData
-            mesaje={`No se encontraros resultados en este catalogo`}
+            mesaje={`No se encontraros resultados con ${title}`}
           />
         }
         customStyles={compactGrid}
       />
     </div>
   );
+};
+
+TableRoot.propTypes = {
+  data: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  xslsConvert: PropTypes.func,
 };

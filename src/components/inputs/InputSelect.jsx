@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 export const InputSelect = ({
   label,
@@ -17,7 +17,7 @@ export const InputSelect = ({
 }) => {
   return (
     <div className="mt-4 w-full">
-      <label className="font-bold block text-gray-600">{label}</label>
+      <label className="block font-bold text-gray-600">{label}</label>
       <select
         name={name}
         id={id}
@@ -37,7 +37,23 @@ export const InputSelect = ({
           </option>
         ))}
       </select>
-      <p className="text-red-600 font-bold">{error}</p>
+      <p className="font-bold text-red-600">{error}</p>
     </div>
   );
+};
+
+InputSelect.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  error: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
+  placeholder: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  data: PropTypes.array.isRequired,
+  idField: PropTypes.string.isRequired,
+  nameField: PropTypes.string.isRequired,
+  unSelectedValue: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.number.isRequired]),
 };

@@ -20,7 +20,7 @@ import { AnimatedLink } from '../components/links/AnimatedLink';
 
 export const Sidebar = () => {
   const { email, name } = useAuth();
-  const {handlerLogout} = useLogin();
+  const { handlerLogout } = useLogin();
   let isTabletMid = useMediaQuery({ query: '(max-width: 768px)' });
   const [open, setOpen] = useState(isTabletMid ? false : true);
   const sidebarRef = useRef();
@@ -36,7 +36,7 @@ export const Sidebar = () => {
 
   useEffect(() => {
     isTabletMid && setOpen(false);
-  }, [pathname]);
+  }, [isTabletMid, pathname]);
 
   const Nav_animation = isTabletMid
     ? {
@@ -88,7 +88,7 @@ export const Sidebar = () => {
     <div>
       <div
         onClick={() => setOpen(false)}
-        className={`md:hidden fixed inset-0 max-h-screen z-[998] ${
+        className={`fixed inset-0 z-[998] max-h-screen md:hidden ${
           open ? 'block' : 'hidden'
         } `}
       ></div>
@@ -97,16 +97,22 @@ export const Sidebar = () => {
         variants={Nav_animation}
         initial={{ x: isTabletMid ? -250 : 0 }}
         animate={open ? 'open' : 'closed'}
-        className="bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black text-white shadow-xl z-[999] max-w-[16rem]  w-[16rem] 
-            overflow-hidden md:relative fixed
-         h-screen "
+        className="fixed z-[999] h-screen w-[16rem] max-w-[16rem] overflow-hidden bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-gray-700  via-gray-900 
+            to-black text-white shadow-xl
+         md:relative "
       >
-        <div className="flex items-center justify-center gap-2.5 font-medium border-b py-3 border-slate-300 mx-3">
-          <img src="/dist/img/logo.jpg" className={`${!open ? 'w-100 height-10' : 'w-33 height-24'} rounded-xl`} alt="" />
+        <div className="mx-3 flex items-center justify-center gap-2.5 border-b border-slate-300 py-3 font-medium">
+          <img
+            src="/dist/img/logo.jpg"
+            className={`${
+              !open ? 'w-100 height-10' : 'w-33 height-24'
+            } rounded-xl`}
+            alt=""
+          />
         </div>
 
-        <div className="flex flex-col  h-full">
-          <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1  font-medium overflow-x-hidden scrollbar-thin scrollbar-track-violet  md:h-[68%] h-[70%]">
+        <div className="flex h-full  flex-col">
+          <ul className="flex h-[70%] flex-col gap-1 overflow-x-hidden whitespace-pre px-2.5  py-5 text-[0.9rem] font-medium scrollbar-thin  scrollbar-track-indigo-700 md:h-[68%]">
             <li>
               <AnimatedLink to={'/'} className="link">
                 <AiOutlineAppstore size={23} className="min-w-max" />
@@ -127,8 +133,8 @@ export const Sidebar = () => {
             </li>
 
             {(open || isTabletMid) && (
-              <div className="border-y py-3 border-slate-300 ">
-                <small className="pl-3 text-slate-500 inline-block mb-2">
+              <div className="border-y border-slate-300 py-3 ">
+                <small className="mb-2 inline-block pl-3 text-slate-500">
                   Mantenimientos
                 </small>
                 {subMenusList?.map((menu) => (
@@ -145,16 +151,20 @@ export const Sidebar = () => {
               </AnimatedLink>
             </li>
             <li>
-              <a href="#" className="link text-red-600 font-bold" onClick={handlerLogout}>
+              <a
+                href="#"
+                className="link font-bold text-red-600"
+                onClick={handlerLogout}
+              >
                 <SlLogout size={23} className="min-w-max" />
                 Salir
               </a>
             </li>
           </ul>
           {open && (
-            <div className="flex-1 text-sm z-50  max-h-48 my-auto  whitespace-pre   w-full  font-medium  ">
-              <div className="flex border-y border-slate-300 p-2 items-center justify-between">
-                <p className="font-bold text-black py-1.5 px-3 text-xs bg-teal-50 rounded-xl">
+            <div className="z-50 my-auto max-h-48  w-full flex-1  whitespace-pre   text-sm  font-medium  ">
+              <div className="flex items-center justify-between border-y border-slate-300 p-2">
+                <p className="rounded-xl bg-teal-50 px-3 py-1.5 text-xs font-bold text-black">
                   {name ?? email}
                 </p>
               </div>
@@ -179,12 +189,15 @@ export const Sidebar = () => {
                 }
           }
           transition={{ duration: 0 }}
-          className="absolute w-fit h-fit md:block z-50 hidden right-2 bottom-3 cursor-pointer"
+          className="absolute bottom-3 right-2 z-50 hidden h-fit w-fit cursor-pointer md:block"
         >
           <IoIosArrowBack size={25} />
         </motion.div>
       </motion.div>
-      <div className="m-3 md:hidden  relative z-[995]" onClick={() => setOpen(true)}>
+      <div
+        className="relative z-[995]  m-3 md:hidden"
+        onClick={() => setOpen(true)}
+      >
         <MdMenu size={25} />
       </div>
     </div>

@@ -78,7 +78,7 @@ const validateForm = (form) => {
   if (form.email.trim().length === 0) {
     errors.email = 'El campo es requerido';
   } else if (
-    !/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(
+    !/^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(
       form.email
     )
   ) {
@@ -108,12 +108,12 @@ export const RegisterPage = () => {
   );
 
   return (
-    <div className="container my-4 mx-auto lg:px-14 md:px-10 px-5">
-      <h1 className="text-center text-5xl text-cyan-600 font-bold">Lab2You</h1>
-      <h3 className="text-center mt-6 text-gray-400 px-4">
+    <div className="container mx-auto my-4 px-5 md:px-10 lg:px-14">
+      <h1 className="text-center text-5xl font-bold text-cyan-600">Lab2You</h1>
+      <h3 className="mt-6 px-4 text-center text-gray-400">
         Porfavor ingresa los campos solicitados para crear tu cuenta
       </h3>
-      <form className="w-[75%] mx-auto" onSubmit={handleSubmit}>
+      <form className="mx-auto w-[75%]" onSubmit={handleSubmit}>
         <Row className="justify-center">
           <Col sm={12} md={6}>
             <InputForm
@@ -125,7 +125,7 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.cui}
               error={errors.cui}
-              className={'input-form input-form-login py-2'}
+              className={'input-form input-form-login py-3'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -138,7 +138,7 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.nit}
               error={errors.nit}
-              className={'input-form input-form-login py-2'}
+              className={'input-form input-form-login py-3'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -151,7 +151,7 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.firstName}
               error={errors.firstName}
-              className={'input-form input-form-login py-2'}
+              className={'input-form input-form-login py-3'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -164,7 +164,7 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.lastName}
               error={errors.lastName}
-              className={'input-form input-form-login py-2'}
+              className={'input-form input-form-login py-3'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -174,10 +174,10 @@ export const RegisterPage = () => {
               label={'Direccion'}
               onChange={handleChange}
               placeholder={'Ingrese su Dirección'}
-              type={'address'}
+              type={'text'}
               value={form.address}
               error={errors.address}
-              className={'input-form input-form-login py-2'}
+              className={'input-form input-form-login py-3'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -194,7 +194,7 @@ export const RegisterPage = () => {
               idField={'name'}
               nameField={'name'}
               unSelectedValue={''}
-              className={'input-form input-form-login py-2'}
+              className={'input-form input-form-login py-3'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -207,7 +207,7 @@ export const RegisterPage = () => {
               type={'number'}
               value={form.phoneNumber}
               error={errors.phoneNumber}
-              className={'input-form input-form-login py-2'}
+              className={'input-form input-form-login py-3'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -220,7 +220,7 @@ export const RegisterPage = () => {
               type={'text'}
               value={form.occupation}
               error={errors.occupation}
-              className={'input-form input-form-login py-2'}
+              className={'input-form input-form-login py-3'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -233,7 +233,7 @@ export const RegisterPage = () => {
               type={'email'}
               value={form.email}
               error={errors.email}
-              className={'input-form input-form-login py-2'}
+              className={'input-form input-form-login py-3'}
             />
           </Col>
           <Col sm={12} md={6}>
@@ -246,19 +246,19 @@ export const RegisterPage = () => {
               type={'password'}
               value={form.password}
               error={errors.password}
-              className={'input-form input-form-login py-2'}
+              className={'input-form input-form-login py-3'}
             />
           </Col>
-          <div className="w-full px-4 flex justify-center">
+          <div className="flex w-full justify-center px-4">
             <button
               type="submit"
-              className="mt-6 lg:w-[35%] md:w-[50%] w-[95%] font-bold block rounded-3xl bg-sky-500 hover:bg-sky-600 py-2 text-white"
+              className="mt-6 block w-[95%] rounded-3xl bg-sky-500 py-3 font-bold text-white hover:bg-sky-600 md:w-[50%] lg:w-[35%]"
             >
               Registrarme y Crear Una Cuenta
             </button>
           </div>
           <Col>
-            <p className="mt-2 text-gray-600 text-center">
+            <p className="mt-2 text-center text-gray-600">
               Ya tienes cuenta?{' '}
               <AnimatedLink
                 to={'/login'}

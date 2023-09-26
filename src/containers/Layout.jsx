@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { Sidebar } from './Sidebar';
 import { Footer } from '../components/layout/Footer';
 
@@ -6,10 +6,14 @@ export const Layout = ({ children }) => {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="flex-1 z-[3] relative right-7 md:static px-4 py-5 overflow-auto h-screen  scrollbar-track-violet scrollbar-thin">
+      <div className="relative right-7 z-[3] h-screen flex-1 overflow-auto px-4 py-5 scrollbar-thin  scrollbar-track-purple-600 md:static">
         <main className="min-h-[95%]">{children}</main>
         <Footer />
       </div>
     </div>
   );
+};
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
 };

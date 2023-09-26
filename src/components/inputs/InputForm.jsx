@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 export const InputForm = ({
   label,
@@ -14,7 +14,7 @@ export const InputForm = ({
 }) => {
   return (
     <div className="mt-4 w-full">
-      <label className="font-bold block text-gray-600">{label}</label>
+      <label className="block font-bold text-gray-600">{label}</label>
       <input
         type={type}
         name={name}
@@ -28,7 +28,20 @@ export const InputForm = ({
         onChange={onChange}
         onBlur={onBlur}
       />
-      <p className="text-red-600 font-bold">{error}</p>
+      <p className="font-bold text-red-600">{error}</p>
     </div>
   );
+};
+
+InputForm.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
+  placeholder: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };

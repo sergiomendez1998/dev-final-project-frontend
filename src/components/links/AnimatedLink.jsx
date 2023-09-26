@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { transitionViewIfSupported } from "../../util/ViewTransition.js";
-import { useLocation, useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { transitionViewIfSupported } from '../../util/ViewTransition.js';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const AnimatedLink = ({ className, to, children }) => {
   const navigate = useNavigate();
@@ -9,12 +10,12 @@ export const AnimatedLink = ({ className, to, children }) => {
 
   useEffect(() => {
     setActive(location.pathname === to);
-  }, [location])
+  }, [location, to]);
 
   return (
     <a
       href={to}
-      className={`${className} ${active ? "active" : ""}`}
+      className={`${className} ${active ? 'active' : ''}`}
       onClick={(ev) => {
         ev.preventDefault();
         transitionViewIfSupported(() => {
@@ -25,4 +26,10 @@ export const AnimatedLink = ({ className, to, children }) => {
       {children}
     </a>
   );
+};
+
+AnimatedLink.propTypes = {
+  className: PropTypes.string,
+  to: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { Col } from '../grid/Col';
 import { InputForm } from '../inputs/InputForm';
 import { InputSelect } from '../inputs/InputSelect';
@@ -50,7 +50,7 @@ export const CatalogForm = ({ initialForm, sendForm }) => {
             className={'input-form input-form-internal py-3'}
           />
         </Col>
-        <Col md={6}>
+        <Col xs={12} lg={6}>
           <InputForm
             label="Nombre del Catalogo"
             name="name"
@@ -59,10 +59,10 @@ export const CatalogForm = ({ initialForm, sendForm }) => {
             value={form.name}
             placeholder={'Nombre del Catalogo'}
             type={'text'}
-            className="input-form input-form-internal py-2"
+            className="input-form input-form-internal py-3"
           />
         </Col>
-        <Col md={6}>
+        <Col xs={12} lg={6}>
           <InputForm
             label="Descripcion del catalogo"
             name="description"
@@ -71,19 +71,18 @@ export const CatalogForm = ({ initialForm, sendForm }) => {
             value={form.description}
             placeholder={'Descripcion del Catalogo'}
             type={'text'}
-            className="input-form input-form-internal py-2"
+            className="input-form input-form-internal py-3"
           />
         </Col>
-        <Col md={6} className={'mt-12 flex items-center'}>
+        <Col xs={12} lg={6} className={'mt-12 flex items-center'}>
           <Button
             isProcessing={loading}
             processingSpinner={
               <AiOutlineLoading className="h-6 w-6 animate-spin" />
             }
-            color="purple"
+            color="primary"
             type="submit"
             fullSized
-            className='font-bold'
           >
             Crear nuevo catalogo
           </Button>
@@ -91,4 +90,9 @@ export const CatalogForm = ({ initialForm, sendForm }) => {
       </form>
     </article>
   );
+};
+
+CatalogForm.propTypes = {
+  initialForm: PropTypes.object.isRequired,
+  sendForm: PropTypes.func.isRequired,
 };

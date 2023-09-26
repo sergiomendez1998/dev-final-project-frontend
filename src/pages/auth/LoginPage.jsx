@@ -40,13 +40,13 @@ export const LoginPage = () => {
   );
 
   return (
-    <section className="flex h-screen w-screen flex-col justify-center items-center md:flex-row">
-      <div className="flex w-full items-center justify-center px-6 md:mx-auto xl:max-w-xl md:max-w-md lg:max-w-lg lg:px-16 xl:px-12">
-        <div className="h-100 w-full p-4 md:p-0">
+    <section className="flex h-screen w-screen flex-col items-center justify-center md:flex-row">
+      <div className="flex w-full items-center justify-center px-6 md:mx-auto md:max-w-md lg:max-w-lg lg:px-16 xl:max-w-xl xl:px-12">
+        <div className="w-full p-4 md:p-0">
           {response && (
             <Response message={response.message} type={response.success} />
           )}
-          <h1 className="mb-10 text-3xl font-bold leading-tight text-center">
+          <h1 className="mb-10 text-center text-3xl font-bold leading-tight">
             Bienvenido a Lab2You
           </h1>
           <form onSubmit={handleSubmit}>
@@ -73,7 +73,10 @@ export const LoginPage = () => {
               className={'input-form input-form-login py-4'}
             />
             <div className="mt-2 text-right">
-              <AnimatedLink to={"foward-password"} className="text-sm font-semibold text-cyan-500 hover:text-cyan-700 focus:text-cyan-900">
+              <AnimatedLink
+                to={'foward-password'}
+                className="text-sm font-semibold text-cyan-500 hover:text-cyan-700 focus:text-cyan-900"
+              >
                 Olvido su Contraseña?
               </AnimatedLink>
             </div>
@@ -85,7 +88,7 @@ export const LoginPage = () => {
             </button>
           </form>
           <hr className="my-6 w-full border-gray-300" />
-          <p className="mt-8 text-gray-600 text-end">
+          <p className="mt-8 text-end text-gray-600">
             No Tienes Cuenta?{' '}
             <AnimatedLink
               to={'/register'}
@@ -96,17 +99,17 @@ export const LoginPage = () => {
           </p>
         </div>
       </div>
-      <div className="hidden bg-sky-600 md:flex h-screen w-1/2 flex-col items-center justify-center">
-        <h3 className="text-white text-center text-4xl py-4 font-bold">
+      <div className="hidden h-screen w-1/2 flex-col items-center justify-center bg-sky-600 md:flex">
+        <h3 className="py-4 text-center text-4xl font-bold text-white">
           Lab2You
         </h3>
-        <div className="w-[80%] flex justify-center flex-col">
+        <div className="flex w-[80%] flex-col justify-center">
           <img
             src={`${IMAGE_PREFIX}img/logo.jpg`}
             alt=""
-            className="w-full h-96 rounded-3xl "
+            className="h-96 w-full rounded-3xl "
           />
-          <p className="text-white text-xl text-center pt-2">
+          <p className="pt-2 text-center text-xl text-white">
             Agenda tu visita en un solo click, en lab2you tu eres nuestra
             prioridad
           </p>

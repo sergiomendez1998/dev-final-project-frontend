@@ -1,10 +1,10 @@
-import React from 'react'
+import PropTypes from 'prop-types';
 
-export const Row = ({children, className}) => {
-  return (
-    <div className={`flex flex-wrap mx-4 ${className}`}>
-      {children}
-    </div>
-  )
-}
+export const Row = ({ children, className }) => {
+  return <div className={`mx-4 flex flex-wrap ${className}`}>{children}</div>;
+};
 
+Row.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+};

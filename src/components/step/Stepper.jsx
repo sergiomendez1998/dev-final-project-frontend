@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { useState, useEffect, useRef } from 'react';
 
 export const Stepper = ({ steps, currentStepNumber }) => {
   const [stepperSteps, setStep] = useState([]);
@@ -15,7 +16,8 @@ export const Stepper = ({ steps, currentStepNumber }) => {
     stepsStateRef.current = stepsState;
     const currentSteps = updateStep(currentStepNumber - 1, stepsState);
     setStep(currentSteps);
-  }, []);
+  }, [currentStepNumber, steps]);
+
   useEffect(() => {
     const currentSteps = updateStep(
       currentStepNumber - 1,
@@ -23,6 +25,7 @@ export const Stepper = ({ steps, currentStepNumber }) => {
     );
     setStep(currentSteps);
   }, [currentStepNumber]);
+  
   function updateStep(stepNumber, steps) {
     const newSteps = [...steps];
     let stepCounter = 0;
@@ -66,24 +69,24 @@ export const Stepper = ({ steps, currentStepNumber }) => {
         key={index}
         className={
           index !== stepperSteps.length - 1
-            ? 'w-full flex items-center'
+            ? 'flex w-full items-center'
             : 'flex items-center'
         }
       >
         <div className="relative flex flex-col items-center text-teal-600">
           <div
-            className={`rounded-full transition duration-500 ease-in-out border-2 border-gray-300 h-12 w-12 flex items-center justify-center py-3  ${
-              step.selected ? 'bg-indigo-800 text-white font-bold' : ''
+            className={`flex h-12 w-12 items-center justify-center rounded-full border-2 border-gray-300 py-3 transition duration-500 ease-in-out  ${
+              step.selected ? 'bg-indigo-800 font-bold text-white' : ''
             }`}
           >
             {step.completed ? (
-              <span className="text-white font-bold text-xl">✓</span>
+              <span className="text-xl font-bold text-white">✓</span>
             ) : (
               index + 1
             )}
           </div>
           <div
-            className={`absolute top-0  text-center mt-16 w-32 text-xs font-medium uppercase ${
+            className={`absolute top-0  mt-16 w-32 text-center text-xs font-medium uppercase ${
               step.highlighted ? 'text-gray-900' : 'text-gray-400'
             }`}
           >
@@ -91,15 +94,20 @@ export const Stepper = ({ steps, currentStepNumber }) => {
             {step.description}{' '}
           </div>
         </div>
-        <div className="flex-auto border-t-2 transition duration-500 ease-in-out border-gray-300 ">
+        <div className="flex-auto border-t-2 border-gray-300 transition duration-500 ease-in-out ">
           {' '}
         </div>
       </div>
     );
   });
   return (
-    <div className="mx-4 p-4 flex justify-between items-center">
+    <div className="mx-4 flex items-center justify-between p-4">
       {stepsDisplay}
     </div>
   );
+};
+
+Stepper.propTypes = {
+  steps: PropTypes.array.isRequired,
+  currentStepNumber: PropTypes.number.isRequired,
 };
