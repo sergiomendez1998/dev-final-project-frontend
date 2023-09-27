@@ -12,7 +12,7 @@ const initialForm = {
   description: '',
 };
 
-export const CreateCatalogPage = () => {
+const CreateCatalogPage = () => {
   const {type} = useParams();
 
   initialForm.catalogType = type ?? CATALOGS.analysisDocumentType;
@@ -32,3 +32,5 @@ export const CreateCatalogPage = () => {
     </section>
   );
 };
+
+export default CreateCatalogPage;

@@ -25,7 +25,7 @@ const catalogColumns = [
   },
 ];
 
-export const CatalogPage = () => {
+const CatalogPage = () => {
   const [catalogType, setCatalogType] = useState(CATALOGS.department);
   const { data, isLoading } = useQuery({
     queryKey: ['catalog', catalogType],
@@ -67,3 +67,5 @@ export const CatalogPage = () => {
     </div>
   );
 };
+
+export default CatalogPage;

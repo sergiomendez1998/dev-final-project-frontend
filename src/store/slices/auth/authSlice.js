@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { setToken } from '../../../apis/usersApi';
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -17,8 +18,9 @@ export const authSlice = createSlice({
         ...action.payload,
       };
 
+      console.log('token', action.payload);
       sessionStorage.setItem('login', JSON.stringify(newState));
-
+      setToken(newState.token);
       sessionStorage.setItem('token', `Bearer ${newState.token}`);
 
       return newState;
@@ -34,6 +36,7 @@ export const authSlice = createSlice({
       sessionStorage.removeItem('token');
       sessionStorage.removeItem('login');
       sessionStorage.clear();
+      setToken(newState.token);
       return newState;
     },
   },

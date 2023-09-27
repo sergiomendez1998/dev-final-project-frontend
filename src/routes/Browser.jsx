@@ -1,32 +1,37 @@
+import { lazy, Suspense,  } from 'react'
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import { Layout } from '../containers/Layout';
-import { LoginPage } from '../pages/auth/LoginPage';
-import { LayoutLogin } from '../containers/LayoutLogin';
-import ProtectedRoute from './ProtectedRoute';
-import { ProtectedLogin } from './ProtectedLogin';
 import { useAuth } from '../hooks/useAuth';
-import { Dashboard } from '../pages/admin/Dashboard';
-import { NotFound } from '../pages/error/NotFound.jsx';
-import { RegisterPage } from '../pages/auth/RegisterPage.jsx';
 import { URL_BASE_APP } from '../config/constants.js';
-import { CatalogPage } from '../pages/admin/CatalogPage.jsx';
-import { CreateRequestPage } from '../pages/external/CreateRequestPage.jsx';
-import { CreateCatalogPage } from '../pages/admin/CreateCatalogPage.jsx';
+import { LoadingPage } from '../pages/LoadingPage';
+
+const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
+const RegisterPage = lazy(() => import('../pages/auth/RegisterPage'));
+const CreateRequestPage = lazy(() => import('../pages/external/CreateRequestPage'));
+const CreateCatalogPage = lazy(() => import('../pages/admin/CreateCatalogPage'));
+const CatalogPage = lazy(() => import('../pages/admin/CatalogPage'));
+const NotFoundPage = lazy(() => import('../pages/error/NotFound'));
+const DashboardPage = lazy(() => import('../pages/admin/Dashboard'));
+const LayoutComponent = lazy(() => import('../containers/Layout'));
+const LayoutLoginComponent = lazy(() => import('../containers/LayoutLogin'));
+const ProtectedRoute = lazy(() => import('./ProtectedRoute'));
+const ProtectedLogin = lazy(() => import('./ProtectedLogin'));
+
 
 export const Browser = () => {
   const { isLogedIn } = useAuth();
 
-  const Root = isLogedIn ? Layout : LayoutLogin;
+  const Root = isLogedIn ? LayoutComponent : LayoutLoginComponent;
 
   return (
     <HashRouter basename={URL_BASE_APP}>
-      <Root>
+      <Suspense fallback={<LoadingPage />}>
+      <Root>       
         <Routes>
           <Route
             path="/"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <DashboardPage />
               </ProtectedRoute>
             }
           />
@@ -72,10 +77,11 @@ export const Browser = () => {
           />
           <Route
             path="*"
-            element={<NotFound Message={'Pagina No Existe'} Number={404} />}
+            element={<NotFoundPage Message={'Pagina No Existe'} Number={404} />}
           />
-        </Routes>
+        </Routes>      
       </Root>
+      </Suspense>
     </HashRouter>
   );
 };

@@ -2,6 +2,24 @@ main {
   view-transition-name: main;
 }
 
+@keyframes loading {
+  0% {
+    opacity: 30%;
+  }
+  100% {
+    opacity: 90%;
+  }
+}
+
+@keyframes mover {
+  0% {
+    top: 0px;
+  }
+  100% {
+    top: -50px;
+  }
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -34,6 +52,23 @@ main {
 ::view-transition-new(main) {
   animation: 300ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
     1000ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+}
+
+.intermitent {
+  position: relative;
+  animation-name: mover;
+  animation-duration: 0.8s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+  animation-fill-mode: forwards;
+}
+
+.loading {
+  animation-name: loading;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+  animation-fill-mode: forwards;
 }
 
 .dashboard-item .icon-dashboard svg {

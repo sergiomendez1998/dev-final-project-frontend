@@ -11,7 +11,12 @@ export const getAllCatalogs = async (catalogType) => {
 
 export const createCatalog = async (catalog) => {
   try {
-    const response = await api.post(`/catalog?catalogType=${catalog.catalogType}`, catalog);
+    const response = await api.post(`/catalog?catalogType=${catalog.catalogType}`, {
+      id: 0,
+      name: catalog.catalogDTO.name,
+      description: catalog.catalogDTO.description,
+    });
+
     return response;
   } catch (error) {
     console.log(error);

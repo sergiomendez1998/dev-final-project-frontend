@@ -94,7 +94,7 @@ const validateForm = (form) => {
   return errors;
 };
 
-export const RegisterPage = () => {
+const RegisterPage = () => {
   const petition = async (form) => {
     const customer = convertToCustomerRegister(form);
     const response = await registerUser(customer);
@@ -273,3 +273,5 @@ export const RegisterPage = () => {
     </div>
   );
 };
+
+export default RegisterPage;

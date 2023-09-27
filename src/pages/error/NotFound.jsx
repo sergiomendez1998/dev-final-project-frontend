@@ -3,7 +3,7 @@ import { AnimatedLink } from '../../components/links/AnimatedLink';
 import { Col } from '../../components/grid/Col';
 import { Row } from '../../components/grid/Row';
 
-export const NotFound = ({ Message, Number }) => {
+const NotFound = ({ Message, Number }) => {
   return (
     <div className="container mx-auto">
       <Row className="min-h-[80vh] items-center justify-center">
@@ -18,6 +18,8 @@ export const NotFound = ({ Message, Number }) => {
     </div>
   );
 };
+
+export default NotFound;
 
 NotFound.propTypes = {
   Message: PropTypes.string.isRequired,

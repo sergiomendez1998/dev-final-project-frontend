@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Sidebar } from './Sidebar';
 import { Footer } from '../components/layout/Footer';
 
-export const Layout = ({ children }) => {
+const Layout = ({ children }) => {
   return (
     <div className="flex">
       <Sidebar />
@@ -17,3 +17,5 @@ export const Layout = ({ children }) => {
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+export default Layout;

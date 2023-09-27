@@ -14,3 +14,9 @@ api.interceptors.response.use(
     return response.data;
   }
 );
+
+export const setToken = (token) => {
+  console.log('token', token);
+  api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+

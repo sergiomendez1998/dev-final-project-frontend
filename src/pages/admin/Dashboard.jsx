@@ -3,7 +3,7 @@ import { DashboardItem } from '../../components/cards/DashboardItem';
 import { Grid } from '../../components/grid/Grid';
 import { HeaderPage } from '../../components/layout/HeaderPage';
 
-export const Dashboard = () => {
+const Dashboard = () => {
   return (
     <div className="mx-2">
       <HeaderPage title="Dashboard" pref="Inicio" />
@@ -40,3 +40,5 @@ export const Dashboard = () => {
     </div>
   );
 };
+
+export default Dashboard;

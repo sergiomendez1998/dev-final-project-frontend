@@ -41,7 +41,7 @@ const validateForm = (form) => {
   return errors;
 };
 
-export const CreateRequestPage = () => {
+const CreateRequestPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const stepArray = ['General', 'Soporte', 'Completar'];
 
@@ -138,3 +138,5 @@ export const CreateRequestPage = () => {
     </section>
   );
 };
+
+export default CreateRequestPage;

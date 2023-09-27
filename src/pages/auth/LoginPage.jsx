@@ -26,7 +26,7 @@ const validateForm = (form) => {
   return errors;
 };
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const { handlerLogin } = useLogin();
 
   const petition = async (form) => {
@@ -118,3 +118,5 @@ export const LoginPage = () => {
     </section>
   );
 };
+
+export default LoginPage;

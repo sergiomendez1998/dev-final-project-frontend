@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
-export const ProtectedLogin = ({ children }) => {
+const ProtectedLogin = ({ children }) => {
   const { isLogedIn } = useAuth();
 
   if (isLogedIn) {
@@ -15,3 +15,5 @@ export const ProtectedLogin = ({ children }) => {
 ProtectedLogin.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+export default ProtectedLogin;
