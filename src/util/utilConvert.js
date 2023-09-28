@@ -20,6 +20,7 @@ export const convertToCatalogRegister = (data) => {
   return {
     catalogType: data.catalogType,
     catalogDTO: {
+      id: data.id ?? 0,
       name: data.name,
       description: data.description
     },

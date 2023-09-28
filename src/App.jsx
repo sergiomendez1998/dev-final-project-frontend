@@ -6,7 +6,14 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Flowbite } from 'flowbite-react';
 import { pageTheme } from './theme/pageTheme';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: true,
+    },
+  },
+});
 
 const App = () => {
   return (

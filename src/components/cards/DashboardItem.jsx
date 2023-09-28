@@ -23,6 +23,6 @@ export const DashboardItem = ({ title, number, Icon }) => {
 
 DashboardItem.propTypes = {
   title: PropTypes.string.isRequired,
-  number: PropTypes.number.isRequired,
+  number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   Icon: PropTypes.func.isRequired,
 };

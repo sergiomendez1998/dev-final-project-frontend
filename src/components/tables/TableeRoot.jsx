@@ -21,8 +21,9 @@ export const TableRoot = ({ data, columns, title, loading, xslsConvert }) => {
           <Button
             onClick={() => exportToExcel(data, xslsConvert, title)}
             color="success"
+            className='px-3'
           >
-            <FaFileExcel />
+            <FaFileExcel className='me-2' /> Excel
           </Button>
         }
         theme="individuality"
@@ -32,7 +33,9 @@ export const TableRoot = ({ data, columns, title, loading, xslsConvert }) => {
         data={data}
         progressPending={loading}
         paginationComponentOptions={PAGINATION_OPTIONS}
-        progressComponent={<LoadingComponent />}
+        progressComponent={<div className='py-10'>
+          <LoadingComponent />
+        </div>}
         noDataComponent={
           <MesajeNoData
             mesaje={`No se encontraros resultados con ${title}`}

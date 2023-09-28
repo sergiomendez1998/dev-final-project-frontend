@@ -36,8 +36,12 @@ export const useForm = (initialForm, validateForm, peticion) => {
     setLoading(true);
     if (Object.keys(valErr).length === 0) {
       try {
-        const response = await peticion(form);
-        response.success && setForm(initialForm);
+        const response = await peticion(form);        
+        if (response.successful) {
+          console.log(response);
+          setForm(initialForm);
+        }
+        
         setResponse(response);
       } catch (error) {
         console.log(error);

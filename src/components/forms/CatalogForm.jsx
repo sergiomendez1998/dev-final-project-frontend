@@ -25,13 +25,14 @@ const validateForm = (form) => {
 };
 
 export const CatalogForm = ({ initialForm, sendForm }) => {
+
   const { form, errors, handleChange, handleSubmit, loading, response } =
     useForm(initialForm, validateForm, sendForm);
 
   return (
     <article className="my-5">
       {response && (
-        <Response message={response.message} type={response.success} />
+        <Response message={response.message} type={response.successful} />
       )}
       <form onSubmit={handleSubmit} className="flex flex-wrap">
         <Col xs={12} lg={6}>
@@ -84,7 +85,7 @@ export const CatalogForm = ({ initialForm, sendForm }) => {
             type="submit"
             fullSized
           >
-            Crear nuevo catalogo
+            {initialForm.id ? 'Actualizar Catalogo' : 'Crear Catalogo'}
           </Button>
         </Col>
       </form>

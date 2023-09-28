@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="relative right-7 z-[3] h-screen flex-1 overflow-auto px-4 py-5 scrollbar-thin  scrollbar-track-purple-600 md:static">
+      <div className="relative right-7 z-[3] h-screen flex-1 overflow-auto px-4 py-5 scrollbar-thin  scrollbar-track-white md:static">
         <main className="min-h-[95%]">{children}</main>
         <Footer />
       </div>

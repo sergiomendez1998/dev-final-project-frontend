@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { URL_BASE_APP } from '../config/constants.js';
 import { LoadingPage } from '../pages/LoadingPage';
+import EditCatalogPage from '../pages/admin/EditCatalogPage';
 
 const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
 const RegisterPage = lazy(() => import('../pages/auth/RegisterPage'));
@@ -72,6 +73,14 @@ export const Browser = () => {
             element={
               <ProtectedRoute>
                 <CreateCatalogPage />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/catalog/edit/:type/:id"
+            element={
+              <ProtectedRoute>
+                <EditCatalogPage />
               </ProtectedRoute>
             }
           />

@@ -5,7 +5,7 @@ import logo from '/img/logo.jpg'
 export const LoadingPage = () => {
   return (
     <div className="flex h-[90vh] flex-row items-center">
-      <div className="container">
+      <div className="container mx-auto">
         <div className="flex flex-row justify-center">
           <Col md={4} sm={4} xs={8}>
           <img
