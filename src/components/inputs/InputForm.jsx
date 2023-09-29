@@ -1,4 +1,6 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { useState } from "react";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 export const InputForm = ({
   label,
@@ -12,13 +14,24 @@ export const InputForm = ({
   placeholder,
   className,
   maxLength,
-  max
+  max,
+  iconClass,
 }) => {
+  const [types, setTypes] = useState(type);
+
+  const handlePassword = () => {
+    if (types === "password") {
+      setTypes("text");
+    } else {
+      setTypes("password");
+    }
+  };
+
   return (
     <div className="mt-4 w-full">
       <label className="block font-bold text-gray-600">{label}</label>
       <input
-        type={type}
+        type={types}
         name={name}
         id={id}
         placeholder={placeholder}
@@ -32,7 +45,24 @@ export const InputForm = ({
         maxLength={maxLength}
         max={max}
       />
-      <p className="font-bold text-red-600">{error}</p>
+      {type === "password" && (
+        <button
+          type="button"
+          className={`relative ${
+            iconClass ? iconClass : "bottom-10"
+          } left-[90%]`}
+          onClick={handlePassword}
+        >
+          {types === "password" ? <IoEye size={25} /> : <IoEyeOff size={25} />}
+        </button>
+      )}
+      <p
+        className={`font-bold text-red-600 ${
+          type == "password" ? "relative bottom-6" : ""
+        }`}
+      >
+        {error}
+      </p>
     </div>
   );
 };
@@ -50,4 +80,5 @@ InputForm.propTypes = {
   className: PropTypes.string,
   maxLength: PropTypes.number,
   max: PropTypes.number,
+  iconClass: PropTypes.string,
 };

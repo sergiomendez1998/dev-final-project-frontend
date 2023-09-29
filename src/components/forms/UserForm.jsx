@@ -11,57 +11,64 @@ import { CATALOGS, genderData } from "../../config/constants";
 import { getAllCatalogs } from "../../services/catalogService";
 
 const validateForm = (form) => {
-    const errors = {};
-    if (!form.cui) {
-      errors.cui = "El DPI es requerido";
-    }else if(form.cui.length < 13){
-        errors.cui = "El DPI debe tener 13 digitos";
-    }
+  const errors = {};
+  if (!form.cui) {
+    errors.cui = "El DPI es requerido";
+  } else if (form.cui.length < 13) {
+    errors.cui = "El DPI debe tener 13 digitos";
+  }
 
-    if (!form.firstName) {
-      errors.firstName = "El nombre es requerido";
-    }
+  if (!form.firstName) {
+    errors.firstName = "El nombre es requerido";
+  }
 
-    if (!form.lastName) {
-      errors.lastName = "El apellido es requerido";
-    }
+  if (!form.lastName) {
+    errors.lastName = "El apellido es requerido";
+  }
 
-    if (!form.address) {
-      errors.address = "La direccion es requerida";
-    }
+  if (!form.address) {
+    errors.address = "La direccion es requerida";
+  }
 
-    if (!form.phoneNumber) {
-      errors.phoneNumber = "El numero de telefono es requerido";
-    }else if(form.phoneNumber.trim().length < 8){
-        errors.phoneNumber = "El numero de telefono debe tener 8 digitos";
-    }
-    else if(form.phoneNumber.trim().length > 8){
-        form.phoneNumber = form.phoneNumber.substring(0,8);
-    }
+  if (!form.phoneNumber) {
+    errors.phoneNumber = "El numero de telefono es requerido";
+  } else if (form.phoneNumber.trim().length < 8) {
+    errors.phoneNumber = "El numero de telefono debe tener 8 digitos";
+  } else if (form.phoneNumber.trim().length > 8) {
+    form.phoneNumber = form.phoneNumber.substring(0, 8);
+  }
 
-    if (form.gender.trim() === '') {
-        errors.gender = "El genero es requerido";
-    }
+  if (form.gender.trim() === "") {
+    errors.gender = "El genero es requerido";
+  }
 
-    if (form.departmentId === 0) {
-        errors.departmentId = "El departamento es requerido";
-    }
+  if (form.departmentId === 0) {
+    errors.departmentId = "El departamento es requerido";
+  }
 
-    if(form.roleId === 0){
-        errors.roleId = "El rol es requerido";
-    }
+  if (form.roleId === 0) {
+    errors.roleId = "El rol es requerido";
+  }
 
-    if (!form.nickName) {
-        errors.nickName = "El nombre de usuario es requerido";
-    }
+  if (!form.nickName) {
+    errors.nickName = "El nombre de usuario es requerido";
+  }
 
-    if (!form.email) {
-        errors.email = "El correo electronico es requerido";
-    }else if (!/\S+@\S+\.\S+/.test(form.email)) {
-        errors.email = "El correo electronico es invalido";
-    }
+  if (!form.email) {
+    errors.email = "El correo electronico es requerido";
+  } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+    errors.email = "El correo electronico es invalido";
+  }
 
-    return errors;
+  if (form.password.trim() === "") {
+    errors.password = "La contraseña es requerida";
+  } else if (form.password.trim().length < 8) {
+    errors.password = "La contraseña debe tener al menos 8 caracteres";
+  } else if (form.password.trim().length > 20) {
+    form.password = form.password.substring(0, 20);
+  }
+
+  return errors;
 };
 
 export const UserForm = ({ initialForm, sendForm }) => {
@@ -200,6 +207,19 @@ export const UserForm = ({ initialForm, sendForm }) => {
             placeholder={"Correo electronico del empleado"}
             type={"text"}
             className="input-form input-form-internal py-3"
+          />
+        </Col>
+        <Col xs={12} lg={6}>
+          <InputForm
+            label="Contraseña"
+            name="password"
+            error={errors.password}
+            onChange={handleChange}
+            value={form.password}
+            placeholder={"Contraseña a asignar para el empleado"}
+            type={"password"}
+            className="input-form input-form-internal py-3"
+            iconClass={"bottom-9"}
           />
         </Col>
         <Col xs={12} lg={6}>

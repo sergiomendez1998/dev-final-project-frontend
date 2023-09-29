@@ -8,6 +8,15 @@ export const getAllUsers = async () => {
   }
 };
 
+export const getAllEmployees = async () => {
+  try {
+    const response = await api.get('/employee');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const createEmployee = async (user) => {
   try {
     return await api.post('/employee/register', user);

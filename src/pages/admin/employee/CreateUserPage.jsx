@@ -15,6 +15,7 @@ const initialForm = {
   departmentId: 0,
   nickName: "",
   email: "",
+  password: "",
   userType: USER_TYPES.internal,
   roleId: 0,
 };
