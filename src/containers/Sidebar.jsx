@@ -120,7 +120,7 @@ export const Sidebar = () => {
               </AnimatedLink>
             </li>
             <li>
-              <AnimatedLink to={'/catalog'} className="link">
+              <AnimatedLink to={'/user'} className="link">
                 <BsPerson size={23} className="min-w-max" />
                 Authentication
               </AnimatedLink>

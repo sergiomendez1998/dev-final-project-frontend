@@ -14,6 +14,11 @@ export const CATALOGS = {
   testType: 'examType',
 };
 
+export const USER_TYPES = {
+  internal: 'internal',
+  external: 'external',
+};
+
 export const CATALOGS_NAME = [
   { name: 'Tipo de documento', value: 'analysisDocumentType' },
   { name: 'Departamento', value: 'department' },
@@ -24,6 +29,21 @@ export const CATALOGS_NAME = [
   { name: 'Estado de solicitud', value: 'status' },
   { name: 'Tipo de soporte', value: 'supportType' },
   { name: 'Tipo de prueba', value: 'examType' },
+];
+
+export const genderData = [
+  {
+    id: 1,
+    name: "Masculino",
+  },
+  {
+    id: 2,
+    name: "Femenino",
+  },
+  {
+    id: 3,
+    name: "Otro",
+  },
 ];
 
 export const PAGINATION_OPTIONS = {

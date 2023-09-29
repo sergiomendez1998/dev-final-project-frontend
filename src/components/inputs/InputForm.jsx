@@ -11,6 +11,8 @@ export const InputForm = ({
   onBlur,
   placeholder,
   className,
+  maxLength,
+  max
 }) => {
   return (
     <div className="mt-4 w-full">
@@ -27,6 +29,8 @@ export const InputForm = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        maxLength={maxLength}
+        max={max}
       />
       <p className="font-bold text-red-600">{error}</p>
     </div>
@@ -44,4 +48,6 @@ InputForm.propTypes = {
   onBlur: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
   className: PropTypes.string,
+  maxLength: PropTypes.number,
+  max: PropTypes.number,
 };

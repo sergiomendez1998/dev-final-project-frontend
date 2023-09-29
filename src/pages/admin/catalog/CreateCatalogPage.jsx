@@ -1,10 +1,10 @@
-import { HeaderPage } from "../../components/layout/HeaderPage";
-import { CatalogForm } from "../../components/forms/CatalogForm";
-import { CATALOGS } from "../../config/constants";
+import { CatalogForm } from "../../../components/forms/CatalogForm";
+import { CATALOGS } from "../../../config/constants";
 import { useParams } from "react-router-dom";
-import { ButtonBack } from "../../components/buttons/ButtonBack";
-import { convertToCatalogRegister } from "../../util/utilConvert";
-import { createCatalog } from "../../services/catalogService";
+import { ButtonBack } from "../../../components/buttons/ButtonBack";
+import { convertToCatalogRegister } from "../../../util/utilConvert";
+import { createCatalog } from "../../../services/catalogService";
+import { HeaderPage } from "../../../components/layout/HeaderPage";
 
 const initialForm = {
   catalogType: "",

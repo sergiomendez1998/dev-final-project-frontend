@@ -3,19 +3,21 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { URL_BASE_APP } from '../config/constants.js';
 import { LoadingPage } from '../pages/LoadingPage';
-import EditCatalogPage from '../pages/admin/EditCatalogPage';
 
 const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
 const RegisterPage = lazy(() => import('../pages/auth/RegisterPage'));
 const CreateRequestPage = lazy(() => import('../pages/external/CreateRequestPage'));
-const CreateCatalogPage = lazy(() => import('../pages/admin/CreateCatalogPage'));
-const CatalogPage = lazy(() => import('../pages/admin/CatalogPage'));
+const CreateCatalogPage = lazy(() => import('../pages/admin/catalog/CreateCatalogPage'));
+const CatalogPage = lazy(() => import('../pages/admin/catalog/CatalogPage'));
 const NotFoundPage = lazy(() => import('../pages/error/NotFound'));
 const DashboardPage = lazy(() => import('../pages/admin/Dashboard'));
 const LayoutComponent = lazy(() => import('../containers/Layout'));
 const LayoutLoginComponent = lazy(() => import('../containers/LayoutLogin'));
 const ProtectedRoute = lazy(() => import('./ProtectedRoute'));
 const ProtectedLogin = lazy(() => import('./ProtectedLogin'));
+const EditCatalogPage = lazy(() => import('../pages/admin/catalog/EditCatalogPage'));
+const UserPage = lazy(() => import('../pages/admin/employee/UserPage'));
+const CreateUserPage = lazy(() => import('../pages/admin/employee/CreateUserPage'));
 
 
 export const Browser = () => {
@@ -81,6 +83,22 @@ export const Browser = () => {
             element={
               <ProtectedRoute>
                 <EditCatalogPage />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/user"
+            element={
+              <ProtectedRoute>
+                <UserPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user/create"
+            element={
+              <ProtectedRoute>
+                <CreateUserPage />
               </ProtectedRoute>
             }
           />

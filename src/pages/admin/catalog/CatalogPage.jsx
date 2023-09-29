@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { HeaderPage } from "../../components/layout/HeaderPage";
-import { Col } from "../../components/grid/Col";
-import { InputSelect } from "../../components/inputs/InputSelect";
-import { CATALOGS, CATALOGS_NAME } from "../../config/constants";
-import { deleteCatalog, getAllCatalogs } from "../../services/catalogService";
-import { TableRoot } from "../../components/tables/TableeRoot";
-import { Row } from "../../components/grid/Row";
+import { HeaderPage } from "../../../components/layout/HeaderPage";
+import { Col } from "../../../components/grid/Col";
+import { InputSelect } from "../../../components/inputs/InputSelect";
+import { CATALOGS, CATALOGS_NAME } from "../../../config/constants";
+import { deleteCatalog, getAllCatalogs } from "../../../services/catalogService";
+import { TableRoot } from "../../../components/tables/TableeRoot";
+import { Row } from "../../../components/grid/Row";
 import { FaPlus, FaPen, FaTrash } from "react-icons/fa";
 import { Button } from "flowbite-react";
-import { AnimatedLink } from "../../components/links/AnimatedLink";
+import { AnimatedLink } from "../../../components/links/AnimatedLink";
 
 const CatalogPage = () => {
   const [catalogType, setCatalogType] = useState(CATALOGS.department);
@@ -103,14 +103,6 @@ const CatalogPage = () => {
           />
         </Row>
       </div>
-
-      {/* <Col md={6}>
-        <QRCode
-          size={256}
-          value={"Guatemala 80 30 10"}
-          viewBox={`0 0 256 256`}
-        />
-      </Col> */}
     </section>
   );
 };

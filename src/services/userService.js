@@ -7,3 +7,11 @@ export const getAllUsers = async () => {
     console.log(error);
   }
 };
+
+export const createEmployee = async (user) => {
+  try {
+    return await api.post('/employee/register', user);
+  } catch (error) {
+    console.log(error);
+  }
+}
