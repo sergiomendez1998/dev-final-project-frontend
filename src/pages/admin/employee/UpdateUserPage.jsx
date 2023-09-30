@@ -6,7 +6,7 @@ import { USER_TYPES } from "../../../config/constants";
 import { getAllEmployees, updateEmployee } from "../../../services/userService";
 import {
   convertToEmployee,
-  convertToEmployeeRegister,
+  convertToEmployeeUpdate,
 } from "../../../util/utilConvert";
 import { useQuery } from "@tanstack/react-query";
 
@@ -23,6 +23,7 @@ const initialFormEmployee = {
   password: "",
   userType: USER_TYPES.internal,
   roleId: 0,
+  userId: 0,
 };
 
 const UpdateUserPage = () => {
@@ -39,9 +40,10 @@ const UpdateUserPage = () => {
     initialForm.gender = "";
 
   const sendForm = async (form) => {
-   
-    const convert = convertToEmployeeRegister(form);
+    console.log(form)
+    const convert = convertToEmployeeUpdate(form);
     convert.id = id;
+    console.log(convert)
     const response = await updateEmployee(convert);
     return response;
   };

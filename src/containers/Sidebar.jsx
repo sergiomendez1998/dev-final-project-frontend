@@ -162,10 +162,13 @@ export const Sidebar = () => {
             </li>
           </ul>
           {open && (
-            <div className="z-50 my-auto max-h-48  w-full flex-1  whitespace-pre   text-sm  font-medium  ">
-              <div className="flex items-center justify-between border-y border-slate-300 p-2">
+            <div className="z-50 my-auto max-h-48 w-full flex-1 whitespace-pre  text-sm  font-medium  ">
+              <div className="flex flex-col items-center justify-between gap-2 border-y border-slate-300 p-2">
                 <p className="rounded-xl bg-teal-50 px-3 py-1.5 text-xs font-bold text-black">
-                  {name ?? email}
+                  {name}
+                </p>
+                <p className="rounded-xl bg-teal-50 px-3 py-1.5 text-xs font-bold text-black">
+                  {email}
                 </p>
               </div>
             </div>
