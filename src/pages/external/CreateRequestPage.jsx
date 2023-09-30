@@ -97,6 +97,10 @@ const CreateRequestPage = () => {
         });
       }
     });
+    return {
+      successful: true,
+      message: "",
+    };
   };
 
   const { form, errors, handleChange, handleSubmit } = useForm(
