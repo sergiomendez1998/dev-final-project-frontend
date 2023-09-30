@@ -30,7 +30,7 @@ export const SupportRequest = ({ form, errors, onChange }) => {
           value={form.supportType}
           error={errors.supportType}
           data={data ?? []}
-          idField={"id"}
+          idField={"name"}
           nameField={"name"}
           unSelectedValue={0}
           className={"input-form input-form-internal py-3"}

@@ -47,7 +47,7 @@ export const GeneralRequest = ({ form, errors, onChange }) => {
           onChange={onChange}
           placeholder={"Selecciona tipo solicitud"}
           data={data ?? []}
-          idField={"id"}
+          idField={"name"}
           nameField={"name"}
           value={form.requestType}
           error={errors.requestType}
