@@ -74,33 +74,36 @@ const CreateRequestPage = () => {
   const request = async (form) => {
     form.id = userId;
     const converted = convertToCreateRequest(form);
-    Swal.fire({
+    const result = await Swal.fire({
       title: "Desea crear la solicitud?",
       text: "al confirmar se creara la solicitud",
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: "Confirmar",
       denyButtonText: `Cancelar`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        createRequest(converted).then((data) => {
-          if (data.successful) {
-            Swal.fire(
-              "Solicitud creada con exitosamente!",
-              "Estimado usuario su numero de solicitud es: 0000",
-              "success",
-            );
-            setCurrentStep(currentStep + 1);
-          } else {
-            Swal.fire("Error al crear solicitud", data.message, "error");
-          }
-        });
-      }
     });
-    return {
-      successful: true,
-      message: "",
-    };
+
+    if (result.isConfirmed) {
+      const data = await createRequest(converted);
+      if (data.successful) {
+        Swal.fire(
+          "Solicitud creada con exitosamente!",
+          data.message,
+          "success",
+        );
+        setCurrentStep(currentStep + 1);
+      } else {
+        Swal.fire("Error al crear solicitud", data.message, "error");
+      }
+
+      return data;
+
+    }else{
+      return {
+        successful: false,
+        message: "Solicitud cancelada",
+      }
+    }
   };
 
   const { form, errors, handleChange, handleSubmit } = useForm(
