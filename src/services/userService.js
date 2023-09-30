@@ -24,3 +24,11 @@ export const createEmployee = async (user) => {
     console.log(error);
   }
 }
+
+export const updateEmployee = async (user) => {
+  try {
+    return await api.put('/employee', user);
+  } catch (error) {
+    console.log(error);
+  }
+}

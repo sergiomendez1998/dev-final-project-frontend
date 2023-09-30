@@ -8,29 +8,37 @@ import { useQuery } from "@tanstack/react-query"
 import { Button } from "flowbite-react"
 
 const employeeColumns = [
-  {
-    name: "Cui",
-    selector: (row) => row.cui,
-  },
-  {
-    name: "Nit",
-    selector: (row) => row.nit,
-  },
-  {
+   {
     name: "Nombre",
     selector: (row) => `${row.firstName} ${row.lastName}`,
+    sortable: true,
   },
   {
+    name: "Departamento",
+    selector: (row) => row.department.name,
+    sortable: true,
+    maxWidth: "100px",
+  }, 
+  {
     name: "Correo Electronico",
-    selector: (row) => row.email,
+    selector: (row) => row.user.email,
+    sortable: true,
+  },
+  {
+    name: "Rol",
+    selector: (row) => row.user.role.name,
+    sortable: true,
   },
   {
     name: "Direccion",
     selector: (row) => row.address,
+    sortable: true,
   },
   {
     name: "Telefono",
     selector: (row) => row.phoneNumber,
+    sortable: true,
+    maxWidth: "40px",
   },
   {
     name: "Acciones",
@@ -41,7 +49,7 @@ const employeeColumns = [
             to={`/user/edit/${row.id}`}
             className="flex"
           >
-            <FaPen className="me-2" /> Editar
+            <FaPen className="me-2" /> 
           </AnimatedLink>
         </Button>
         <Button
@@ -51,14 +59,14 @@ const employeeColumns = [
            console.log("hola")
           }
         >
-          <FaTrash className="me-2" /> <p>Eliminar</p>
+          <FaTrash className="me-2" /> 
         </Button>
       </Button.Group>
     ),
     center: true,
+    minWidth: "245px",
   },
 ]
-
 
 const UserPage = () => {
   const {data, isLoading, isFetching} = useQuery({

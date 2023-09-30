@@ -4,15 +4,24 @@ import { HeaderPage } from "../../../components/layout/HeaderPage";
 import { Col } from "../../../components/grid/Col";
 import { InputSelect } from "../../../components/inputs/InputSelect";
 import { CATALOGS, CATALOGS_NAME } from "../../../config/constants";
-import { deleteCatalog, getAllCatalogs } from "../../../services/catalogService";
+import {
+  deleteCatalog,
+  getAllCatalogs,
+} from "../../../services/catalogService";
 import { TableRoot } from "../../../components/tables/TableeRoot";
 import { Row } from "../../../components/grid/Row";
 import { FaPlus, FaPen, FaTrash } from "react-icons/fa";
 import { Button } from "flowbite-react";
 import { AnimatedLink } from "../../../components/links/AnimatedLink";
 
-const CatalogPage = () => {
+const CatalogPage = () => { 
+
   const [catalogType, setCatalogType] = useState(CATALOGS.department);
+
+  const { data, isLoading, isFetching, refetch } = useQuery({
+    queryKey: ["catalog", catalogType],
+    queryFn: () => getAllCatalogs(catalogType),
+  });
 
   const catalogColumns = [
     {
@@ -36,40 +45,37 @@ const CatalogPage = () => {
               to={`/catalog/edit/${catalogType}/${row.id}`}
               className="flex"
             >
-              <FaPen className="me-2" /> Editar
+              <FaPen className="me-2" />
             </AnimatedLink>
           </Button>
           <Button
             color="failure"
             className="font-bold"
-            onClick={() =>
+            onClick={() => {
               deleteCatalog({
                 catalogType: catalogType,
                 catalogDTO: {
                   id: row.id,
-                  name: 'hola',
-                  description: 'holas',
+                  name: "hola",
+                  description: "holas",
                 },
-              })
-            }
+              });
+              refetch();
+            }}
           >
-            <FaTrash className="me-2" /> <p>Eliminar</p>
+            <FaTrash className="me-2" />
           </Button>
         </Button.Group>
       ),
       center: true,
+      minWidth: "245px",
     },
   ];
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["catalog", catalogType],
-    queryFn: () => getAllCatalogs(catalogType),
-  });
 
   return (
     <section>
       <HeaderPage title="Catalogos" pref="Consultar" />
-      <div className="flex h-[70vh] items-center">
+      <div className="flex items-center">
         <Row className="w-full">
           <Col xs={12} lg={6}>
             <InputSelect
@@ -98,7 +104,7 @@ const CatalogPage = () => {
           <TableRoot
             columns={catalogColumns}
             data={data ?? []}
-            loading={isLoading}
+            loading={isLoading || isFetching}
             title={catalogType}
           />
         </Row>

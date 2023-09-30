@@ -51,3 +51,39 @@ export const convertToEmployeeRegister = (data) => {
     },
   }
 };
+
+export const convertToEmployeeUpdate = (data) => {
+  return {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    user: {
+      role: {
+        id: 0,
+        name: data.roleId,
+      },
+    }
+  }
+};
+
+export const convertToEmployee = (data) => {
+
+  if (!data) {
+    return;
+  }
+
+  return {
+    cui: data.cui,
+    firstName: data.firstName,
+    lastName: data.lastName,
+    address: data.address,
+    phoneNumber: data.phoneNumber,
+    gender: data.gender,
+    departmentId: data.department.name,
+    nickName: "",
+    email: data.user.email,
+    password: "",
+    userType: 'internal',
+    roleId: data?.user.role?.name,
+  }
+};

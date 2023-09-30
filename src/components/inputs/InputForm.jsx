@@ -16,6 +16,7 @@ export const InputForm = ({
   maxLength,
   max,
   iconClass,
+  readonly,
 }) => {
   const [types, setTypes] = useState(type);
 
@@ -44,6 +45,7 @@ export const InputForm = ({
         onBlur={onBlur}
         maxLength={maxLength}
         max={max}
+        disabled={readonly}
       />
       {type === "password" && (
         <button
@@ -81,4 +83,5 @@ InputForm.propTypes = {
   maxLength: PropTypes.number,
   max: PropTypes.number,
   iconClass: PropTypes.string,
+  readonly: PropTypes.bool,
 };

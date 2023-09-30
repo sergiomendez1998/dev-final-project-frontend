@@ -14,6 +14,7 @@ export const InputSelect = ({
   idField,
   nameField,
   unSelectedValue,
+  readonly,
 }) => {
   return (
     <div className="mt-4 w-full">
@@ -29,6 +30,7 @@ export const InputSelect = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        disabled={readonly}
       >
         <option value={unSelectedValue}>-- Seleccione una opción --</option>
         {data.map((item, idx) => (
@@ -56,4 +58,5 @@ InputSelect.propTypes = {
   idField: PropTypes.string.isRequired,
   nameField: PropTypes.string.isRequired,
   unSelectedValue: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.number.isRequired]),
+  readonly: PropTypes.bool,
 };

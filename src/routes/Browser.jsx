@@ -18,6 +18,7 @@ const ProtectedLogin = lazy(() => import('./ProtectedLogin'));
 const EditCatalogPage = lazy(() => import('../pages/admin/catalog/EditCatalogPage'));
 const UserPage = lazy(() => import('../pages/admin/employee/UserPage'));
 const CreateUserPage = lazy(() => import('../pages/admin/employee/CreateUserPage'));
+const EditUserPage = lazy(() => import('../pages/admin/employee/UpdateUserPage'));
 
 
 export const Browser = () => {
@@ -99,6 +100,14 @@ export const Browser = () => {
             element={
               <ProtectedRoute>
                 <CreateUserPage />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/user/edit/:id"
+            element={
+              <ProtectedRoute>
+                <EditUserPage />
               </ProtectedRoute>
             }
           />

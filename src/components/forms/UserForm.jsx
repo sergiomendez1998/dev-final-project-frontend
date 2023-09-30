@@ -10,8 +10,9 @@ import { useQuery } from "@tanstack/react-query";
 import { CATALOGS, genderData } from "../../config/constants";
 import { getAllCatalogs } from "../../services/catalogService";
 
-const validateForm = (form) => {
+const validateForm = (form, type) => {
   const errors = {};
+
   if (!form.cui) {
     errors.cui = "El DPI es requerido";
   } else if (form.cui.length < 13) {
@@ -38,7 +39,7 @@ const validateForm = (form) => {
     form.phoneNumber = form.phoneNumber.substring(0, 8);
   }
 
-  if (form.gender.trim() === "") {
+  if (type !== 'update' && form.gender.trim() === "") {
     errors.gender = "El genero es requerido";
   }
 
@@ -50,7 +51,7 @@ const validateForm = (form) => {
     errors.roleId = "El rol es requerido";
   }
 
-  if (!form.nickName) {
+  if (type !== 'update' && !form.nickName) {
     errors.nickName = "El nombre de usuario es requerido";
   }
 
@@ -60,9 +61,9 @@ const validateForm = (form) => {
     errors.email = "El correo electronico es invalido";
   }
 
-  if (form.password.trim() === "") {
+  if (type !== 'update' && form.password.trim() === "") {
     errors.password = "La contraseña es requerida";
-  } else if (form.password.trim().length < 8) {
+  } else if (type !== 'update' && form.password.trim().length < 8) {
     errors.password = "La contraseña debe tener al menos 8 caracteres";
   } else if (form.password.trim().length > 20) {
     form.password = form.password.substring(0, 20);
@@ -71,7 +72,7 @@ const validateForm = (form) => {
   return errors;
 };
 
-export const UserForm = ({ initialForm, sendForm }) => {
+export const UserForm = ({ initialForm, sendForm, type }) => {
   const { data: rols } = useQuery({
     queryKey: ["catalog", CATALOGS.role],
     queryFn: () => getAllCatalogs(CATALOGS.role),
@@ -83,7 +84,7 @@ export const UserForm = ({ initialForm, sendForm }) => {
   });
 
   const { form, errors, handleChange, handleSubmit, loading, response } =
-    useForm(initialForm, validateForm, sendForm);
+    useForm(initialForm, (form) => validateForm(form, type), sendForm);
 
   return (
     <article className="my-5">
@@ -102,6 +103,7 @@ export const UserForm = ({ initialForm, sendForm }) => {
             type={"text"}
             className="input-form input-form-internal py-3"
             maxLength={13}
+            readonly={type === "update"}
           />
         </Col>
         <Col xs={12} lg={6}>
@@ -138,6 +140,7 @@ export const UserForm = ({ initialForm, sendForm }) => {
             placeholder={"Ingresa la direccion del empleado"}
             type={"text"}
             className="input-form input-form-internal py-3"
+            readonly={type === "update"}
           />
         </Col>
         <Col xs={12} lg={6}>
@@ -151,24 +154,28 @@ export const UserForm = ({ initialForm, sendForm }) => {
             type={"number"}
             className="input-form input-form-internal py-3"
             max={99999999}
+            readonly={type === "update"}
           />
         </Col>
-        <Col xs={12} lg={6}>
-          <InputSelect
-            name={"gender"}
-            id={"gender"}
-            label={"Genero"}
-            onChange={handleChange}
-            placeholder={"Selecciona el genero"}
-            data={genderData}
-            idField={"name"}
-            nameField={"name"}
-            value={form.gender}
-            error={errors.gender}
-            unSelectedValue={""}
-            className={"input-form input-form-internal py-3"}
-          />
-        </Col>
+        {type !== "update" && (
+          <Col xs={12} lg={6}>
+            <InputSelect
+              name={"gender"}
+              id={"gender"}
+              label={"Genero"}
+              onChange={handleChange}
+              placeholder={"Selecciona el genero"}
+              data={genderData}
+              idField={"name"}
+              nameField={"name"}
+              value={form.gender}
+              error={errors.gender}
+              unSelectedValue={""}
+              className={"input-form input-form-internal py-3"}
+              readonly={type === "update"}
+            />
+          </Col>
+        )}
         <Col xs={12} lg={6}>
           <InputSelect
             name={"departmentId"}
@@ -183,20 +190,23 @@ export const UserForm = ({ initialForm, sendForm }) => {
             error={errors.departmentId}
             unSelectedValue={0}
             className={"input-form input-form-internal py-3"}
+            readonly={type === "update" ? true : false}
           />
         </Col>
-        <Col xs={12} lg={6}>
-          <InputForm
-            label="Nombre de usuario del empleado"
-            name="nickName"
-            error={errors.nickName}
-            onChange={handleChange}
-            value={form.nickName}
-            placeholder={"Nombre de usuario del empleado"}
-            type={"text"}
-            className="input-form input-form-internal py-3"
-          />
-        </Col>
+        {type !== "update" && (
+          <Col xs={12} lg={6}>
+            <InputForm
+              label="Nombre de usuario del empleado"
+              name="nickName"
+              error={errors.nickName}
+              onChange={handleChange}
+              value={form.nickName}
+              placeholder={"Nombre de usuario del empleado"}
+              type={"text"}
+              className="input-form input-form-internal py-3"
+            />
+          </Col>
+        )}
         <Col xs={12} lg={6}>
           <InputForm
             label="Correo electronico"
@@ -209,19 +219,21 @@ export const UserForm = ({ initialForm, sendForm }) => {
             className="input-form input-form-internal py-3"
           />
         </Col>
-        <Col xs={12} lg={6}>
-          <InputForm
-            label="Contraseña"
-            name="password"
-            error={errors.password}
-            onChange={handleChange}
-            value={form.password}
-            placeholder={"Contraseña a asignar para el empleado"}
-            type={"password"}
-            className="input-form input-form-internal py-3"
-            iconClass={"bottom-9"}
-          />
-        </Col>
+        {type !== "update" && (
+          <Col xs={12} lg={6}>
+            <InputForm
+              label="Contraseña"
+              name="password"
+              error={errors.password}
+              onChange={handleChange}
+              value={form.password}
+              placeholder={"Contraseña a asignar para el empleado"}
+              type={"password"}
+              className="input-form input-form-internal py-3"
+              iconClass={"bottom-9"}
+            />
+          </Col>
+        )}
         <Col xs={12} lg={6}>
           <InputSelect
             name={"roleId"}
@@ -248,7 +260,7 @@ export const UserForm = ({ initialForm, sendForm }) => {
             type="submit"
             fullSized
           >
-            {initialForm.id ? "Actualizar Usuario" : "Crear Usuario"}
+            {type === "update" ? "Actualizar Usuario" : "Crear Usuario"}
           </Button>
         </Col>
       </form>
@@ -259,4 +271,5 @@ export const UserForm = ({ initialForm, sendForm }) => {
 UserForm.propTypes = {
   initialForm: PropTypes.object.isRequired,
   sendForm: PropTypes.func.isRequired,
+  type: PropTypes.string,
 };
