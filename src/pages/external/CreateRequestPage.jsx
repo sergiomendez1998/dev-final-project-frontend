@@ -35,6 +35,10 @@ const validateForm = (form) => {
 
   if (form.phone === "") {
     errors.phone = "El campo telefono es requerido";
+  }else if (form.phone.trim().length < 8) {
+    errors.phone = "El campo telefono debe tener 8 digitos";
+  }else if (form.phone.trim().length > 8) {
+    form.phone = form.phone.substring(0,8);
   }
 
   if (form.noSupport === "") {
@@ -53,9 +57,10 @@ const validateForm = (form) => {
 };
 
 const CreateRequestPage = () => {
-  const { userId } = useAuth();
+  const { userId, email } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const stepArray = ["General", "Soporte", "Completar"];
+  initialForm.email = email;
 
   const handleClick = (clickType) => {
     let newStep = currentStep;

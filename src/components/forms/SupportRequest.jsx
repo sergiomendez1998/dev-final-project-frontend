@@ -7,6 +7,7 @@ import { getAllCatalogs } from "../../services/catalogService";
 import { CATALOGS } from "../../config/constants";
 
 export const SupportRequest = ({ form, errors, onChange }) => {
+  
   const { data } = useQuery({
     queryFn: () => getAllCatalogs(CATALOGS.supportType),
     queryKey: ["catalog", CATALOGS.supportType],

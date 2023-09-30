@@ -1,12 +1,15 @@
+import { Button } from "flowbite-react";
 import { Col } from "../../components/grid/Col";
 import { Row } from "../../components/grid/Row";
 import { InputForm } from "../../components/inputs/InputForm";
 import { InputSelect } from "../../components/inputs/InputSelect";
 import { AnimatedLink } from "../../components/links/AnimatedLink";
+import { Response } from "../../components/messages/Response";
 import { genderData } from "../../config/constants";
 import { useForm } from "../../hooks/useForm";
 import { registerUser } from "../../services/authService";
 import { convertToCustomerRegister } from "../../util/utilConvert";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const initialForm = {
   cui: "",
@@ -88,9 +91,10 @@ const RegisterPage = () => {
     const customer = convertToCustomerRegister(form);
     const response = await registerUser(customer);
     console.log(response);
+    return response;
   };
 
-  const { form, errors, handleChange, handleSubmit } = useForm(
+  const { form, errors, handleChange, handleSubmit, response, loading } = useForm(
     initialForm,
     validateForm,
     petition,
@@ -103,6 +107,9 @@ const RegisterPage = () => {
         Porfavor ingresa los campos solicitados para crear tu cuenta
       </h3>
       <form className="mx-auto w-[75%]" onSubmit={handleSubmit}>
+        {response && (
+          <Response message={response.message} type={response.successful} />
+        )}
         <Row className="justify-center">
           <Col sm={12} md={6}>
             <InputForm
@@ -242,14 +249,19 @@ const RegisterPage = () => {
               className={"input-form input-form-login py-3"}
             />
           </Col>
-          <div className="flex w-full justify-center px-4">
-            <button
+          <Col md={8} sm={12} lg={6} className="flex justify-center px-4">
+            <Button
               type="submit"
-              className="mt-6 block w-[95%] rounded-3xl bg-sky-500 py-3 font-bold text-white hover:bg-sky-600 md:w-[50%] lg:w-[35%]"
+              fullSized
+              isProcessing={loading}
+              color="secondary"
+              processingSpinner={
+              <AiOutlineLoading className="h-6 w-6 animate-spin" />
+            }
             >
               Registrarme y Crear Una Cuenta
-            </button>
-          </div>
+            </Button>
+          </Col>
           <Col>
             <p className="mt-2 text-center text-gray-600">
               Ya tienes cuenta?{" "}

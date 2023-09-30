@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 export const Response = ({ message, type }) => {
   return (
@@ -8,8 +8,13 @@ export const Response = ({ message, type }) => {
       } p-2 shadow-lg`}
     >
       <div className="ml-1">
-        <p className="text-white font-bold">{message}</p>
+        <p className="font-bold text-white">{message}</p>
       </div>
     </div>
   );
+};
+
+Response.propTypes = {
+  message: PropTypes.string.isRequired,
+  type: PropTypes.bool.isRequired,
 };
