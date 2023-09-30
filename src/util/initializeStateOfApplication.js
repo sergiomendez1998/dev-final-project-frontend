@@ -6,6 +6,7 @@ const initialState = {
     email: undefined,
     token: undefined,
     role: undefined,
+    userId: 0,
   }
 
 export const initializeStateOfApplication = () => {

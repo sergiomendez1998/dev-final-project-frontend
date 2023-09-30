@@ -40,17 +40,15 @@ const UpdateUserPage = () => {
     initialForm.gender = "";
 
   const sendForm = async (form) => {
-    console.log(form)
     const convert = convertToEmployeeUpdate(form);
     convert.id = id;
-    console.log(convert)
     const response = await updateEmployee(convert);
     return response;
   };
 
   return (
     <section>
-      <HeaderPage title="Mantenimiento Usuarios" pref="Actualizar" />
+      <HeaderPage title="Mantenimiento Analistas" pref="Actualizar" />
       <ButtonBack />
       <div className="flex items-center justify-center">
         <UserForm

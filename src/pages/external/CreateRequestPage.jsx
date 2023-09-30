@@ -8,6 +8,9 @@ import { GeneralRequest } from "../../components/forms/GeneralRequest";
 import { SupportRequest } from "../../components/forms/SupportRequest";
 import { CompleteForm } from "../../components/forms/CompleteForm";
 import { useForm } from "../../hooks/useForm";
+import { useAuth } from "../../hooks/useAuth";
+import { convertToCreateRequest } from "../../util/utilConvert";
+import { createRequest } from "../../services/requestService";
 
 const initialForm = {
   requestType: 0,
@@ -38,10 +41,19 @@ const validateForm = (form) => {
     errors.noSupport = "El campo no. soporte es requerido";
   }
 
+  if (form.requestType === 0) {
+    errors.requestType = "El campo tipo de solicitud es requerido";
+  }
+
+  if (form.supportType === 0) {
+    errors.supportType = "El campo tipo de soporte es requerido";
+  }
+
   return errors;
 };
 
 const CreateRequestPage = () => {
+  const { userId } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const stepArray = ["General", "Soporte", "Completar"];
 
@@ -54,8 +66,9 @@ const CreateRequestPage = () => {
     }
   };
 
-  const request = () => {
-    console.log("submit");
+  const request = async (form) => {
+    form.id = userId;
+    const converted = convertToCreateRequest(form);
     Swal.fire({
       title: "Desea crear la solicitud?",
       text: "al confirmar se creara la solicitud",
@@ -65,12 +78,18 @@ const CreateRequestPage = () => {
       denyButtonText: `Cancelar`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          "Solicitud creada con exitosamente!",
-          "Estimado usuario su numero de solicitud es: 0000",
-          "success",
-        );
-        setCurrentStep(currentStep + 1);
+        createRequest(converted).then((data) => {
+          if (data.successful) {
+            Swal.fire(
+              "Solicitud creada con exitosamente!",
+              "Estimado usuario su numero de solicitud es: 0000",
+              "success",
+            );
+            setCurrentStep(currentStep + 1);
+          } else {
+            Swal.fire("Error al crear solicitud", data.message, "error");
+          }
+        });
       }
     });
   };

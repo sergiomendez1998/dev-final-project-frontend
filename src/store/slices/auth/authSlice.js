@@ -25,6 +25,7 @@ export const authSlice = createSlice({
         isAdmin: false,
         user: undefined,
         token: undefined,
+        userId: 0,
         roles: [],
       };
       sessionStorage.removeItem('token');

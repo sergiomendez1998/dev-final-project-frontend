@@ -59,7 +59,6 @@ export const convertToEmployeeUpdate = (data) => {
     user: {
       id: data.userId,
       email: data.email,
-      nickName: 'data.nickName',
       role: {
         id: 0,
         name: data.roleId,
@@ -90,3 +89,20 @@ export const convertToEmployee = (data) => {
     userId: data.user.id,
   }
 };
+
+export const convertToCreateRequest = (data)=>{
+  return {
+    supportNumber: data.noSupport,
+    email: data.email,
+    remark: data.description,
+    examType: {
+      id: 0,
+      name: data.requestType
+    },
+    supportType: {
+      id: 0,
+      name: data.supportType,
+    },
+    userId: data.id
+  }
+}
