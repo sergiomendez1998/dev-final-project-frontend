@@ -85,19 +85,15 @@ const CreateRequestPage = () => {
 
     if (result.isConfirmed) {
       const data = await createRequest(converted);
+      console.log({data});
       if (data.successful) {
-        Swal.fire(
-          "Solicitud creada con exitosamente!",
-          data.message,
-          "success",
-        );
+        Swal.fire("Solicitud creada", data.message, "success");
         setCurrentStep(currentStep + 1);
       } else {
         Swal.fire("Error al crear solicitud", data.message, "error");
       }
 
       return data;
-
     }else{
       return {
         successful: false,
