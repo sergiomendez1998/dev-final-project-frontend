@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { HeaderPage } from "../../../components/layout/HeaderPage";
 import { Col } from "../../../components/grid/Col";
 import { InputSelect } from "../../../components/inputs/InputSelect";
 import { CATALOGS, CATALOGS_NAME } from "../../../config/constants";
@@ -13,6 +12,7 @@ import { Row } from "../../../components/grid/Row";
 import { FaPlus, FaPen, FaTrash } from "react-icons/fa";
 import { Button } from "flowbite-react";
 import { AnimatedLink } from "../../../components/links/AnimatedLink";
+import { HeaderPage } from "../../../components/layout/HeaderPage";
 
 const CatalogPage = () => { 
 

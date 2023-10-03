@@ -24,6 +24,24 @@ export const useForm = (initialForm, validateForm, onSubmit) => {
     setErrors(validateForm(newForm));
   };
 
+  const changeList = (name, value) => {
+    const newForm = {
+      ...form,
+      [name]: [...form[name], value],
+    };
+    setErrors(validateForm(newForm));
+    setForm(newForm);
+  }
+
+  const removeList = (name, value) => {
+    const newForm = {
+      ...form,
+      [name]: form[name].filter((item) => item !== value),
+    };
+    setErrors(validateForm(newForm));
+    setForm(newForm);
+  }
+
   const handleBlur = (e) => {
     handleChange(e);
   };
@@ -37,11 +55,7 @@ export const useForm = (initialForm, validateForm, onSubmit) => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         const response = await onSubmit(form);
-        if (response.successful) {
-          console.log(response);
-          setForm(initialForm);
-        }
-
+        response.successful && setForm(initialForm);
         setResponse(response);
       } catch (error) {
         console.log(error);
@@ -66,5 +80,7 @@ export const useForm = (initialForm, validateForm, onSubmit) => {
     handleBlur,
     handleChange,
     handleSubmit,
+    changeList,
+    removeList,
   };
 };

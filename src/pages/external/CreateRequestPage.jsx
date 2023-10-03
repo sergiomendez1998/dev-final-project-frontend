@@ -11,9 +11,10 @@ import { useForm } from "../../hooks/useForm";
 import { useAuth } from "../../hooks/useAuth";
 import { convertToCreateRequest } from "../../util/utilConvert";
 import { createRequest } from "../../services/requestService";
+import { Response } from "../../components/messages/Response";
 
 const initialForm = {
-  requestType: 0,
+  examType: [],
   description: "",
   noRequest: 0,
   supportType: 0,
@@ -35,18 +36,18 @@ const validateForm = (form) => {
 
   if (form.phone === "") {
     errors.phone = "El campo telefono es requerido";
-  }else if (form.phone.trim().length < 8) {
+  } else if (form.phone.trim().length < 8) {
     errors.phone = "El campo telefono debe tener 8 digitos";
-  }else if (form.phone.trim().length > 8) {
-    form.phone = form.phone.substring(0,8);
+  } else if (form.phone.trim().length > 8) {
+    form.phone = form.phone.substring(0, 8);
   }
 
   if (form.noSupport === "") {
     errors.noSupport = "El campo no. soporte es requerido";
   }
 
-  if (form.requestType === 0) {
-    errors.requestType = "El campo tipo de solicitud es requerido";
+  if (form.examType.length === 0) {
+     errors.examType = "El detalle de examenes es requerido";
   }
 
   if (form.supportType === 0) {
@@ -80,36 +81,48 @@ const CreateRequestPage = () => {
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: "Confirmar",
-      denyButtonText: `Cancelar`,
+      denyButtonText: "Cancelar",
     });
 
-    if (result.isConfirmed) {
-      const data = await createRequest(converted);
-      console.log({data});
-      if (data.successful) {
-        Swal.fire("Solicitud creada", data.message, "success");
-        setCurrentStep(currentStep + 1);
-      } else {
-        Swal.fire("Error al crear solicitud", data.message, "error");
-      }
-
-      return data;
-    }else{
+    if (!result.isConfirmed) {
       return {
         successful: false,
         message: "Solicitud cancelada",
-      }
+      };
     }
+
+    const data = await createRequest(converted);
+
+    if (data.successful) {
+      Swal.fire("Solicitud creada", data.message, "success");
+      setCurrentStep(currentStep + 1);
+    } else {
+      Swal.fire("Error al crear solicitud", data.message, "error");
+    }
+    console.log({ data });
+    return data;
   };
 
-  const { form, errors, handleChange, handleSubmit } = useForm(
-    initialForm,
-    validateForm,
-    request,
-  );
+  const {
+    form,
+    errors,
+    handleChange,
+    handleSubmit,
+    response,
+    changeList,
+    removeList,
+  } = useForm(initialForm, validateForm, request);
 
   const CurrentStepComponent = {
-    1: <GeneralRequest form={form} errors={errors} onChange={handleChange} />,
+    1: (
+      <GeneralRequest
+        form={form}
+        errors={errors}
+        onChange={handleChange}
+        changeList={changeList}
+        removeList={removeList}
+      />
+    ),
     2: <SupportRequest form={form} errors={errors} onChange={handleChange} />,
     3: <CompleteForm />,
   };
@@ -120,8 +133,11 @@ const CreateRequestPage = () => {
       <div className="mx-auto my-5 w-full lg:w-3/4">
         <Stepper steps={stepArray} currentStepNumber={currentStep} />
       </div>
-      <form className="flex flex-col items-center">
+      <form className="flex flex-col items-center" onSubmit={handleSubmit}>
         <Row className="w-full rounded-xl p-10 shadow-[0px_20px_20px_10px_#00000024] md:w-3/4">
+          {response && (
+            <Response message={response.message} type={response.successful} />
+          )}
           {CurrentStepComponent[currentStep]}
           <Col
             xs={12}
@@ -142,9 +158,7 @@ const CreateRequestPage = () => {
             <button
               type={currentStep < 2 ? "button" : "submit"}
               className="btn btn-primary"
-              onClick={(e) =>
-                currentStep < 2 ? handleClick("next") : handleSubmit(e)
-              }
+              onClick={() => currentStep < 2 && handleClick("next")}
               disabled={currentStep == 3}
             >
               {currentStep < 2 ? "Siguiente" : "Finalizar"}

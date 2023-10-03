@@ -91,14 +91,18 @@ export const convertToEmployee = (data) => {
 };
 
 export const convertToCreateRequest = (data)=>{
+  console.log(data)
   return {
     supportNumber: data.noSupport,
     email: data.email,
     remark: data.description,
-    examType: {
-      id: 0,
-      name: data.requestType
-    },
+    examType: data.examType.map(exam => {
+      return {
+        id: 0,
+        name: exam.name,
+        description: '',
+      }
+    }),
     supportType: {
       id: 0,
       name: data.supportType,

@@ -1,11 +1,11 @@
-import { HeaderPage } from "../../components/layout/HeaderPage";
-import { CatalogForm } from "../../components/forms/CatalogForm";
+import { CatalogForm } from "../../../components/forms/CatalogForm";
 import { useParams } from "react-router-dom";
-import { ButtonBack } from "../../components/buttons/ButtonBack";
-import { convertToCatalogRegister } from "../../util/utilConvert";
-import { getAllCatalogs, updateCatalog } from "../../services/catalogService";
-import { CATALOGS } from "../../config/constants";
+import { ButtonBack } from "../../../components/buttons/ButtonBack";
+import { convertToCatalogRegister } from "../../../util/utilConvert";
+import { getAllCatalogs, updateCatalog } from "../../../services/catalogService";
+import { CATALOGS } from "../../../config/constants";
 import { useQuery } from "@tanstack/react-query";
+import { HeaderPage } from "../../../components/layout/HeaderPage";
 
 const initialForm = {
   id: 0,
