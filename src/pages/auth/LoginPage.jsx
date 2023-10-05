@@ -1,9 +1,11 @@
+import { Button } from 'flowbite-react';
 import { InputForm } from '../../components/inputs/InputForm';
 import { AnimatedLink } from '../../components/links/AnimatedLink';
 import { Response } from '../../components/messages/Response';
 import { IMAGE_PREFIX } from '../../config/constants';
 import { useForm } from '../../hooks/useForm';
 import { useLogin } from '../../hooks/useLogin';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 const initialForm = {
   email: '',
@@ -33,7 +35,7 @@ const LoginPage = () => {
     return handlerLogin(form);
   };
 
-  const { form, errors, handleChange, handleSubmit, response } = useForm(
+  const { form, errors, handleChange, handleSubmit, response, loading } = useForm(
     initialForm,
     validateForm,
     petition
@@ -80,12 +82,18 @@ const LoginPage = () => {
                 Olvido su Contraseña?
               </AnimatedLink>
             </div>
-            <button
+            <Button
               type="submit"
-              className="mt-6 block w-full rounded-3xl bg-sky-500 px-4 py-3 font-semibold text-white hover:bg-sky-600"
+              fullSized
+              isProcessing={loading}
+              color="secondary"
+              className="rounded-full py-2"
+              processingSpinner={
+              <AiOutlineLoading className="h-6 w-6 animate-spin" />
+            }
             >
               Iniciar Sesión
-            </button>
+            </Button>
           </form>
           <hr className="my-6 w-full border-gray-300" />
           <p className="mt-8 text-end text-gray-600">

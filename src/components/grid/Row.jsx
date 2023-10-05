@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const Row = ({ children, className }) => {
-  return <div className={`mx-4 flex flex-wrap ${className}`}>{children}</div>;
+  return <div className={`flex flex-wrap ${className}`}>{children}</div>;
 };
 
 Row.propTypes = {

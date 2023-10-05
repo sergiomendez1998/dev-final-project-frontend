@@ -255,6 +255,7 @@ const RegisterPage = () => {
               fullSized
               isProcessing={loading}
               color="secondary"
+              className="rounded-full py-2"
               processingSpinner={
               <AiOutlineLoading className="h-6 w-6 animate-spin" />
             }

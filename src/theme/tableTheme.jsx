@@ -184,6 +184,31 @@ export const compactGrid = {
       },
     },
   },
+  expanderButton: {
+    style: {
+      color: 'black',
+      fill: defaultThemes.default.divider,
+      backgroundColor: 'transparent',
+      borderRadius: '2px',
+      transition: '0.25s',
+      height: '100%',
+      width: '100%',
+      '&:hover:enabled': {
+        cursor: 'pointer',
+      },
+      '&:disabled': {
+        color: 'gray',
+      },
+      '&:hover:not(:disabled)': {
+        cursor: 'pointer',
+        color: 'white',
+        backgroundColor: 'rgba(0,0,0,0)',
+      },
+      svg: {
+        margin: 'auto',
+      },
+    },
+  },
   pagination: {
     style: {
       border: 'none',

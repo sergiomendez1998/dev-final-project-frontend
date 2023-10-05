@@ -8,3 +8,12 @@ export const createRequest = async (request)=>{
         console.log(error);
     }
 }
+
+export const getRequests = async ()=>{
+    try {
+        const response = await api.get('/request');
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -10,6 +10,7 @@ import { getAllCatalogs } from "../../services/catalogService";
 import { CATALOGS } from "../../config/constants";
 import { Button } from "flowbite-react";
 import { Row } from "../grid/Row";
+import Swal from "sweetalert2";
 
 export const GeneralRequest = ({
   form,
@@ -82,22 +83,26 @@ export const GeneralRequest = ({
             className={"input-form input-form-internal py-3"}
           />
         </Col>
-        <Col  md={6} sm={12}>
+        <Col md={6} sm={12}>
           <Button
             color="success"
-            className="ms-2 mt-12 h-12 font-bold"
-            onClick={() => changeList("examType", { name: examType })}
+            className="mt-2 h-12 font-bold md:mt-12"
+            onClick={() => {
+              examType != 0
+                ? changeList("examType", { name: examType })
+                : Swal.fire(
+                    "Hay errores en el formulario",
+                    `Porfavor seleccione un tipo de solicitud`,
+                    "error",
+                  );
+            }}
             fullSized
           >
             <IoIosAdd className="me-2" size={25} /> <p>agregar</p>
           </Button>
         </Col>
       </Row>
-      <p
-        className={'ms-2 font-bold text-red-600'}
-      >
-        {errors.examType}
-      </p>
+      <p className={"ms-2 font-bold text-red-600"}>{errors.examType}</p>
       <Col md={12}>
         <div className="flow-root">
           <ul>

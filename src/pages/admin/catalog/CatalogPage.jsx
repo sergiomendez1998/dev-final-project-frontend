@@ -69,7 +69,7 @@ const CatalogPage = () => {
       ),
       center: true,
       minWidth: "245px",
-    },
+    }
   ];
 
   return (

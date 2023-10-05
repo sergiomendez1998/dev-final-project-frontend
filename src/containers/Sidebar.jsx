@@ -198,7 +198,7 @@ export const Sidebar = () => {
         </motion.div>
       </motion.div>
       <div
-        className="relative z-[995]  m-3 md:hidden"
+        className="absolute z-[995] w-full bg-white p-3 md:hidden"
         onClick={() => setOpen(true)}
       >
         <MdMenu size={25} />
