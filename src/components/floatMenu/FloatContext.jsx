@@ -14,6 +14,13 @@ import {
   HiTrendingUp,
   HiSaveAs,
 } from "react-icons/hi";
+import {
+  displayCustomerInformation,
+  displayExpedientInformation,
+  displayQRCode,
+  displayRequestGeneralInformation,
+  displayRequestStatuses,
+} from "../../util/alerts";
 
 Modal.setAppElement("#modal");
 
@@ -54,8 +61,8 @@ export const FloatContext = ({ data }) => {
                   ? position.top - 190
                   : position.top + 215
                 : position.top >= 423.5
-                 ? position.top - 190
-                 : position.top + 230
+                ? position.top - 190
+                : position.top + 230
             }px`,
             left: `${width <= 375 ? width - 160 : width - 200}px`,
             right: "auto",
@@ -75,18 +82,38 @@ export const FloatContext = ({ data }) => {
         <h2 className="text-center font-bold">Solicitud: {data.requestCode}</h2>
         <hr className="border border-black" />
         <ListGroup>
-          <ListGroup.Item icon={HiInformationCircle}>
+          <ListGroup.Item
+            icon={HiInformationCircle}
+            onClick={() => displayRequestGeneralInformation(data)}
+          >
             Info. General
           </ListGroup.Item>
           <ListGroup.Item className="text-red-700" icon={HiTrash}>
             Eliminar
           </ListGroup.Item>
           <ListGroup.Item icon={HiInbox}>Muestras</ListGroup.Item>
-          <ListGroup.Item icon={HiLibrary}>Expediente</ListGroup.Item>
-          <ListGroup.Item icon={HiUserCircle}>Contribuyente</ListGroup.Item>
-          <ListGroup.Item icon={HiTrendingUp}>Trazabilidad</ListGroup.Item>
+          <ListGroup.Item
+            icon={HiLibrary}
+            onClick={() => displayExpedientInformation(data)}
+          >
+            Expediente
+          </ListGroup.Item>
+          <ListGroup.Item
+            icon={HiUserCircle}
+            onClick={() => displayCustomerInformation(data)}
+          >
+            Contribuyente
+          </ListGroup.Item>
+          <ListGroup.Item
+            icon={HiTrendingUp}
+            onClick={() => displayRequestStatuses(data)}
+          >
+            Trazabilidad
+          </ListGroup.Item>
           <ListGroup.Item icon={HiSaveAs}>Estado</ListGroup.Item>
-          <ListGroup.Item icon={HiQrcode}>Crear QR</ListGroup.Item>
+          <ListGroup.Item icon={HiQrcode} onClick={() => displayQRCode(data)}>
+            Crear QR
+          </ListGroup.Item>
         </ListGroup>
       </Modal>
     </>

@@ -17,3 +17,21 @@ export const getRequests = async ()=>{
         console.log(error);
     }
 }
+
+export const getStatusesRequest = async (requestId)=>{
+    try {
+        const response = await api.get(`/request/requestStatuses/${requestId}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getGeneralInformationRequest = async (requestId)=>{
+    try {
+        const response = await api.get(`/request/requestGeneralInfo/${requestId}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}

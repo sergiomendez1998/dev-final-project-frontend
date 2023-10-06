@@ -1,3 +1,6 @@
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 export const URL_BASE_APP = import.meta.env.VITE_BASE_URL;
 export const APP_NAME = import.meta.env.VITE_APP_NAME;
 export const IMAGE_PREFIX = import.meta.env.VITE_IMAGE_PREFIX;
@@ -58,3 +61,5 @@ export const SELECTED_MESSAGE = {
   plural: 'Elementos',
   message: 'Seleccionado(s)',
 };
+
+export const Alert = withReactContent(Swal);
