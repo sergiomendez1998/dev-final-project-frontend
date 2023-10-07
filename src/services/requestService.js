@@ -35,3 +35,12 @@ export const getGeneralInformationRequest = async (requestId)=>{
         console.log(error);
     }
 }
+
+export const getExamsRequest = async (requestId)=>{
+    try {
+        const response = await api.get(`/request/exams/${requestId}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}

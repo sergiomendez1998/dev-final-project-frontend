@@ -30,6 +30,7 @@ const CreateUserPage = lazy(() =>
 const EditUserPage = lazy(() =>
   import("../pages/admin/employee/UpdateUserPage"),
 );
+const SamplesPage = lazy(() => import("../pages/admin/request/SamplesPage"));
 
 export const Browser = () => {
   const { isLogedIn } = useAuth();
@@ -78,6 +79,14 @@ export const Browser = () => {
               element={
                 <ProtectedRoute>
                   <RequestPage />
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              path="/request/:id/samples"
+              element={
+                <ProtectedRoute>
+                  <SamplesPage />
                 </ProtectedRoute>
               }
             />

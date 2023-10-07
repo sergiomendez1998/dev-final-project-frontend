@@ -74,7 +74,7 @@ InputForm.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   id: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   error: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func,

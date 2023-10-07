@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
-import { useRef, useState, useEffect } from "react";
-import { ListGroup } from "flowbite-react";
 import Modal from "react-modal";
-import { useWidth } from "../../hooks/useWidth";
+import { ListGroup } from "flowbite-react";
 import { FaEllipsisV } from "react-icons/fa";
 import {
   HiLibrary,
@@ -21,27 +19,13 @@ import {
   displayRequestGeneralInformation,
   displayRequestStatuses,
 } from "../../util/alerts";
+import { AnimatedLink } from "../links/AnimatedLink";
+import { usePosition } from "../../hooks/usePosition";
 
-Modal.setAppElement("#modal");
+Modal.setAppElement("#modal_float_context");
 
 export const FloatContext = ({ data }) => {
-  const { addEventWidth, removeEventWidth, width, scroll } = useWidth();
-  const [open, setOpen] = useState(false);
-  const [position, setPosition] = useState(0);
-  const elementRef = useRef(null);
-
-  useEffect(() => {
-    addEventWidth();
-    if (elementRef.current) {
-      const position = elementRef.current.getBoundingClientRect();
-      setPosition(position);
-    }
-
-    return () => {
-      removeEventWidth();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [width, scroll]);
+  const { elementRef, position, open, setOpen, width } = usePosition();
 
   return (
     <>
@@ -91,7 +75,9 @@ export const FloatContext = ({ data }) => {
           <ListGroup.Item className="text-red-700" icon={HiTrash}>
             Eliminar
           </ListGroup.Item>
-          <ListGroup.Item icon={HiInbox}>Muestras</ListGroup.Item>
+          <AnimatedLink to={`/request/${data.id}/samples`}>
+            <ListGroup.Item icon={HiInbox}>Muestras</ListGroup.Item>
+          </AnimatedLink>
           <ListGroup.Item
             icon={HiLibrary}
             onClick={() => displayExpedientInformation(data)}

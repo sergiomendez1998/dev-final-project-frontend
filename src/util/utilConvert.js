@@ -109,3 +109,23 @@ export const convertToCreateRequest = (data)=>{
     userId: data.id
   }
 }
+
+export const convertToCreateSample = (data)=>{
+  return {
+    label: data.label,
+    presentation: data.presentation,
+    quantity: data.quantity,
+    sampleType: {
+      id: data.sampleType,
+      name: '',
+      description: '',
+    },
+    measureUnit: {
+      id: data.measureUnit,
+      name: '',
+      description: '',
+    },
+    requestDetailId: data.requestDetailId,
+    expirationDate: new Date(data.expirationDate).toISOString(),
+  }
+}
