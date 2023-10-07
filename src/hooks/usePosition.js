@@ -18,7 +18,7 @@ export const usePosition = (element = "#scroll") => {
       removeEventWidth();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [width, scroll]);
+  }, [width, scroll, open]);
 
   return { position, elementRef, open, setOpen, width, main };
 };
