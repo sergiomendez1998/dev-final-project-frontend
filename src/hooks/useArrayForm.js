@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
 
 export const useArrayForm = (initialForm, validateForm, onSubmit) => {
   const [form, setForm] = useState(initialForm);
@@ -23,7 +22,7 @@ export const useArrayForm = (initialForm, validateForm, onSubmit) => {
       [name]: value,
     };
 
-    newForm[idx] = newValue;    
+    newForm[idx] = newValue;
 
     setForm(newForm);
 
@@ -31,7 +30,7 @@ export const useArrayForm = (initialForm, validateForm, onSubmit) => {
   };
 
   const removeList = (e, idx) => {
-    const newForm = form.filter((item, index) => index !== idx);    
+    const newForm = form.filter((item, index) => index !== idx);
     setErrors(validateForm(newForm));
     setForm(newForm);
   };
@@ -41,12 +40,12 @@ export const useArrayForm = (initialForm, validateForm, onSubmit) => {
       ...form[0],
     };
 
-    newValue.uuid = uuidv4();    
-    
+    newValue.uuid = uuidv4();
+
     const newForm = [...form, newValue];
     setErrors(validateForm(newForm));
     setForm(newForm);
-  }
+  };
 
   const handleBlur = (e, idx) => {
     handleChange(e, idx);
@@ -58,7 +57,15 @@ export const useArrayForm = (initialForm, validateForm, onSubmit) => {
     const validationErrors = validateForm(form);
     setErrors(validationErrors);
     setLoading(true);
-    if (validationErrors.length === 0) {
+    const errors = validationErrors
+      .map((error, idx) =>
+        Object.keys(error).length != 0
+          ? `${Object.keys(error).join(" ")} del formulario ${idx + 1}`
+          : "",
+      )
+      .join(" ");
+      
+    if (errors.trim().length === 0) {
       try {
         const response = await onSubmit(form);
         response.successful && setForm(initialForm);
@@ -68,10 +75,10 @@ export const useArrayForm = (initialForm, validateForm, onSubmit) => {
       }
     } else {
       setResponse("");
-      
+
       Swal.fire(
         "Hay errores en el formulario",
-        `tienes ${validationErrors.length} errores`,
+        `tienes que completar los campos ${errors}`,
         "error",
       );
     }
