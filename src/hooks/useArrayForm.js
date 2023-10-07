@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from 'uuid';
+
 
 export const useArrayForm = (initialForm, validateForm, onSubmit) => {
   const [form, setForm] = useState(initialForm);
@@ -35,7 +37,13 @@ export const useArrayForm = (initialForm, validateForm, onSubmit) => {
   };
 
   const addList = () => {
-    const newForm = [...form, form[0]];
+    const newValue = {
+      ...form[0],
+    };
+
+    newValue.uuid = uuidv4();    
+    
+    const newForm = [...form, newValue];
     setErrors(validateForm(newForm));
     setForm(newForm);
   }

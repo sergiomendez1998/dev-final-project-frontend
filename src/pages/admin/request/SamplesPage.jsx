@@ -9,12 +9,14 @@ import { Modal } from "flowbite-react";
 import { SampleForm } from "../../../components/forms/SampleForm";
 import { convertToCreateSample } from "../../../util/utilConvert";
 import { createSample } from "../../../services/sampleService";
+import { v4 as uuidv4 } from 'uuid';
 
 const now = new Date();
 const date = now.toISOString().substring(0, 10);
 
 const initialForm = [
   {
+    uuid: uuidv4(),
     label: "",
     presentation: "",
     quantity: 0,

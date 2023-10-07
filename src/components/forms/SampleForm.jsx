@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Col } from "../grid/Col";
 import { InputForm } from "../inputs/InputForm";
 import { Response } from "../messages/Response";
-import { Button, Card } from "flowbite-react";
+import { Badge, Button, Card } from "flowbite-react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { useQuery } from "@tanstack/react-query";
 import { CATALOGS } from "../../config/constants";
@@ -78,6 +78,7 @@ export const SampleForm = ({ initialForm, sendForm }) => {
                 <FaTrash />
               </span>
             )}
+            <Badge>muestra : {f.uuid}</Badge>
             <article className="flex flex-row flex-wrap">
               <Col sm={12} md={6}>
                 <InputSelect
