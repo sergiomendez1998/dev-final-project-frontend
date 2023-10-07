@@ -19,7 +19,7 @@ const initialForm = [
     uuid: uuidv4(),
     label: "",
     presentation: "",
-    quantity: 0,
+    quantity: '0',
     sampleType: "",
     measureUnit: "",
     requestDetailId: 0,

@@ -52,11 +52,11 @@ export const SupportRequest = ({ form, errors, onChange }) => {
       <Col xs={12} lg={6}>
         <InputForm
           name={"phone"}
-          id={"number"}
-          label={"Telefono"}
+          id={"text"}
+          label={"Telefonos"}
           onChange={onChange}
           placeholder={"Ingrese un numero de telefono"}
-          type={"number"}
+          type={"text"}
           value={form.phone}
           error={errors.phone}
           className={"input-form input-form-internal py-3"}

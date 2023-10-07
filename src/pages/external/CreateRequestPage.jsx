@@ -26,12 +26,29 @@ const initialForm = {
 const validateForm = (form) => {
   const errors = {};
 
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  const number = form.phone.replace(/[^0-9]/g, "");
+  form.phone = number;
+
+  const description = form.description.replace(/[^a-zA-Z\s]/g, "");
+  form.description = description;
+
+  const support = form.noSupport.replace(/[^a-zA-Z0-9]/g, '');
+  form.noSupport = support;
+
   if (form.description === "") {
     errors.description = "El campo descripcion es requerido";
+  } else if (form.description.length >= 100) {
+    form.description = form.description.substring(0, 100);
   }
 
   if (form.email === "") {
     errors.email = "El campo correo electronico es requerido";
+  }else if (!regex.test(form.email)) {
+    errors.email = "El correo no es valido";
+  } else if (form.email.length >= 100) {
+    form.email = form.email.substring(0, 100);
   }
 
   if (form.phone === "") {
@@ -44,10 +61,12 @@ const validateForm = (form) => {
 
   if (form.noSupport === "") {
     errors.noSupport = "El campo no. soporte es requerido";
+  }else if (form.noSupport.length >= 50) {
+    form.noSupport = form.noSupport.substring(0, 50);
   }
 
   if (form.examType.length === 0) {
-     errors.examType = "El detalle de examenes es requerido";
+    errors.examType = "El detalle de examenes es requerido";
   }
 
   if (form.supportType === 0) {

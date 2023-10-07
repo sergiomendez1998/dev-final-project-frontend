@@ -12,11 +12,18 @@ import { InputDateTime } from "../inputs/InputDateTime";
 import { useArrayForm } from "../../hooks/useArrayForm";
 import { FaPlus, FaTrash } from "react-icons/fa";
 
+const now = new Date();
+const date = now.toISOString().substring(0, 10);
+
 const validateForm = (form) => {
   const errors = [];
 
   form.forEach((f, idx) => {
     const error = {};
+
+    const number = f.quantity.replace(/[^0-9]/g, "");
+    f.quantity = number;
+
     if (f.sampleType == 0) {
       error.sampleType = "Selecciona un tipo de muestra";
     }
@@ -25,8 +32,10 @@ const validateForm = (form) => {
     }
     if (!f.presentation) {
       error.presentation = "Ingresa la presentación de la muestra";
+    }else if (f.presentation.length >= 50) {
+      f.presentation = f.presentation.substring(0, 50);
     }
-    if (f.quantity <= 0) {
+    if (parseInt(f.quantity) <= 0) {
       error.quantity = "Ingresa la cantidad de la muestra";
     }
     if (!f.expirationDate) {
@@ -132,7 +141,7 @@ export const SampleForm = ({ initialForm, sendForm }) => {
                   onChange={(e) => handleChange(e, idx)}
                   value={f.quantity}
                   placeholder={"Ingresa la cantidad de la muestra"}
-                  type={"number"}
+                  type={"text"}
                   className="input-form input-form-internal py-3"
                 />
               </Col>
@@ -143,6 +152,8 @@ export const SampleForm = ({ initialForm, sendForm }) => {
                   error={errors[idx]?.expirationDate}
                   value={f.expirationDate}
                   onChange={(e) => handleChange(e, idx)}
+                  readOnly={false}
+                  min={date}
                   className="input-form input-form-internal py-3"
                 />
               </Col>
