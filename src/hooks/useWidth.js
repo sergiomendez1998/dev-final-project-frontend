@@ -1,29 +1,28 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-export const useWidth = () => {
+export const useWidth = (element = "#scroll") => {
   const [width, setWidth] = useState(0);
   const [scroll, setScroll] = useState(0);
+  const main = useRef(document.querySelector(element));
 
   const elemento = document.querySelector("body");
-  const main = document.querySelector("#scroll");
-
   const resScreenResize = () => {
     setWidth(elemento.clientWidth);
   };
 
   const resScreenScroll = () => {
-    setScroll(main.scrollTop);
+    setScroll(main.current.scrollTop);
   }
 
   const addEventWidth = () => {
     resScreenResize();
     window.addEventListener("resize", resScreenResize);
-    main.addEventListener('scroll', resScreenScroll);
+    main.current.addEventListener('scroll', resScreenScroll);
   };
 
   const removeEventWidth = () => {
     window.removeEventListener("resize", resScreenResize);
-    main.removeEventListener('scroll', resScreenScroll);
+    main.current.removeEventListener('scroll', resScreenScroll);
   };
 
   return {
@@ -31,5 +30,6 @@ export const useWidth = () => {
     removeEventWidth,
     width,
     scroll,
+    main, 
   };
 };

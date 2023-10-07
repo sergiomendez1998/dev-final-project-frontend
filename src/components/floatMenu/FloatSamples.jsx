@@ -1,39 +1,27 @@
 import PropTypes from "prop-types";
 import Modal from "react-modal";
-import { ListGroup } from "flowbite-react";
 import { FaEllipsisV } from "react-icons/fa";
+import { ListGroup } from "flowbite-react";
 import {
-  HiLibrary,
   HiInbox,
-  HiUserCircle,
-  HiTrash,
   HiInformationCircle,
   HiQrcode,
-  HiTrendingUp,
-  HiSaveAs,
+  HiTrash,
 } from "react-icons/hi";
-import {
-  displayCustomerInformation,
-  displayExpedientInformation,
-  displayQRCode,
-  displayRequestGeneralInformation,
-  displayRequestStatuses,
-} from "../../util/alerts";
 import { AnimatedLink } from "../links/AnimatedLink";
 import { usePosition } from "../../hooks/usePosition";
 
 Modal.setAppElement("#modal_float_context");
 
-export const FloatContext = ({ data }) => {
-  const { elementRef, position, open, setOpen, width } = usePosition();
-  
+export const FloatSamples = ({ data }) => {
+    const { elementRef, position, open, setOpen, width } = usePosition();
+
   return (
     <>
       <span ref={elementRef} onClick={() => setOpen(!open)}>
         <FaEllipsisV size={25} className="cursor-pointer" />
       </span>
       <Modal
-        id="modalfjañlsdkfjañlsdkj"
         isOpen={open}
         onRequestClose={() => setOpen(!open)}
         contentLabel="Modal"
@@ -42,13 +30,13 @@ export const FloatContext = ({ data }) => {
             top: `${
               width <= 375
                 ? position.top >= 399.5
-                  ? position.top - 190
-                  : position.top + 215
+                  ? position.top - 115
+                  : position.top + 150
                 : position.top >= 423.5
-                ? position.top - 190
-                : position.top + 230
+                ? position.top - 120
+                : position.top + 150
             }px`,
-            left: `${width <= 375 ? width - 160 : width - 200}px`,
+            left: `${width <= 375 ? width - 160 : width - 150}px`,
             right: "auto",
             bottom: "auto",
             marginRight: "-50%",
@@ -63,49 +51,27 @@ export const FloatContext = ({ data }) => {
         }}
         overlayClassName="fixed inset-0 bg-trasparent transition-opacity"
       >
-        <h2 className="text-center font-bold">Solicitud: {data.requestCode}</h2>
+        <h2 className="w-full text-center font-bold">
+          Muestra: {data.sampleType.name}
+        </h2>
         <hr className="border border-black" />
         <ListGroup>
-          <ListGroup.Item
-            icon={HiInformationCircle}
-            onClick={() => displayRequestGeneralInformation(data)}
-          >
+          <ListGroup.Item icon={HiInformationCircle}>
             Info. General
           </ListGroup.Item>
           <ListGroup.Item className="text-red-700" icon={HiTrash}>
             Eliminar
           </ListGroup.Item>
           <AnimatedLink to={`/request/${data.id}/samples`}>
-            <ListGroup.Item icon={HiInbox}>Muestras</ListGroup.Item>
+            <ListGroup.Item icon={HiInbox}>Items</ListGroup.Item>
           </AnimatedLink>
-          <ListGroup.Item
-            icon={HiLibrary}
-            onClick={() => displayExpedientInformation(data)}
-          >
-            Expediente
-          </ListGroup.Item>
-          <ListGroup.Item
-            icon={HiUserCircle}
-            onClick={() => displayCustomerInformation(data)}
-          >
-            Contribuyente
-          </ListGroup.Item>
-          <ListGroup.Item
-            icon={HiTrendingUp}
-            onClick={() => displayRequestStatuses(data)}
-          >
-            Trazabilidad
-          </ListGroup.Item>
-          <ListGroup.Item icon={HiSaveAs}>Estado</ListGroup.Item>
-          <ListGroup.Item icon={HiQrcode} onClick={() => displayQRCode(data)}>
-            Crear QR
-          </ListGroup.Item>
+          <ListGroup.Item icon={HiQrcode}>Crear QR</ListGroup.Item>
         </ListGroup>
       </Modal>
     </>
   );
 };
 
-FloatContext.propTypes = {
+FloatSamples.propTypes = {
   data: PropTypes.object.isRequired,
 };

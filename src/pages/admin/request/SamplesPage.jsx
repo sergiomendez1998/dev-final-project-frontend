@@ -32,7 +32,7 @@ const SamplesPage = () => {
   const [open, setOpen] = useState(false);
   const [idSample, setIdSample] = useState(null);
 
-  const { data, isLoading, isFetching } = useQuery({
+  const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ["request", id],
     queryFn: () => getExamsRequest(id),
   });
@@ -48,6 +48,7 @@ const SamplesPage = () => {
         return convertToCreateSample(f);
     });
     const response = await createSample(info);
+    response.successful && refetch();
     return response;
   };
 
