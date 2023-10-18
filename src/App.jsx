@@ -5,6 +5,8 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Flowbite } from 'flowbite-react';
 import { pageTheme } from './theme/pageTheme';
+import { ToastContainer } from 'react-toastify';
+import { SaleProvider } from './context/SaleContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,13 +19,16 @@ const queryClient = new QueryClient({
 
 const App = () => {
   return (
-    <Flowbite theme={{theme: pageTheme}}>
+    <Flowbite theme={{ theme: pageTheme }}>
       <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <Browser />
-      </Provider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+        <Provider store={store}>
+          <SaleProvider>
+            <Browser />
+            <ToastContainer />
+          </SaleProvider>
+        </Provider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </Flowbite>
   );
 };

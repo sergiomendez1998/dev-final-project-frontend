@@ -12,6 +12,7 @@ import { InputDateTime } from "../inputs/InputDateTime";
 import { useArrayForm } from "../../hooks/useArrayForm";
 import { FaPlus, FaTrash } from "react-icons/fa";
 
+
 const now = new Date();
 const date = now.toISOString().substring(0, 10);
 
@@ -37,6 +38,8 @@ const validateForm = (form) => {
     }
     if (parseInt(f.quantity) <= 0) {
       error.quantity = "Ingresa la cantidad de la muestra";
+    }else if(parseInt(f.quantity) >= 9999){
+      error.quantity = "Ingresa una cantidad menor a 9999";
     }
     if (!f.expirationDate) {
       error.expirationDate = "Ingresa la fecha de expiración";

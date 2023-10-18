@@ -3,14 +3,15 @@ import { Col } from "../grid/Col";
 import { InputSelect } from "../inputs/InputSelect";
 import { InputForm } from "../inputs/InputForm";
 import { useQuery } from "@tanstack/react-query";
-import { getAllCatalogs } from "../../services/catalogService";
-import { CATALOGS } from "../../config/constants";
+import { getSupportTypeCatalogsByUserType } from "../../services/catalogService";
+import { useAuth } from "../../hooks/useAuth";
 
 export const SupportRequest = ({ form, errors, onChange }) => {
-  
+  const { userType } = useAuth();
+
   const { data } = useQuery({
-    queryFn: () => getAllCatalogs(CATALOGS.supportType),
-    queryKey: ["catalog", CATALOGS.supportType],
+    queryFn: () => getSupportTypeCatalogsByUserType(userType),
+    queryKey: ["catalog", userType],
   });
   return (
     <>
@@ -31,7 +32,7 @@ export const SupportRequest = ({ form, errors, onChange }) => {
           error={errors.supportType}
           data={data ?? []}
           idField={"name"}
-          nameField={"name"}
+          nameField={"description"}
           unSelectedValue={0}
           className={"input-form input-form-internal py-3"}
         />

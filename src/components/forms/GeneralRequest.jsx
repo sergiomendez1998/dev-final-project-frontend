@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Col } from "../grid/Col";
-import { IoIosPeople, IoIosAdd, IoIosTrash } from "react-icons/io";
+import { IoIosPeople, IoIosAdd } from "react-icons/io";
 import { InputSelect } from "../inputs/InputSelect";
 import { InputForm } from "../inputs/InputForm";
 import { useAuth } from "../../hooks/useAuth";
@@ -10,17 +10,19 @@ import { getAllCatalogs } from "../../services/catalogService";
 import { CATALOGS } from "../../config/constants";
 import { Button } from "flowbite-react";
 import { Row } from "../grid/Row";
-import Swal from "sweetalert2";
+import { useSale } from "../../hooks/useSale";
+import { toast } from "react-toastify";
 
 export const GeneralRequest = ({
   form,
   errors,
   onChange,
-  changeList,
-  removeList,
 }) => {
-  const { name } = useAuth();
-  const [examType, setExamType] = useState("");
+  const { name, nit } = useAuth();
+  const { addProduct } = useSale();
+  const [examType, setExamType] = useState({});
+  const [itemType, setItemType] = useState(null);
+  const [itemsType, setItemsType] = useState([]);
 
   const { data } = useQuery({
     queryFn: () => getAllCatalogs(CATALOGS.testType),
@@ -28,8 +30,13 @@ export const GeneralRequest = ({
   });
 
   const handleChange = (e) => {
-    setExamType(e.target.value);
+    setExamType(data.find((item) => item.name == e.target.value));
+    setItemsType(data.find((item) => item.name == e.target.value).items)
   };
+
+  const handleChangeitem = (e) => {
+    setItemType(itemsType.find((item) => item.name == e.target.value));
+  }
 
   return (
     <>
@@ -47,7 +54,7 @@ export const GeneralRequest = ({
         </Col>
         <Col md={9} className={"my-auto"}>
           <p>
-            <span className="font-bold">Nit:</span> 0000000000
+            <span className="font-bold">Nit:</span> {nit}
           </p>
           <p>
             <span className="font-bold">Nombre:</span> {name}
@@ -78,7 +85,22 @@ export const GeneralRequest = ({
             data={data ?? []}
             idField={"name"}
             nameField={"name"}
-            value={examType}
+            value={examType?.name}
+            unSelectedValue={0}
+            className={"input-form input-form-internal py-3"}
+          />
+        </Col>
+        <Col md={6} sm={12}>
+          <InputSelect
+            name={"itemsType"}
+            id={"items"}
+            label={"Items disponibles"}
+            onChange={handleChangeitem}
+            placeholder={"selecciona un item"}
+            data={itemsType ?? []}
+            idField={"name"}
+            nameField={"name"}
+            value={itemType?.name}
             unSelectedValue={0}
             className={"input-form input-form-internal py-3"}
           />
@@ -86,15 +108,12 @@ export const GeneralRequest = ({
         <Col md={6} sm={12}>
           <Button
             color="success"
-            className="mt-2 h-12 font-bold md:mt-12"
+            className="mt-2 h-12 font-bold"
             onClick={() => {
-              examType != 0
-                ? changeList("examType", { name: examType })
-                : Swal.fire(
-                    "Hay errores en el formulario",
-                    `Porfavor seleccione un tipo de solicitud`,
-                    "error",
-                  );
+              itemType != null
+                ? addProduct(itemType)
+                : toast.error("seleccione un tipo de examen"
+                );
             }}
             fullSized
           >
@@ -102,41 +121,6 @@ export const GeneralRequest = ({
           </Button>
         </Col>
       </Row>
-      <p className={"ms-2 font-bold text-red-600"}>{errors.examType}</p>
-      <Col md={12}>
-        <div className="flow-root">
-          <ul>
-            {form.examType?.map((item, index) => (
-              <li
-                key={index}
-                className="my-2 rounded-xl border border-black p-4"
-              >
-                <div className="flex items-center space-x-4">
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-bold text-gray-900 dark:text-white ">
-                      {item.name}
-                    </p>
-                  </div>
-                  <Button
-                    color="failure"
-                    size={"sm"}
-                    onClick={() => removeList("examType", item)}
-                  >
-                    <IoIosTrash size={15} />
-                  </Button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Col>
-      <Col>
-        <div className="mt-10">
-          <p>
-            <span className="font-bold">No Solicitud:</span> 0000000000
-          </p>
-        </div>
-      </Col>
     </>
   );
 };

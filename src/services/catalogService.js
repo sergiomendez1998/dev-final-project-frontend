@@ -4,11 +4,22 @@ import { api } from "../apis/usersApi";
 export const getAllCatalogs = async (catalogType) => {
   try {
     const response = await api.get(`/catalog?catalogType=${catalogType}`);
-    return response.data;
+    return response.data
   } catch (error) {
     console.log(error);
   }
 };
+
+export const getSupportTypeCatalogsByUserType = async (userType) => {
+  try {
+    const response = await api.get(`/catalog/supportType/${userType}`);
+    return response;
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
 
 export const createCatalog = async (catalog) => {
   try {
@@ -52,15 +63,15 @@ export const deleteCatalog = async (catalog) => {
 
     response.successful
       ? Swal.fire({
-          icon: "success",
-          title: "Eliminado",
-          text: "Se ha eliminado el registro",
-        })
+        icon: "success",
+        title: "Eliminado",
+        text: "Se ha eliminado el registro",
+      })
       : Swal.fire({
-          icon: "error",
-          title: response.message,
-          text: "No se ha podido eliminar el registro",
-        });
+        icon: "error",
+        title: response.message,
+        text: "No se ha podido eliminar el registro",
+      });
 
     return response;
   } catch (error) {

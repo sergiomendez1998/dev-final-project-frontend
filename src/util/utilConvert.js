@@ -55,7 +55,7 @@ export const convertToEmployeeRegister = (data) => {
 export const convertToEmployeeUpdate = (data) => {
   return {
     firstName: data.firstName,
-    lastName: data.lastName,    
+    lastName: data.lastName,
     user: {
       id: data.userId,
       email: data.email,
@@ -90,16 +90,16 @@ export const convertToEmployee = (data) => {
   }
 };
 
-export const convertToCreateRequest = (data)=>{
+export const convertToCreateRequest = (data) => {
   return {
     supportNumber: data.noSupport,
     email: data.email,
     remark: data.description,
-    examType: data.examType.map(exam => {
+    items: data.examType.map(exam => {
       return {
-        id: 0,
+        id: exam.id,
         name: exam.name,
-        description: '',
+        description: exam.description,
       }
     }),
     supportType: {
@@ -110,7 +110,7 @@ export const convertToCreateRequest = (data)=>{
   }
 }
 
-export const convertToCreateSample = (data)=>{
+export const convertToCreateSample = (data) => {
   return {
     label: data.label,
     presentation: data.presentation,
