@@ -59,7 +59,14 @@ export const displayQRCode = (data) => {
           value={JSON.stringify(data, null, 2)}
         />
         <PDFDownloadLink
-          document={<QRCodeDocument id={"RequestQRCode"} data={data} />}
+          document={
+            <QRCodeDocument
+              id={"RequestQRCode"}
+              data={data}
+              title={"Solicitud"}
+              field="requestCode"
+            />
+          }
           fileName="qrcode.pdf"
         >
           {({ loading }) =>
@@ -93,8 +100,6 @@ export const displayRequestGeneralInformation = (data) => {
     confirmButtonText: `Aceptar`,
     confirmButtonColor: "#1D4ED8",
     icon: "info",
-    html: (
-      <GeneralInformation data={data} />
-    ),
+    html: <GeneralInformation data={data} />,
   });
 };

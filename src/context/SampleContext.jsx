@@ -1,12 +1,9 @@
-import { createContext } from "react";
+import { createContext, } from "react";
 
 export const SampleContextProps = {
-  elementRef : undefined,
-  position : {},
-  open : false,
-  setOpen : ()=>{},
-  width : undefined,
-  main : undefined,
+  itemOpen: false,
+  setItemOpen: () => { },
+  setSelectedSample: () => { },
 };
 
 export const SampleContext = createContext(SampleContextProps);

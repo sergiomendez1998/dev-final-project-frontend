@@ -27,36 +27,40 @@ const styles = StyleSheet.create({
   }
 });
 
-function QRCodePage({ id, data }) {
+function QRCodePage({ id, data, title, field }) {
   const dataUrl = document.getElementById(id).toDataURL();
   return (
     <Page key={`page_${id}`} size="B8" style={styles.page}>
       <View style={styles.view}>
         <Text style={styles.title}>Codigo QR</Text>
         <Image allowDangerousPaths src={dataUrl} style={styles.qrImage} />
-        <Text style={styles.text}>Solicitud: {data.requestCode}</Text>
+        <Text style={styles.text}>{title ?? "Solicitud:"} {data[field]}</Text>
       </View>
     </Page>
   );
 }
 
 QRCodePage.propTypes = {
-    id: PropTypes.string.isRequired,
-    data: PropTypes.object.isRequired
+  id: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  title: PropTypes.string,
+  field: PropTypes.string.isRequired
 };
 
 
 
-export const QRCodeDocument = ({ id, data }) => {
+export const QRCodeDocument = ({ id, data, title, field }) => {
   return (
     <Document>
-      <QRCodePage id={id} data={data} />
+      <QRCodePage id={id} data={data} title={title} field={field} />
     </Document>
   );
 }
 
 QRCodeDocument.propTypes = {
-    id: PropTypes.string.isRequired,
-    data: PropTypes.object.isRequired
+  id: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  title: PropTypes.string,
+  field: PropTypes.string.isRequired
 };
 

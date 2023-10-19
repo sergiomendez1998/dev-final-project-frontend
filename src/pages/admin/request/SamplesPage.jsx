@@ -2,14 +2,16 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { HeaderPage } from "../../../components/layout/HeaderPage";
 import { useQuery } from "@tanstack/react-query";
-import { getExamsRequest } from "../../../services/requestService";
+import { getSampleRequest } from "../../../services/requestService";
 import { SampleContainer } from "../../../containers/request/SampleContainer";
-import { LoadingComponent } from "../../../components/loading/LoadingComponent";
 import { Modal } from "flowbite-react";
 import { SampleForm } from "../../../components/forms/SampleForm";
 import { convertToCreateSample } from "../../../util/utilConvert";
 import { createSample } from "../../../services/sampleService";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import { ButtonBack } from "../../../components/buttons/ButtonBack";
+import { SampleContext } from "../../../context/SampleContext";
+import { ItemsAssigment } from "../../../containers/sample/ItemsAssigment";
 
 const now = new Date();
 const date = now.toISOString().substring(0, 10);
@@ -19,7 +21,7 @@ const initialForm = [
     uuid: uuidv4(),
     label: "",
     presentation: "",
-    quantity: '0',
+    quantity: "0",
     sampleType: "",
     measureUnit: "",
     requestDetailId: 0,
@@ -30,44 +32,79 @@ const initialForm = [
 const SamplesPage = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
-  const [idSample, setIdSample] = useState(null);
+  const [itemOpen, setItemOpen] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedSample, setSelectedSample] = useState({});
 
   const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ["request", id],
-    queryFn: () => getExamsRequest(id),
+    queryFn: () => getSampleRequest(id),
   });
 
-  const handleOpen = (id) => {
-    setOpen(true);
-    setIdSample(id);
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+
+  const handleItemToggle = () => {
+    setItemOpen(!itemOpen);
   };
 
   const sendForm = async (form) => {
     const info = form.map((f) => {
-        f.requestDetailId = idSample;
-        return convertToCreateSample(f);
+      return convertToCreateSample(f);
     });
-    const response = await createSample(info);
+
+    const requestSample = {
+      requestId: id,
+      data: info,
+    };
+
+    const response = await createSample(requestSample);
     response.successful && refetch();
     return response;
   };
 
   return (
-    <section>
-      <HeaderPage title={"Asignacion de Muestras"} pref={"Crear"} />
-      <h2 className="my-2 text-center text-2xl font-bold">
-        Tipos de examenes existentes
-      </h2>
-      {isLoading || isFetching ? (
-        <LoadingComponent />
-      ) : (
-        <SampleContainer data={data} onOpen={handleOpen} />
-      )}
-      <Modal className="z-[1000]" show={open} size={'3xl'} onClose={() => setOpen(!open)}>
-        <Modal.Header>Asignacion a detalle {idSample}</Modal.Header>
-        <SampleForm initialForm={initialForm} sendForm={sendForm} />
-      </Modal>
-    </section>
+    <SampleContext.Provider
+      value={{ itemOpen, setItemOpen: handleItemToggle, setSelectedSample }}
+    >
+      <div>
+        <HeaderPage title={"Creacion de Muestras"} pref={"Crear"} />
+        <ButtonBack />
+        <h2 className="my-2 text-center text-2xl font-bold">
+          Muestras Existentes
+        </h2>
+        <SampleContainer
+          data={data}
+          isLoading={isLoading || isFetching}
+          onToggle={handleToggle}
+        />
+        <Modal
+          className="z-[1000]"
+          show={open}
+          size={"3xl"}
+          onClose={handleToggle}
+        >
+          <Modal.Header>Asignacion a detalle</Modal.Header>
+          <SampleForm initialForm={initialForm} sendForm={sendForm} />
+        </Modal>
+        <Modal
+          className="z-[1000]"
+          show={itemOpen}
+          size={"3xl"}
+          onClose={handleItemToggle}
+        >
+          <Modal.Header>Asignacion de muestras</Modal.Header>
+          <ItemsAssigment
+            selectedItems={selectedItems}
+            selectedSample={selectedSample}
+            setSelectedItems={setSelectedItems}
+            refetchRequest={refetch}
+            requestId={id}
+          />
+        </Modal>
+      </div>
+    </SampleContext.Provider>
   );
 };
 

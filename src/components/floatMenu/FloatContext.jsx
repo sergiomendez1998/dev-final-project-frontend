@@ -18,7 +18,7 @@ import {
   displayQRCode,
   displayRequestGeneralInformation,
   displayRequestStatuses,
-} from "../../util/alerts";
+} from "../../util/alertsForRequest";
 import { AnimatedLink } from "../links/AnimatedLink";
 import { usePosition } from "../../hooks/usePosition";
 
@@ -26,7 +26,8 @@ Modal.setAppElement("#modal_float_context");
 
 export const FloatContext = ({ data }) => {
   const { elementRef, position, open, setOpen, width } = usePosition();
-  
+
+
   return (
     <>
       <span ref={elementRef} onClick={() => setOpen(!open)}>
@@ -39,15 +40,14 @@ export const FloatContext = ({ data }) => {
         contentLabel="Modal"
         style={{
           content: {
-            top: `${
-              width <= 375
-                ? position.top >= 399.5
-                  ? position.top - 190
-                  : position.top + 215
-                : position.top >= 423.5
+            top: `${width <= 375
+              ? position.top >= 399.5
+                ? position.top - 190
+                : position.top + 215
+              : position.top >= 370
                 ? position.top - 190
                 : position.top + 230
-            }px`,
+              }px`,
             left: `${width <= 375 ? width - 160 : width - 200}px`,
             right: "auto",
             bottom: "auto",

@@ -3,7 +3,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { URL_BASE_APP } from "../config/constants.js";
 import { LoadingPage } from "../pages/LoadingPage";
-import RequestPage from "../pages/admin/request/RequestPage";
+
 
 const LoginPage = lazy(() => import("../pages/auth/LoginPage"));
 const RegisterPage = lazy(() => import("../pages/auth/RegisterPage"));
@@ -31,6 +31,7 @@ const EditUserPage = lazy(() =>
   import("../pages/admin/employee/UpdateUserPage"),
 );
 const SamplesPage = lazy(() => import("../pages/admin/request/SamplesPage"));
+const RequestPage = lazy(() => import("../pages/admin/request/RequestPage"));
 
 export const Browser = () => {
   const { isLogedIn } = useAuth();
@@ -82,7 +83,7 @@ export const Browser = () => {
                 </ProtectedRoute>
               }
             />
-             <Route
+            <Route
               path="/request/:id/samples"
               element={
                 <ProtectedRoute>

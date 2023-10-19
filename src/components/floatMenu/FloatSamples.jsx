@@ -8,13 +8,16 @@ import {
   HiQrcode,
   HiTrash,
 } from "react-icons/hi";
-import { AnimatedLink } from "../links/AnimatedLink";
 import { usePosition } from "../../hooks/usePosition";
+import { useContext } from "react";
+import { SampleContext } from "../../context/SampleContext";
+import { displayQRCode, displaySampleGeneralInformation } from "../../util/alertsForSample";
 
 Modal.setAppElement("#modal_float_context");
 
 export const FloatSamples = ({ data }) => {
-    const { elementRef, position, open, setOpen, width } = usePosition();
+  const { elementRef, position, open, setOpen, width } = usePosition();
+  const { setItemOpen, setSelectedSample } = useContext(SampleContext);
 
   return (
     <>
@@ -27,15 +30,14 @@ export const FloatSamples = ({ data }) => {
         contentLabel="Modal"
         style={{
           content: {
-            top: `${
-              width <= 375
-                ? position.top >= 399.5
-                  ? position.top - 115
-                  : position.top + 150
-                : position.top >= 423.5
+            top: `${width <= 375
+              ? position.top >= 399.5
+                ? position.top - 115
+                : position.top + 150
+              : position.top >= 423.5
                 ? position.top - 120
                 : position.top + 150
-            }px`,
+              }px`,
             left: `${width <= 375 ? width - 160 : width - 150}px`,
             right: "auto",
             bottom: "auto",
@@ -56,16 +58,22 @@ export const FloatSamples = ({ data }) => {
         </h2>
         <hr className="border border-black" />
         <ListGroup>
-          <ListGroup.Item icon={HiInformationCircle}>
+          <ListGroup.Item icon={HiInformationCircle} onClick={() => displaySampleGeneralInformation(data)}>
             Info. General
           </ListGroup.Item>
           <ListGroup.Item className="text-red-700" icon={HiTrash}>
             Eliminar
           </ListGroup.Item>
-          <AnimatedLink to={`/request/${data.id}/samples`}>
-            <ListGroup.Item icon={HiInbox}>Items</ListGroup.Item>
-          </AnimatedLink>
-          <ListGroup.Item icon={HiQrcode}>Crear QR</ListGroup.Item>
+          <ListGroup.Item
+            icon={HiInbox}
+            onClick={() => {
+              setItemOpen();
+              setSelectedSample(data);
+            }}
+          >
+            Items
+          </ListGroup.Item>
+          <ListGroup.Item icon={HiQrcode} onClick={() => displayQRCode(data)}>Crear QR</ListGroup.Item>
         </ListGroup>
       </Modal>
     </>

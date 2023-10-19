@@ -125,7 +125,31 @@ export const convertToCreateSample = (data) => {
       name: '',
       description: '',
     },
-    requestDetailId: data.requestDetailId,
     expirationDate: new Date(data.expirationDate).toISOString(),
+  }
+}
+
+export const convertToItemsSelect = (data) => {
+  return Object.entries(data).map(([key, value]) => {
+    return {
+      label: key,
+      options: value.map((v) => {
+        return {
+          value: v.id,
+          label: v.itemWrapper.name,
+        };
+      }),
+    };
+  });
+}
+
+export const convertToGeneralInfoSample = (data) => {
+  return {
+    Id: data.id,
+    "Unidad de medida": data.measureUnit.description,
+    "Presentación:": data.presentation,
+    Tipo: data.sampleType.name,
+    Cantidad: data.quantity,
+    Items: data.items.length,
   }
 }

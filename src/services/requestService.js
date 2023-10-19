@@ -1,6 +1,6 @@
 import { api } from "../apis/usersApi"
 
-export const createRequest = async (request)=>{
+export const createRequest = async (request) => {
     try {
         const response = await api.post('/request', request);
         return response;
@@ -9,7 +9,7 @@ export const createRequest = async (request)=>{
     }
 }
 
-export const getRequests = async ()=>{
+export const getRequests = async () => {
     try {
         const response = await api.get('/request');
         return response.data;
@@ -18,7 +18,7 @@ export const getRequests = async ()=>{
     }
 }
 
-export const getStatusesRequest = async (requestId)=>{
+export const getStatusesRequest = async (requestId) => {
     try {
         const response = await api.get(`/request/requestStatuses/${requestId}`);
         return response.data;
@@ -27,7 +27,7 @@ export const getStatusesRequest = async (requestId)=>{
     }
 }
 
-export const getGeneralInformationRequest = async (requestId)=>{
+export const getGeneralInformationRequest = async (requestId) => {
     try {
         const response = await api.get(`/request/requestGeneralInfo/${requestId}`);
         return response.data;
@@ -36,10 +36,19 @@ export const getGeneralInformationRequest = async (requestId)=>{
     }
 }
 
-export const getExamsRequest = async (requestId)=>{
+export const getSampleRequest = async (requestId) => {
     try {
-        const response = await api.get(`/request/exams/${requestId}`);
-        return response.data;
+        const response = await api.get(`/request/samples/${requestId}`);
+        return response
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getItemsRequest = async (requestId) => {
+    try {
+        const response = await api.get(`/request/items/${requestId}`);
+        return response;
     } catch (error) {
         console.log(error);
     }
