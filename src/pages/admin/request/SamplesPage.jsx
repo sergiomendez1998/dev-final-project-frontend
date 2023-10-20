@@ -66,7 +66,7 @@ const SamplesPage = () => {
 
   return (
     <SampleContext.Provider
-      value={{ itemOpen, setItemOpen: handleItemToggle, setSelectedSample }}
+      value={{ itemOpen, setItemOpen: handleItemToggle, setSelectedSample, id }}
     >
       <div>
         <HeaderPage title={"Creacion de Muestras"} pref={"Crear"} />

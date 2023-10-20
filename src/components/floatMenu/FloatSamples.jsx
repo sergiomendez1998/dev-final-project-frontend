@@ -6,12 +6,15 @@ import {
   HiInbox,
   HiInformationCircle,
   HiQrcode,
-  HiTrash,
 } from "react-icons/hi";
 import { usePosition } from "../../hooks/usePosition";
 import { useContext } from "react";
 import { SampleContext } from "../../context/SampleContext";
-import { displayQRCode, displaySampleGeneralInformation } from "../../util/alertsForSample";
+import {
+  displayQRCode,
+  displaySampleGeneralInformation,
+} from "../../util/alertsForSample";
+import { ItemDeleteSample } from "../buttons/ItemDeleteSample";
 
 Modal.setAppElement("#modal_float_context");
 
@@ -58,12 +61,13 @@ export const FloatSamples = ({ data }) => {
         </h2>
         <hr className="border border-black" />
         <ListGroup>
-          <ListGroup.Item icon={HiInformationCircle} onClick={() => displaySampleGeneralInformation(data)}>
+          <ListGroup.Item
+            icon={HiInformationCircle}
+            onClick={() => displaySampleGeneralInformation(data)}
+          >
             Info. General
           </ListGroup.Item>
-          <ListGroup.Item className="text-red-700" icon={HiTrash}>
-            Eliminar
-          </ListGroup.Item>
+          <ItemDeleteSample data={data} />
           <ListGroup.Item
             icon={HiInbox}
             onClick={() => {
@@ -73,7 +77,9 @@ export const FloatSamples = ({ data }) => {
           >
             Items
           </ListGroup.Item>
-          <ListGroup.Item icon={HiQrcode} onClick={() => displayQRCode(data)}>Crear QR</ListGroup.Item>
+          <ListGroup.Item icon={HiQrcode} onClick={() => displayQRCode(data)}>
+            Crear QR
+          </ListGroup.Item>
         </ListGroup>
       </Modal>
     </>

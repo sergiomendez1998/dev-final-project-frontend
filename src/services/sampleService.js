@@ -29,8 +29,17 @@ export const assigmentItems = async (data) => {
 
 export const disAssigmentItems = async (data) => {
   try {
-    console.log(data)
     const response = await api.put(`/sample/disassociate-item/${data.sampleId}?itemId=${data.itemId}`);
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const deleteSample = async (sampleId) => {
+  try {
+    const response = await api.put(`/sample/delete/${sampleId}`);
 
     return response;
   } catch (error) {
