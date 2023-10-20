@@ -54,7 +54,7 @@ export const GeneralRequest = ({
         </Col>
         <Col md={9} className={"my-auto"}>
           <p>
-            <span className="font-bold">Nit:</span> {nit}
+            <span className="font-bold">{nit || nit != '' ? `NIT: ${nit}` : "Usuario Interno"}</span>
           </p>
           <p>
             <span className="font-bold">Nombre:</span> {name}

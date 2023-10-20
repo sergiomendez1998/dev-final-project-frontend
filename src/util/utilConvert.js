@@ -91,22 +91,28 @@ export const convertToEmployee = (data) => {
 };
 
 export const convertToCreateRequest = (data) => {
-  return {
-    supportNumber: data.noSupport,
-    email: data.email,
-    remark: data.description,
-    items: data.examType.map(exam => {
-      return {
-        id: exam.id,
-        name: exam.name,
-        description: exam.description,
-      }
-    }),
-    supportType: {
-      id: 0,
-      name: data.supportType,
-    },
-    userId: data.id
+  try {
+    return {
+      supportNumber: data.supportNumber,
+      email: data.email,
+      remark: data.description,
+      items: data.examType.map(exam => {
+        return {
+          id: exam.id,
+          name: exam.name,
+          description: exam.description,
+        }
+      }),
+      supportType: {
+        id: 0,
+        name: data.supportType,
+      },
+      userId: data.id,
+      customerCui: data.customerCui,
+    }
+  } catch (error) {
+    console.log(error)
+    return data
   }
 }
 

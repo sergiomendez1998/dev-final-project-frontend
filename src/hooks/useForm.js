@@ -55,7 +55,7 @@ export const useForm = (initialForm, validateForm, onSubmit) => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         const response = await onSubmit(form);
-        response.successful && setForm(initialForm);
+        response.successful ? setForm(initialForm) : setErrors(response.errors ?? {});
         setResponse(response);
       } catch (error) {
         console.log(error);

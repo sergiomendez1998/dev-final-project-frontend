@@ -140,6 +140,14 @@ export const Browser = () => {
               }
             />
             <Route
+              path="/customer/register"
+              element={
+                <ProtectedRoute>
+                  <RegisterPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="*"
               element={
                 <NotFoundPage Message={"Pagina No Existe"} Number={404} />

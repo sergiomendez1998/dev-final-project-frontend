@@ -5,21 +5,34 @@ import { InputForm } from "../inputs/InputForm";
 import { useQuery } from "@tanstack/react-query";
 import { getSupportTypeCatalogsByUserType } from "../../services/catalogService";
 import { useAuth } from "../../hooks/useAuth";
+import { USER_TYPES } from "../../config/constants";
+import { Button } from "flowbite-react";
 
-export const SupportRequest = ({ form, errors, onChange }) => {
+export const SupportRequest = ({ form, errors, onChange, onVerify }) => {
   const { userType } = useAuth();
 
   const { data } = useQuery({
     queryFn: () => getSupportTypeCatalogsByUserType(userType),
     queryKey: ["catalog", userType],
   });
+
+
   return (
     <>
-      <Col xs={12} lg={12}>
-        <h3 className="text-xl font-bold">Soporte</h3>
-        <p className="text-slate-400">
-          Puedes editar tu informacion de contacto si es necesario
-        </p>
+      <Col xs={12} lg={12} className="flex flex-wrap">
+        <Col sm={12} lg={6}>
+          <h3 className="text-xl font-bold">Soporte</h3>
+          <p className="text-slate-400">
+            Puedes editar tu informacion de contacto si es necesario
+          </p>
+        </Col>
+        {form.customerCui != "" && form.customerCui.length == 13 && (
+          <Col sm={12} lg={6}>
+            <Button fullSized className="mt-2 md:mt-4" onClick={onVerify}>
+              Verificar si tiene Cuenta
+            </Button>
+          </Col>
+        )}
       </Col>
       <Col xs={12} lg={6}>
         <InputSelect
@@ -29,7 +42,7 @@ export const SupportRequest = ({ form, errors, onChange }) => {
           onChange={onChange}
           placeholder={"Selecciona tipo soporte"}
           value={form.supportType}
-          error={errors.supportType}
+          error={errors?.supportType}
           data={data ?? []}
           idField={"name"}
           nameField={"description"}
@@ -52,30 +65,32 @@ export const SupportRequest = ({ form, errors, onChange }) => {
       </Col>
       <Col xs={12} lg={6}>
         <InputForm
-          name={"phone"}
-          id={"text"}
-          label={"Telefonos"}
-          onChange={onChange}
-          placeholder={"Ingrese un numero de telefono"}
-          type={"text"}
-          value={form.phone}
-          error={errors.phone}
-          className={"input-form input-form-internal py-3"}
-        />
-      </Col>
-      <Col xs={12} lg={6}>
-        <InputForm
-          name={"noSupport"}
-          id={"noSupport"}
+          name={"supportNumber"}
+          id={"supportNumber"}
           label={"No. Soporte"}
           onChange={onChange}
           placeholder={"Ingrese no. soporte"}
           type={"text"}
-          value={form.noSupport}
-          error={errors.noSupport}
+          value={form.supportNumber}
+          error={errors.supportNumber}
           className={"input-form input-form-internal py-3"}
         />
       </Col>
+      {userType == USER_TYPES.internal && (
+        <Col xs={12} lg={6}>
+          <InputForm
+            name={"customerCui"}
+            id={"text"}
+            label={"CUI del cliente"}
+            onChange={onChange}
+            placeholder={"Ingrese un numero de cui"}
+            type={"text"}
+            value={form.customerCui}
+            error={errors.customerCui}
+            className={"input-form input-form-internal py-3"}
+          />
+        </Col>
+      )}
     </>
   );
 };
@@ -84,4 +99,5 @@ SupportRequest.propTypes = {
   form: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  onVerify: PropTypes.func.isRequired,
 };

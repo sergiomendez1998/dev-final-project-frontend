@@ -17,6 +17,9 @@ import { FaCashRegister, FaShoppingCart, FaTrash } from "react-icons/fa";
 import { Drawer } from "../../containers/Drawer";
 import { useSale } from "../../hooks/useSale";
 import { AiOutlineLoading } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { vertifyCustomer } from "../../services/customerService";
+import { useNavigate } from "react-router-dom";
 
 const initialForm = {
   examType: [],
@@ -24,8 +27,8 @@ const initialForm = {
   noRequest: 0,
   supportType: 0,
   email: "",
-  phone: "",
-  noSupport: "",
+  supportNumber: "",
+  customerCui: "",
 };
 
 const validateForm = (form) => {
@@ -33,14 +36,14 @@ const validateForm = (form) => {
 
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  const number = form.phone.replace(/[^0-9]/g, "");
-  form.phone = number;
-
   const description = form.description.replace(/[^a-zA-Z\s]/g, "");
   form.description = description;
 
-  const support = form.noSupport.replace(/[^a-zA-Z0-9]/g, "");
-  form.noSupport = support;
+  const support = form.supportNumber.replace(/[^a-zA-Z0-9]/g, "");
+  form.supportNumber = support;
+
+  const cui = form.customerCui.replace(/[^0-9]/g, "");
+  form.customerCui = cui;
 
   if (form.description === "") {
     errors.description = "El campo descripcion es requerido";
@@ -56,28 +59,29 @@ const validateForm = (form) => {
     form.email = form.email.substring(0, 100);
   }
 
-  if (form.phone === "") {
-    errors.phone = "El campo telefono es requerido";
-  } else if (form.phone.trim().length < 8) {
-    errors.phone = "El campo telefono debe tener 8 digitos";
-  } else if (form.phone.trim().length > 8) {
-    form.phone = form.phone.substring(0, 8);
-  }
-
-  if (form.noSupport === "") {
-    errors.noSupport = "El campo no. soporte es requerido";
-  } else if (form.noSupport.length >= 50) {
-    form.noSupport = form.noSupport.substring(0, 50);
+  if (form.supportNumber === "") {
+    errors.supportNumber = "El campo no. soporte es requerido";
+  } else if (form.supportNumber.length >= 50) {
+    form.supportNumber = form.supportNumber.substring(0, 50);
   }
 
   if (form.supportType === 0) {
     errors.supportType = "El campo tipo de soporte es requerido";
   }
 
+  if (form.customerCui != "") {
+    if (form.customerCui.length < 13) {
+      errors.customerCui = "El campo CUI debe tener 13 caracteres";
+    } else if (form.customerCui.length >= 13) {
+      form.customerCui = form.customerCui.substring(0, 13);
+    }
+  }
+
   return errors;
 };
 
 const CreateRequestPage = () => {
+  const navigate = useNavigate();
   const { userId, email, name } = useAuth();
   const { cart, getTotal, clearCart, removeProduct } = useSale();
   const [currentStep, setCurrentStep] = useState(1);
@@ -94,10 +98,35 @@ const CreateRequestPage = () => {
     }
   };
 
+  const onVerify = async () => {
+    const response = await vertifyCustomer(form.customerCui);
+    response
+      ? toast.success("El cliente tiene cuenta")
+      : toast.error(
+        <div>
+          El cliente no tiene cuenta <br />
+          <Button fullSized className="mt-2 md:mt-4" onClick={() => navigate("/customer/register")}>
+            Crear Cuenta
+          </Button>
+        </div>,
+      );
+
+    return response;
+  };
+
   const request = async (form) => {
     form.id = userId;
     form.examType = cart;
     const converted = convertToCreateRequest(form);
+    const verif = await onVerify();
+
+    if (!verif) {
+      return {
+        successful: false,
+        message: "Solicitud cancelada",
+      };
+    }
+
     const result = await Swal.fire({
       title: "Desea crear la solicitud?",
       text: "al confirmar se creara la solicitud",
@@ -121,7 +150,7 @@ const CreateRequestPage = () => {
       setCurrentStep(currentStep + 1);
       clearCart();
     } else {
-      Swal.fire("Error al crear solicitud", data.message, "error");
+      Swal.fire("Error al crear solicitud", data.message ?? "upss!", "error");
     }
 
     return data;
@@ -148,7 +177,14 @@ const CreateRequestPage = () => {
         removeList={removeList}
       />
     ),
-    2: <SupportRequest form={form} errors={errors} onChange={handleChange} />,
+    2: (
+      <SupportRequest
+        form={form}
+        errors={errors}
+        onChange={handleChange}
+        onVerify={onVerify}
+      />
+    ),
     3: <CompleteForm />,
   };
 
@@ -177,7 +213,7 @@ const CreateRequestPage = () => {
       <form className="flex flex-col items-center" onSubmit={sendForm}>
         <Row className="w-full rounded-xl p-10 shadow-[0px_20px_20px_10px_#00000024] md:w-3/4">
           {response && (
-            <Response message={response.message} type={response.successful} />
+            <Response message={response.message ?? "error al crear solicitud"} type={response.successful} />
           )}
           {CurrentStepComponent[currentStep]}
           <Col

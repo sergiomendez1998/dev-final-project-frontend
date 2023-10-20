@@ -18,8 +18,8 @@ export const CATALOGS = {
 };
 
 export const USER_TYPES = {
-  internal: 'internal',
-  external: 'external',
+  internal: 'interno',
+  external: 'externo',
 };
 
 export const CATALOGS_NAME = [
