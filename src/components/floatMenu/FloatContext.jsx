@@ -6,7 +6,6 @@ import {
   HiLibrary,
   HiInbox,
   HiUserCircle,
-  HiTrash,
   HiInformationCircle,
   HiQrcode,
   HiTrendingUp,
@@ -21,10 +20,14 @@ import {
 } from "../../util/alertsForRequest";
 import { AnimatedLink } from "../links/AnimatedLink";
 import { usePosition } from "../../hooks/usePosition";
+import { ItemDeleteRequest } from "../buttons/itemDeleteRequest";
+import { useContext } from "react";
+import { SampleContext } from "../../context/SampleContext";
 
 Modal.setAppElement("#modal_float_context");
 
 export const FloatContext = ({ data }) => {
+  const { setItemOpen, setSelectedSample } = useContext(SampleContext);
   const { elementRef, position, open, setOpen, width } = usePosition();
 
 
@@ -72,9 +75,7 @@ export const FloatContext = ({ data }) => {
           >
             Info. General
           </ListGroup.Item>
-          <ListGroup.Item className="text-red-700" icon={HiTrash}>
-            Eliminar
-          </ListGroup.Item>
+          <ItemDeleteRequest data={data} />
           <AnimatedLink to={`/request/${data.id}/samples`}>
             <ListGroup.Item icon={HiInbox}>Muestras</ListGroup.Item>
           </AnimatedLink>
@@ -96,7 +97,10 @@ export const FloatContext = ({ data }) => {
           >
             Trazabilidad
           </ListGroup.Item>
-          <ListGroup.Item icon={HiSaveAs}>Estado</ListGroup.Item>
+          <ListGroup.Item icon={HiSaveAs} onClick={() => {
+            setSelectedSample(data);
+            setItemOpen();
+          }}>Estado</ListGroup.Item>
           <ListGroup.Item icon={HiQrcode} onClick={() => displayQRCode(data)}>
             Crear QR
           </ListGroup.Item>

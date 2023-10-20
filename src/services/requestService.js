@@ -53,3 +53,30 @@ export const getItemsRequest = async (requestId) => {
         console.log(error);
     }
 }
+
+export const deleteRequest = async (requestId) => {
+    try {
+        const response = await api.put(`/request/delete/${requestId}`);
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const assigmentRequestForRole = async (requestId, roleId) => {
+    try {
+        const response = await api.put(`/request/assigment/${roleId}/${requestId}`);
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const assigmentAndTranslateForRole = async (data) => {
+    try {
+        const response = await api.post(`/assigment`, data);
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
