@@ -26,3 +26,14 @@ export const assigmentItems = async (data) => {
     console.log(error);
   }
 }
+
+export const disAssigmentItems = async (data) => {
+  try {
+    console.log(data)
+    const response = await api.put(`/sample/disassociate-item/${data.sampleId}?itemId=${data.itemId}`);
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}

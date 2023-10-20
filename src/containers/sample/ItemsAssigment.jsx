@@ -7,7 +7,10 @@ import { AiOutlineLoading } from "react-icons/ai";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { convertToItemsSelect } from "../../util/utilConvert";
 import { getItemsRequest } from "../../services/requestService";
-import { assigmentItems } from "../../services/sampleService";
+import {
+    assigmentItems,
+    disAssigmentItems,
+} from "../../services/sampleService";
 import { FaTrash } from "react-icons/fa";
 import { useContext } from "react";
 import { SampleContext } from "../../context/SampleContext";
@@ -39,6 +42,7 @@ export const ItemsAssigment = ({
         data: response,
         mutate,
         isLoading: loading,
+        reset: resetAssigment,
     } = useMutation({
         mutationFn: (data) => assigmentItems(data),
         onSuccess: async (data) => {
@@ -47,8 +51,29 @@ export const ItemsAssigment = ({
                 setSelectedItems([]);
                 await refetchRequest();
                 const newData = client.getQueryData(["request", requestId]);
-                console.log(newData)
-                setSelectedSample(newData.sampleWrapper.find((s) => s.id === selectedSample.id));
+                setSelectedSample(
+                    newData.sampleWrapper.find((s) => s.id === selectedSample.id),
+                );
+            }
+        },
+    });
+
+    const {
+        data: itemDisasociate,
+        mutate: mutateItems,
+        isLoading: isLoadingDisasociate,
+        reset: resetDisasociate,
+    } = useMutation({
+        mutationFn: (data) => disAssigmentItems(data),
+        onSuccess: async (data) => {
+            if (data.successful) {
+                refetchItems();
+                setSelectedItems([]);
+                await refetchRequest();
+                const newData = client.getQueryData(["request", requestId]);
+                setSelectedSample(
+                    newData.sampleWrapper.find((s) => s.id === selectedSample.id),
+                );
             }
         },
     });
@@ -58,15 +83,32 @@ export const ItemsAssigment = ({
             {response && (
                 <Response message={response.message} type={response.successful} />
             )}
+            {itemDisasociate && (
+                <Response
+                    message={itemDisasociate.message}
+                    type={itemDisasociate.successful}
+                />
+            )}
             <h2 className="text-2xl font-bold">items</h2>
 
             <div className="flex h-[35vh] flex-wrap  gap-4 overflow-y-auto rounded-xl border-2 border-gray-400 p-4">
-
                 {selectedSample.items.map((item, idx) => (
                     <Card key={idx} className="relative max-h-24 w-full">
                         <span className="flex justify-between">
                             <span className="font-bold">{item.name}</span>
-                            <span className="cursor-pointer text-red-600" ><FaTrash size={25} /></span>
+                            <Button
+                                isProcessing={isLoadingDisasociate}
+                                processingSpinner={
+                                    <AiOutlineLoading className="h-6 w-6 animate-spin" />
+                                }
+                                color="failure"
+                                onClick={() => {
+                                    resetAssigment();
+                                    mutateItems({ itemId: item.id, sampleId: selectedSample.id });
+                                }}
+                            >
+                                <FaTrash size={25} />
+                            </Button>
                         </span>
                     </Card>
                 ))}
@@ -91,12 +133,13 @@ export const ItemsAssigment = ({
                         color="primary"
                         type="submit"
                         fullSized
-                        onClick={() =>
+                        onClick={() => {
+                            resetDisasociate();
                             mutate({
                                 data: selectedItems,
                                 sampleId: selectedSample.id,
-                            })
-                        }
+                            });
+                        }}
                     >
                         {"Asignar Items"}
                     </Button>
