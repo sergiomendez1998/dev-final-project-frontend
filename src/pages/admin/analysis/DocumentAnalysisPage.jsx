@@ -5,14 +5,16 @@ import { Button, Modal } from "flowbite-react";
 import { ButtonBack } from "../../../components/buttons/ButtonBack";
 import { HeaderPage } from "../../../components/layout/HeaderPage";
 import { TableRoot } from "../../../components/tables/TableeRoot";
-import { FaPen } from "react-icons/fa";
+import { FaFilePdf, FaPen } from "react-icons/fa";
 import {
     UploadAnalysisDocument,
     generalInformationForPDFAnalysis,
+    getAnalysisDocument,
 } from "../../../services/analysisService";
 import { GeneralInformation } from "../../../containers/analysis/GeneralInformation";
 import { AnalysisForm } from "../../../components/forms/AnalysisForm";
 import { LoadingComponent } from "../../../components/loading/LoadingComponent";
+import { API_URL } from "../../../config/constants";
 
 const initialForm = {
     sampleId: "",
@@ -20,6 +22,65 @@ const initialForm = {
     analysisDocumentType: "",
     nit: "",
 };
+
+const columns = [
+    {
+        name: "id",
+        selector: (row) => row.id,
+        sortable: true,
+        maxWidth: "100px",
+    },
+    {
+        name: "Codigo",
+        selector: (row) => row.documentCode,
+        sortable: true,
+        maxWidth: "180px",
+        hide: "md",
+    },
+    {
+        name: "Nit",
+        selector: (row) => row.customerNit,
+        sortable: true,
+        hide: 1275,
+        maxWidth: "100px",
+    },
+    {
+        name: "Tipo",
+        selector: (row) => row.documentType,
+        sortable: true,
+        hide: 1275,
+        maxWidth: "100px",
+    },
+
+    {
+        name: "Resolucion",
+        selector: (row) => row.resolution,
+        sortable: true,
+        wrap: true,
+    },
+    {
+        name: "Creacion",
+        selector: (row) => row.createdAt.substring(0, 10),
+        sortable: true,
+        hide: 1275,
+        maxWidth: "100px",
+    },
+    {
+        name: "Descarga",
+        selector: (row) => (
+            <Button
+                size="sm"
+                color="failure"
+                href={`${API_URL}/analysis-document/download/${row.id}`}
+            >
+                <FaFilePdf />
+            </Button>
+        ),
+        sortable: false,
+        maxWidth: "135px",
+        center: true,
+    },
+];
 
 export const DocumentAnalysisPage = () => {
     const { id } = useParams();
@@ -32,10 +93,16 @@ export const DocumentAnalysisPage = () => {
         queryFn: () => generalInformationForPDFAnalysis(id),
     });
 
+    const { data: info, isLoading: isLoadingInfo, refetch } = useQuery({
+        queryKey: ["documents", id],
+        queryFn: () => getAnalysisDocument(id),
+    });
+
     const sendForm = async (form) => {
         form.sampleId = id;
         form.nit = data["Usuario Externo"].Nit;
         const response = await UploadAnalysisDocument(form);
+        response.successful && refetch();
         return response;
     };
 
@@ -53,7 +120,12 @@ export const DocumentAnalysisPage = () => {
                     <FaPen size={25} /> Crear Documento de Analisis
                 </Button>
             </div>
-            <TableRoot columns={[]} data={[]} loading={false} title={"Documentos"} />
+            <TableRoot
+                columns={columns}
+                data={info ?? []}
+                loading={isLoadingInfo}
+                title={"Documentos"}
+            />
             <Modal
                 show={isOpen}
                 onClose={handleToggle}

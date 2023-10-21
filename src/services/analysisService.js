@@ -24,3 +24,12 @@ export const UploadAnalysisDocument = async (data) => {
         console.log(error)
     }
 }
+
+export const getAnalysisDocument = async (sampleId) => {
+    try {
+        const response = await api.get(`/analysis-document/${sampleId}`);
+        return response.data;
+    } catch (error) {
+        console.log(error)
+    }
+}

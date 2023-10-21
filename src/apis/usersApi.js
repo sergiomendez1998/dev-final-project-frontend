@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { API_URL } from '../config/constants';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:9090/api/v1',
+  baseURL: API_URL,
 });
 
 api.interceptors.response.use(
@@ -16,7 +17,6 @@ api.interceptors.response.use(
 );
 
 export const setToken = (token) => {
-  console.log('token', token);
   api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
 
