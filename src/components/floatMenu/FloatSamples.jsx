@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { FaEllipsisV } from "react-icons/fa";
 import { ListGroup } from "flowbite-react";
 import {
+  HiDocument,
   HiInbox,
   HiInformationCircle,
   HiQrcode,
@@ -15,6 +16,7 @@ import {
   displaySampleGeneralInformation,
 } from "../../util/alertsForSample";
 import { ItemDeleteSample } from "../buttons/ItemDeleteSample";
+import { AnimatedLink } from "../links/AnimatedLink";
 
 Modal.setAppElement("#modal_float_context");
 
@@ -76,6 +78,12 @@ export const FloatSamples = ({ data }) => {
             }}
           >
             Items
+          </ListGroup.Item>
+          <ListGroup.Item icon={HiDocument}>
+
+            <AnimatedLink to={`/Sample/${data.id}`}>
+              Crear Analisis
+            </AnimatedLink>
           </ListGroup.Item>
           <ListGroup.Item icon={HiQrcode} onClick={() => displayQRCode(data)}>
             Crear QR

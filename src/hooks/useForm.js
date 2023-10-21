@@ -33,6 +33,19 @@ export const useForm = (initialForm, validateForm, onSubmit) => {
     setForm(newForm);
   }
 
+  const handleChangeFile = (e) => {
+    const { name, files } = e.target;
+
+    const newForm = {
+      ...form,
+      [name]: files[0],
+    };
+
+    setForm(newForm);
+
+    setErrors(validateForm(newForm));
+  };
+
   const removeList = (name, value) => {
     const newForm = {
       ...form,
@@ -82,5 +95,6 @@ export const useForm = (initialForm, validateForm, onSubmit) => {
     handleSubmit,
     changeList,
     removeList,
+    handleChangeFile,
   };
 };

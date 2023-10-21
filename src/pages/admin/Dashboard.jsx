@@ -4,6 +4,7 @@ import { Grid } from '../../components/grid/Grid';
 import { HeaderPage } from '../../components/layout/HeaderPage';
 
 const Dashboard = () => {
+
   return (
     <div className="mx-2">
       <HeaderPage title="Dashboard" pref="Inicio" />

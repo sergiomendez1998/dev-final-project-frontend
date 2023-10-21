@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { URL_BASE_APP } from "../config/constants.js";
 import { LoadingPage } from "../pages/LoadingPage";
+import DocumentAnalysisPage from "../pages/admin/analysis/DocumentAnalysisPage";
 
 
 const LoginPage = lazy(() => import("../pages/auth/LoginPage"));
@@ -88,6 +89,14 @@ export const Browser = () => {
               element={
                 <ProtectedRoute>
                   <SamplesPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/sample/:id"
+              element={
+                <ProtectedRoute>
+                  <DocumentAnalysisPage />
                 </ProtectedRoute>
               }
             />

@@ -159,3 +159,13 @@ export const convertToGeneralInfoSample = (data) => {
     Items: data.items.length,
   }
 }
+
+export const toFormData = (object) => {
+  const formData = new FormData();
+
+  Object.keys(object).forEach((key) => {
+    formData.append(key, object[key]);
+  });
+
+  return formData;
+};
