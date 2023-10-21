@@ -17,6 +17,7 @@ import { SubMenu } from '../components/links/SubMenu';
 import { useAuth } from '../hooks/useAuth';
 import { useLogin } from '../hooks/useLogin';
 import { AnimatedLink } from '../components/links/AnimatedLink';
+import { IMAGE_PREFIX } from '../config/constants';
 
 export const Sidebar = () => {
   const { email, name } = useAuth();
@@ -40,36 +41,36 @@ export const Sidebar = () => {
 
   const Nav_animation = isTabletMid
     ? {
-        open: {
-          x: 0,
-          width: '16rem',
-          transition: {
-            damping: 40,
-          },
+      open: {
+        x: 0,
+        width: '16rem',
+        transition: {
+          damping: 40,
         },
-        closed: {
-          x: -250,
-          width: 0,
-          transition: {
-            damping: 40,
-            delay: 0.15,
-          },
+      },
+      closed: {
+        x: -250,
+        width: 0,
+        transition: {
+          damping: 40,
+          delay: 0.15,
         },
-      }
+      },
+    }
     : {
-        open: {
-          width: '16rem',
-          transition: {
-            damping: 40,
-          },
+      open: {
+        width: '16rem',
+        transition: {
+          damping: 40,
         },
-        closed: {
-          width: '4rem',
-          transition: {
-            damping: 40,
-          },
+      },
+      closed: {
+        width: '4rem',
+        transition: {
+          damping: 40,
         },
-      };
+      },
+    };
 
   const subMenusList = [
     {
@@ -88,9 +89,8 @@ export const Sidebar = () => {
     <div>
       <div
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-[998] max-h-screen md:hidden ${
-          open ? 'block' : 'hidden'
-        } `}
+        className={`fixed inset-0 z-[998] max-h-screen md:hidden ${open ? 'block' : 'hidden'
+          } `}
       ></div>
       <motion.div
         ref={sidebarRef}
@@ -103,10 +103,9 @@ export const Sidebar = () => {
       >
         <div className="mx-3 flex items-center justify-center gap-2.5 border-b border-slate-300 py-3 font-medium">
           <img
-            src="/dist/img/logo.jpg"
-            className={`${
-              !open ? 'w-100 height-10' : 'w-33 height-24'
-            } rounded-xl`}
+            src={`${IMAGE_PREFIX}img/logo.jpg`}
+            className={`${!open ? 'w-100 height-10' : 'w-33 height-24'
+              } rounded-xl`}
             alt=""
           />
         </div>
@@ -181,15 +180,15 @@ export const Sidebar = () => {
           animate={
             open
               ? {
-                  x: 0,
-                  y: 0,
-                  rotate: 0,
-                }
+                x: 0,
+                y: 0,
+                rotate: 0,
+              }
               : {
-                  x: -10,
-                  y: -200,
-                  rotate: 180,
-                }
+                x: -10,
+                y: -200,
+                rotate: 180,
+              }
           }
           transition={{ duration: 0 }}
           className="absolute bottom-3 right-2 z-50 hidden h-fit w-fit cursor-pointer md:block"

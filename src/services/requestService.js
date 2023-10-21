@@ -80,3 +80,12 @@ export const assigmentAndTranslateForRole = async (data) => {
         console.log(error);
     }
 }
+
+export const changeStatusRequest = async (data) => {
+    try {
+        const response = await api.post(`/stateChange`, data);
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}

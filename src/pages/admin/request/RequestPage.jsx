@@ -6,8 +6,9 @@ import { TableRoot } from "../../../components/tables/TableeRoot";
 import { FloatContext } from "../../../components/floatMenu/FloatContext";
 import { RequestCardTable } from "../../../components/cards/RequestCardTable";
 import { SampleContext } from "../../../context/SampleContext";
-import { Modal } from "flowbite-react";
+import { Modal, Tabs } from "flowbite-react";
 import { AssigmentRequestForm } from "../../../components/forms/AssigmentRequestForm";
+import { ChangeStateForm } from "../../../components/forms/ChangeStateForm";
 
 const requestColumns = [
   {
@@ -108,7 +109,18 @@ const RequestPage = () => {
         <Modal.Header className="font-bold">
           Asignacion y Traslado de Solicitud No. {selectedRequest.requestCode}
         </Modal.Header>
-        <AssigmentRequestForm data={selectedRequest} />
+        <section className="min-h-[50vh] px-8">
+          <Tabs.Group
+            aria-label="Tabs with underline" style="pills"
+          >
+            <Tabs.Item title="Asignacion y Traslado">
+              <AssigmentRequestForm data={selectedRequest} />
+            </Tabs.Item>
+            <Tabs.Item title="Cambio de Estado">
+              <ChangeStateForm data={selectedRequest} />
+            </Tabs.Item>
+          </Tabs.Group>
+        </section>
       </Modal>
     </SampleContext.Provider>
   );
