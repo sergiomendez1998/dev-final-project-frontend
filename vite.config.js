@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react-swc'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: 'http://3.16.158.123/lab2you',
+  base: "https://development.d3t6q2xdj566fj.amplifyapp.com",
   envPrefix: 'VITE_',
   server: {
     port: 3000,
