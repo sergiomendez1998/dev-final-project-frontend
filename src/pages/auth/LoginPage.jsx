@@ -89,8 +89,8 @@ const LoginPage = () => {
               color="secondary"
               className="rounded-full py-2"
               processingSpinner={
-              <AiOutlineLoading className="h-6 w-6 animate-spin" />
-            }
+                <AiOutlineLoading className="h-6 w-6 animate-spin" />
+              }
             >
               Iniciar Sesión
             </Button>
@@ -103,6 +103,14 @@ const LoginPage = () => {
               className="text-cyan-500 hover:text-cyan-700 focus:text-cyan-900"
             >
               Registrate
+            </AnimatedLink>
+          </p>
+          <p className="mt-4 text-center font-bold text-gray-600">
+            <AnimatedLink
+              to={'/home'}
+              className="text-cyan-500 hover:text-cyan-700 focus:text-cyan-900"
+            >
+              Ver Portal
             </AnimatedLink>
           </p>
         </div>
