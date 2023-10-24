@@ -6,6 +6,8 @@ import { Grid } from "../../components/grid/Grid";
 import { FaShoppingCart } from "react-icons/fa";
 import { LayoutSale } from "../../containers/LayoutSale";
 import { useSale } from "../../hooks/useSale";
+import {FooterForHomePage} from "./FooterForHomePage.jsx";
+import {Link} from "react-router-dom";
 
 const HomePage = () => {
     const { open, setOpen } = useSale();
@@ -13,6 +15,14 @@ const HomePage = () => {
         queryFn: () => getAllCatalogs(CATALOGS.testType),
         queryKey: ["catalog", CATALOGS.testType],
     });
+
+    const linkStyle = {
+        textDecoration: 'none',
+        color: '#fff',
+        fontSize: '1.2rem',
+        marginLeft: '20px',
+    };
+
 
     return (
         <LayoutSale>
@@ -25,9 +35,17 @@ const HomePage = () => {
                     />
                     <span className="ms-3 text-2xl font-bold">Lab2You</span>
                 </article>
-                <span className="me-4 flex cursor-pointer items-center" onClick={() => setOpen(!open)}>
-                    <FaShoppingCart size={35} />
-                </span>
+
+
+                <article className="flex flex-row items-center">
+
+                    <Link to="/login" style={linkStyle}>Iniciar sesión</Link>
+                    <Link to="/register" style={linkStyle}>Registrarse</Link>
+                    <span className="me-4 flex cursor-pointer items-center" onClick={() => setOpen(!open)}>
+                    <span className="ms-4">Mis productos</span><FaShoppingCart size={23}/>
+                    </span>
+                </article>
+
             </header>
             <main>
                 <section
@@ -84,6 +102,7 @@ const HomePage = () => {
                     </div>
                 </section>
             </main>
+            <FooterForHomePage />
         </LayoutSale>
     );
 };
