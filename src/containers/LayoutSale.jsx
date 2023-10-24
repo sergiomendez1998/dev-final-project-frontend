@@ -23,19 +23,20 @@ export const LayoutSale = ({ children }) => {
                 isOpen={isOpen}
                 setIsOpen={() => setIsOpen(!isOpen)}
             >
-                <article className="mb-4 ms-4 flex justify-center">
-                    <Link
-                        to={'/login'}
-                        className="btn btn-primary flex px-4 py-2"
-                    >
-                        <FaRegEdit size={20} className="me-2" /> Solicitar Exámenes
-                    </Link>
-                </article>
+                {cart.length > 0 && (
+                    <article className="mb-4 ms-4 flex justify-center">
+                        <Link to={'/login'} className="btn btn-primary flex px-4 py-2">
+                            <FaRegEdit size={20} className="me-2" /> Realizar Solicitud
+                        </Link>
+                    </article>
+                )}
                 <article className="flex justify-between px-4">
                     <p className="text-2xl font-bold">Total: Q {getTotal().toFixed(2)}</p>
+
                     <Button color="failure" onClick={clearCart}>
-                        <FaTrash size={20} className="me-2" /> Eliminar productos
+                        <FaTrash size={20} className="focus:ring-lime-400" /> Limpiar Carreta
                     </Button>
+
                 </article>
                 <section className="m-4">
                     <h2 className="font-bold">Productos Detalle</h2>
