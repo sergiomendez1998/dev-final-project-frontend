@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 // we define what our context looks like
 const saleContextProps = {
     cart: [],
+    open: false,
+    setOpen: () => { },
     addProduct: () => { },
     removeProduct: () => { },
     clearCart: () => { },
@@ -26,12 +28,13 @@ export const SaleContext = createContext(saleContextProps);
 export const SaleProvider = ({ children }) => {
     const { get, set } = useLocalStorage('cart');
     const [cart, setCart] = useState(get() ?? []);
+    const [open, setOpen] = useState(false);
 
     const addProduct = (item) => {
         const newItem = { ...item, uuid: uuidv4() };
         setCart([...cart, newItem]);
         set([...cart, item]);
-        toast.success('Producto agregado al pedido');
+        toast.success(`Examen de ${item.name} agregado al pedido`);
     };
 
     const getTotal = () => {
@@ -53,6 +56,8 @@ export const SaleProvider = ({ children }) => {
         <SaleContext.Provider
             value={{
                 cart,
+                open,
+                setOpen,
                 addProduct,
                 removeProduct,
                 clearCart,

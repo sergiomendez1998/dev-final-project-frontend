@@ -8,6 +8,8 @@ export const useSale = () => {
     clearCart,
     removeProduct,
     getTotal,
+    open,
+    setOpen,
   } = useContext(SaleContext);
 
 
@@ -17,5 +19,7 @@ export const useSale = () => {
     clearCart,
     removeProduct,
     getTotal,
+    open,
+    setOpen,
   };
 };

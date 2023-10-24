@@ -6,6 +6,7 @@ import { LoadingPage } from "../pages/LoadingPage";
 import DocumentAnalysisPage from "../pages/admin/analysis/DocumentAnalysisPage";
 
 
+
 const LoginPage = lazy(() => import("../pages/auth/LoginPage"));
 const RegisterPage = lazy(() => import("../pages/auth/RegisterPage"));
 const CreateRequestPage = lazy(() =>
@@ -33,6 +34,7 @@ const EditUserPage = lazy(() =>
 );
 const SamplesPage = lazy(() => import("../pages/admin/request/SamplesPage"));
 const RequestPage = lazy(() => import("../pages/admin/request/RequestPage"));
+const HomePage = lazy(() => import("../pages/home/HomePage"));
 
 export const Browser = () => {
   const { isLogedIn } = useAuth();
@@ -50,6 +52,12 @@ export const Browser = () => {
                 <ProtectedRoute>
                   <DashboardPage />
                 </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Home"
+              element={
+                <HomePage />
               }
             />
             <Route
