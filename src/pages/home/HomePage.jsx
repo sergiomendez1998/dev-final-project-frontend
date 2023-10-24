@@ -6,8 +6,9 @@ import { Grid } from "../../components/grid/Grid";
 import { FaShoppingCart } from "react-icons/fa";
 import { LayoutSale } from "../../containers/LayoutSale";
 import { useSale } from "../../hooks/useSale";
-import {FooterForHomePage} from "./FooterForHomePage.jsx";
-import {Link} from "react-router-dom";
+import { FooterForHomePage } from "./FooterForHomePage.jsx";
+import { Link } from "react-router-dom";
+import { Button } from "flowbite-react";
 
 const HomePage = () => {
     const { open, setOpen } = useSale();
@@ -16,17 +17,9 @@ const HomePage = () => {
         queryKey: ["catalog", CATALOGS.testType],
     });
 
-    const linkStyle = {
-        textDecoration: 'none',
-        color: '#fff',
-        fontSize: '1.2rem',
-        marginLeft: '20px',
-    };
-
-
     return (
         <LayoutSale>
-            <header className="fixed z-50 flex w-full flex-row justify-between bg-sky-600 p-4 text-white">
+            <header className="sticky top-0 z-50 flex w-full flex-row justify-between bg-sky-600 p-4 text-white">
                 <article className="flex flex-row items-center">
                     <img
                         src={`${IMAGE_PREFIX}img/logo.jpg`}
@@ -35,27 +28,45 @@ const HomePage = () => {
                     />
                     <span className="ms-3 text-2xl font-bold">Lab2You</span>
                 </article>
-
-
                 <article className="flex flex-row items-center">
-
-                    <Link to="/login" style={linkStyle}>Iniciar sesión</Link>
-                    <Link to="/register" style={linkStyle}>Registrarse</Link>
-                    <span className="me-4 flex cursor-pointer items-center" onClick={() => setOpen(!open)}>
-                    <span className="ms-4">Mis productos</span><FaShoppingCart size={23}/>
+                    <span className="hidden md:flex md:gap-4">
+                        <Link to="/login" className="font-bold">
+                            Iniciar sesión
+                        </Link>
+                        <Link to="/register" className="font-bold">
+                            Registrarse
+                        </Link>
+                    </span>
+                    <span
+                        className="me-4 flex cursor-pointer items-center font-bold"
+                        onClick={() => setOpen(!open)}
+                    >
+                        <span className="ms-4 hidden md:block">Ver Carrito</span>
+                        <FaShoppingCart size={23} />
                     </span>
                 </article>
-
             </header>
             <main>
                 <section
-                    className="relative flex  h-[75vh] w-full items-center justify-center  bg-[url('/clinica_medica.webp')] bg-cover bg-no-repeat"
+                    className="relative flex h-[75vh]  w-full flex-col items-center justify-center  bg-[url('/clinica_medica.webp')] bg-cover bg-no-repeat"
                     style={{ backgroundAttachment: "fixed" }}
                 >
                     <div className="absolute z-10  h-[75vh] w-full  bg-black opacity-60"></div>
                     <h1 className="relative z-[100] text-center text-4xl font-bold text-white">
                         Bienvenid@ a Lab2You la cura a tus problemas medicos
                     </h1>
+                    <div className="z-[100] mt-8 flex w-1/2 flex-wrap justify-around gap-4 md:hidden">
+                        <Button>
+                            <Link to="/login" className="font-bold">
+                                Iniciar sesión
+                            </Link>
+                        </Button>
+                        <Button>
+                            <Link to="/register" className="font-bold">
+                                Registrarse
+                            </Link>
+                        </Button>
+                    </div>
                 </section>
                 <section className="py-8">
                     <h2 className="text-center text-3xl font-bold">
@@ -88,7 +99,7 @@ const HomePage = () => {
                         </Grid>
                     </div>
                     <div>
-                        <h3 className="text-center font-bold">
+                        <h3 className="text-center text-xl font-bold text-sky-600">
                             De Click Sobre el Examen Para Agregarlo al Carrito
                         </h3>
                         {data?.map((item, idx) => (
@@ -102,7 +113,7 @@ const HomePage = () => {
                     </div>
                 </section>
             </main>
-            <FooterForHomePage />
+            <FooterForHomePage exams={data?.map((x) => x.name) ?? []} />
         </LayoutSale>
     );
 };

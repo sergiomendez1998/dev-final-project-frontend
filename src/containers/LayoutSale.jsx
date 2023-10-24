@@ -1,7 +1,7 @@
 import { node } from 'prop-types'
 import { Drawer } from './Drawer';
 import { Link } from 'react-router-dom';
-import {FaRegEdit, FaTrash, FaUser} from 'react-icons/fa';
+import { FaRegEdit, FaTrash } from 'react-icons/fa';
 import { useSale } from '../hooks/useSale';
 import { Button, Card } from 'flowbite-react';
 import { useAuth } from '../hooks/useAuth';
@@ -12,7 +12,7 @@ export const LayoutSale = ({ children }) => {
 
     return (
         <section>
-            <div>
+            <div >
                 {children}
             </div>
             <Drawer
