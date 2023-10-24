@@ -1,7 +1,7 @@
 import { node } from 'prop-types'
 import { Drawer } from './Drawer';
 import { Link } from 'react-router-dom';
-import { FaTrash, FaUser } from 'react-icons/fa';
+import {FaRegEdit, FaTrash, FaUser} from 'react-icons/fa';
 import { useSale } from '../hooks/useSale';
 import { Button, Card } from 'flowbite-react';
 import { useAuth } from '../hooks/useAuth';
@@ -25,16 +25,16 @@ export const LayoutSale = ({ children }) => {
             >
                 <article className="mb-4 ms-4 flex justify-center">
                     <Link
-                        to={'/Login'}
-                        className="btn btn-success flex px-4 py-2"
+                        to={'/login'}
+                        className="btn btn-primary flex px-4 py-2"
                     >
-                        <FaUser size={20} className="me-2" /> Iniciar Sesión
+                        <FaRegEdit size={20} className="me-2" /> Solicitar Exámenes
                     </Link>
                 </article>
                 <article className="flex justify-between px-4">
                     <p className="text-2xl font-bold">Total: Q {getTotal().toFixed(2)}</p>
                     <Button color="failure" onClick={clearCart}>
-                        <FaTrash size={20} className="me-2" /> Eliminar
+                        <FaTrash size={20} className="me-2" /> Eliminar productos
                     </Button>
                 </article>
                 <section className="m-4">
