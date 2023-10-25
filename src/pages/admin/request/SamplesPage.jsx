@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ButtonBack } from "../../../components/buttons/ButtonBack";
 import { SampleContext } from "../../../context/SampleContext";
 import { ItemsAssigment } from "../../../containers/sample/ItemsAssigment";
+import NotFound from "../../error/NotFound";
 
 const now = new Date();
 const date = now.toISOString().substring(0, 10);
@@ -36,10 +37,14 @@ const SamplesPage = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedSample, setSelectedSample] = useState({});
 
-  const { data, isLoading, isFetching, refetch } = useQuery({
+  const { data, isLoading, isFetching, refetch, error } = useQuery({
     queryKey: ["request", id],
     queryFn: () => getSampleRequest(id),
   });
+
+  if (error) {
+    return <NotFound Message={error.message} Number={error.statusCode} />;
+  }
 
   const handleToggle = () => {
     setOpen(!open);

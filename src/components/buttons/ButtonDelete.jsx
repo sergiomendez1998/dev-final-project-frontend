@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import { func, string } from "prop-types";
 import { Button } from "flowbite-react";
 import { FaTrash } from "react-icons/fa";
 import { useQueryClient } from "@tanstack/react-query";
@@ -21,6 +21,6 @@ export const ButtonDelete = ({ action, queryKey }) => {
 };
 
 ButtonDelete.propTypes = {
-  action: PropTypes.func.isRequired,
-  queryKey: PropTypes.string.isRequired,
+  action: func.isRequired,
+  queryKey: string.isRequired,
 };

@@ -15,6 +15,7 @@ import { GeneralInformation } from "../../../containers/analysis/GeneralInformat
 import { AnalysisForm } from "../../../components/forms/AnalysisForm";
 import { LoadingComponent } from "../../../components/loading/LoadingComponent";
 import { API_URL } from "../../../config/constants";
+import NotFound from "../../error/NotFound";
 
 const initialForm = {
     sampleId: "",
@@ -85,18 +86,27 @@ const columns = [
 export const DocumentAnalysisPage = () => {
     const { id } = useParams();
     const [isOpen, setIsOpen] = useState(false);
+    const [error, setError] = useState(null);
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, error: generalError } = useQuery({
         queryKey: ["generalInformationPDF", id],
         queryFn: () => generalInformationForPDFAnalysis(id),
     });
 
-    const { data: info, isLoading: isLoadingInfo, refetch } = useQuery({
+    if (generalError) {
+        setError(generalError);
+    }
+
+    const { data: info, isLoading: isLoadingInfo, refetch, error: documentError } = useQuery({
         queryKey: ["documents", id],
         queryFn: () => getAnalysisDocument(id),
     });
+
+    if (documentError) {
+        setError(documentError);
+    }
 
     const sendForm = async (form) => {
         form.sampleId = id;
@@ -105,6 +115,10 @@ export const DocumentAnalysisPage = () => {
         response.successful && refetch();
         return response;
     };
+
+    if (error) {
+        return <NotFound Message={error.message} Number={error.statusCode} />;
+    }
 
     return (
         <section>

@@ -73,19 +73,11 @@ export const assigmentRequestForRole = async (requestId, roleId) => {
 }
 
 export const assigmentAndTranslateForRole = async (data) => {
-    try {
-        const response = await api.post(`/assigment`, data);
-        return response;
-    } catch (error) {
-        console.log(error);
-    }
+    const response = await api.post(`/assigment`, data);
+    return response;
 }
 
 export const changeStatusRequest = async (data) => {
-    try {
-        const response = await api.post(`/stateChange`, data);
-        return response;
-    } catch (error) {
-        console.log(error);
-    }
+    const response = await api.post(`/stateChange`, data);
+    return response;
 }

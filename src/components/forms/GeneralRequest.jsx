@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import { object, func } from "prop-types";
 import { useState } from "react";
 import { Col } from "../grid/Col";
 import { IoIosPeople, IoIosAdd } from "react-icons/io";
@@ -12,6 +12,7 @@ import { Button } from "flowbite-react";
 import { Row } from "../grid/Row";
 import { useSale } from "../../hooks/useSale";
 import { toast } from "react-toastify";
+import NotFound from "../../pages/error/NotFound";
 
 export const GeneralRequest = ({
   form,
@@ -24,10 +25,14 @@ export const GeneralRequest = ({
   const [itemType, setItemType] = useState(null);
   const [itemsType, setItemsType] = useState([]);
 
-  const { data } = useQuery({
+  const { data, error } = useQuery({
     queryFn: () => getAllCatalogs(CATALOGS.testType),
     queryKey: ["catalog", CATALOGS.testType],
   });
+
+  if (error) {
+    return <NotFound Message={error.message} Number={error.statusCode} />;
+  }
 
   const handleChange = (e) => {
     setExamType(data.find((item) => item.name == e.target.value));
@@ -126,9 +131,9 @@ export const GeneralRequest = ({
 };
 
 GeneralRequest.propTypes = {
-  form: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
-  changeList: PropTypes.func.isRequired,
-  removeList: PropTypes.func.isRequired,
+  form: object.isRequired,
+  errors: object.isRequired,
+  onChange: func.isRequired,
+  changeList: func.isRequired,
+  removeList: func.isRequired,
 };

@@ -3,10 +3,11 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { URL_BASE_APP } from "../config/constants.js";
 import { LoadingPage } from "../pages/LoadingPage";
-import DocumentAnalysisPage from "../pages/admin/analysis/DocumentAnalysisPage";
+import ProtectedPage from "./ProtectedPage";
 
-
-
+const DocumentAnalysisPage = lazy(() =>
+  import("../pages/admin/analysis/DocumentAnalysisPage"),
+);
 const LoginPage = lazy(() => import("../pages/auth/LoginPage"));
 const RegisterPage = lazy(() => import("../pages/auth/RegisterPage"));
 const CreateRequestPage = lazy(() =>
@@ -49,15 +50,17 @@ export const Browser = () => {
             <Route
               path="/"
               element={
-                <ProtectedRoute>
-                  <DashboardPage />
-                </ProtectedRoute>
+                <ProtectedLogin>
+                  <HomePage />
+                </ProtectedLogin>
               }
             />
             <Route
-              path="/Home"
+              path="/Dashboard"
               element={
-                <HomePage />
+                <ProtectedPage>
+                  <DashboardPage />
+                </ProtectedPage>
               }
             />
             <Route
@@ -79,7 +82,7 @@ export const Browser = () => {
             <Route
               path="/request/create"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute operation={1}>
                   <CreateRequestPage />
                 </ProtectedRoute>
               }
@@ -87,7 +90,7 @@ export const Browser = () => {
             <Route
               path="/request/list"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute operation={4}>
                   <RequestPage />
                 </ProtectedRoute>
               }
@@ -95,7 +98,7 @@ export const Browser = () => {
             <Route
               path="/request/:id/samples"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute operation={8}>
                   <SamplesPage />
                 </ProtectedRoute>
               }
@@ -103,7 +106,7 @@ export const Browser = () => {
             <Route
               path="/sample/:id"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute operation={28}>
                   <DocumentAnalysisPage />
                 </ProtectedRoute>
               }
@@ -111,7 +114,7 @@ export const Browser = () => {
             <Route
               path="/catalog"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute operation={20}>
                   <CatalogPage />
                 </ProtectedRoute>
               }
@@ -119,7 +122,7 @@ export const Browser = () => {
             <Route
               path="/catalog/create/:type"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute operation={17}>
                   <CreateCatalogPage />
                 </ProtectedRoute>
               }
@@ -127,31 +130,31 @@ export const Browser = () => {
             <Route
               path="/catalog/edit/:type/:id"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute operation={18}>
                   <EditCatalogPage />
                 </ProtectedRoute>
               }
             />
             <Route
-              path="/user"
+              path="/employee"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute operation={32}>
                   <UserPage />
                 </ProtectedRoute>
               }
             />
             <Route
-              path="/user/create"
+              path="/employee/create"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute operation={29}>
                   <CreateUserPage />
                 </ProtectedRoute>
               }
             />
             <Route
-              path="/user/edit/:id"
+              path="/employee/edit/:id"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute operation={30}>
                   <EditUserPage />
                 </ProtectedRoute>
               }
@@ -159,9 +162,20 @@ export const Browser = () => {
             <Route
               path="/customer/register"
               element={
-                <ProtectedRoute>
+                <ProtectedPage>
                   <RegisterPage />
-                </ProtectedRoute>
+                </ProtectedPage>
+              }
+            />
+            <Route
+              path="/Unauthorized"
+              element={
+                <NotFoundPage
+                  Message={
+                    "No tienes autorizacion para vizualizar este contenido contacta con el administrador del sistema"
+                  }
+                  Number={401}
+                />
               }
             />
             <Route

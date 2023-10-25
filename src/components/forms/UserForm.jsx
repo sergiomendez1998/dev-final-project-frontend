@@ -1,4 +1,5 @@
-import PropTypes from "prop-types";
+import { string, func, object } from "prop-types";
+import { useState } from "react";
 import { useForm } from "../../hooks/useForm";
 import { Response } from "../messages/Response";
 import { Col } from "../grid/Col";
@@ -9,6 +10,7 @@ import { AiOutlineLoading } from "react-icons/ai";
 import { useQuery } from "@tanstack/react-query";
 import { CATALOGS, genderData } from "../../config/constants";
 import { getAllCatalogs } from "../../services/catalogService";
+import NotFound from "../../pages/error/NotFound";
 
 const validateForm = (form, type) => {
   const errors = {};
@@ -73,18 +75,32 @@ const validateForm = (form, type) => {
 };
 
 export const UserForm = ({ initialForm, sendForm, type }) => {
-  const { data: rols } = useQuery({
+  const [error, setError] = useState(null);
+
+  const { data: rols, error: rolError } = useQuery({
     queryKey: ["catalog", CATALOGS.role],
     queryFn: () => getAllCatalogs(CATALOGS.role),
   });
 
-  const { data: department } = useQuery({
+  if (rolError) {
+    setError(rolError);
+  }
+
+  const { data: department, error: departmentError } = useQuery({
     queryKey: ["catalog", CATALOGS.department],
     queryFn: () => getAllCatalogs(CATALOGS.department),
   });
 
+  if (departmentError) {
+    setError(departmentError);
+  }
+
   const { form, errors, handleChange, handleSubmit, loading, response } =
     useForm(initialForm, (form) => validateForm(form, type), sendForm);
+
+  if (error) {
+    return <NotFound Message={error.message} Number={error.statusCode} />;
+  }
 
   return (
     <article className="my-5">
@@ -269,7 +285,7 @@ export const UserForm = ({ initialForm, sendForm, type }) => {
 };
 
 UserForm.propTypes = {
-  initialForm: PropTypes.object.isRequired,
-  sendForm: PropTypes.func.isRequired,
-  type: PropTypes.string,
+  initialForm: object.isRequired,
+  sendForm: func.isRequired,
+  type: string,
 };

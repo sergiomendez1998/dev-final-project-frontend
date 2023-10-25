@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import { array, func } from "prop-types";
 import { Col } from "../grid/Col";
 import { InputForm } from "../inputs/InputForm";
 import { Response } from "../messages/Response";
@@ -11,6 +11,7 @@ import { InputSelect } from "../inputs/InputSelect";
 import { InputDateTime } from "../inputs/InputDateTime";
 import { useArrayForm } from "../../hooks/useArrayForm";
 import { FaPlus, FaTrash } from "react-icons/fa";
+import NotFound from "../../pages/error/NotFound";
 
 
 const now = new Date();
@@ -33,12 +34,12 @@ const validateForm = (form) => {
     }
     if (!f.presentation) {
       error.presentation = "Ingresa la presentación de la muestra";
-    }else if (f.presentation.length >= 50) {
+    } else if (f.presentation.length >= 50) {
       f.presentation = f.presentation.substring(0, 50);
     }
     if (parseInt(f.quantity) <= 0) {
       error.quantity = "Ingresa la cantidad de la muestra";
-    }else if(parseInt(f.quantity) >= 9999){
+    } else if (parseInt(f.quantity) >= 9999) {
       error.quantity = "Ingresa una cantidad menor a 9999";
     }
     if (!f.expirationDate) {
@@ -51,12 +52,12 @@ const validateForm = (form) => {
 };
 
 export const SampleForm = ({ initialForm, sendForm }) => {
-  const { data: sampleType } = useQuery({
+  const { data: sampleType, error } = useQuery({
     queryKey: ["catalog", CATALOGS.sampleType],
     queryFn: () => getAllCatalogs(CATALOGS.sampleType),
   });
 
-  const { data: unitMeasure } = useQuery({
+  const { data: unitMeasure, error: unitError } = useQuery({
     queryKey: ["catalog", CATALOGS.measureUnit],
     queryFn: () => getAllCatalogs(CATALOGS.measureUnit),
   });
@@ -71,6 +72,14 @@ export const SampleForm = ({ initialForm, sendForm }) => {
     addList,
     removeList,
   } = useArrayForm(initialForm, validateForm, sendForm);
+
+  if (error) {
+    return <NotFound Message={error.message} Number={error.statusCode} />;
+  }
+
+  if (unitError) {
+    return <NotFound Message={error.message} Number={error.statusCode} />;
+  }
 
   return (
     <article className="max-h-[70vh] overflow-y-auto p-5">
@@ -187,6 +196,6 @@ export const SampleForm = ({ initialForm, sendForm }) => {
 };
 
 SampleForm.propTypes = {
-  initialForm: PropTypes.array.isRequired,
-  sendForm: PropTypes.func.isRequired,
+  initialForm: array.isRequired,
+  sendForm: func.isRequired,
 };

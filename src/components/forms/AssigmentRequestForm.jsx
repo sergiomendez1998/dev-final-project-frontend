@@ -10,6 +10,8 @@ import { useForm } from "../../hooks/useForm";
 import { Response } from "../messages/Response";
 import { assigmentAndTranslateForRole } from "../../services/requestService";
 import { toast } from "react-toastify";
+import NotFound from "../../pages/error/NotFound";
+import { useState } from "react";
 
 const initialForm = {
     typeRoleToAssign: "",
@@ -33,10 +35,12 @@ const validateForm = (form) => {
 
 export const AssigmentRequestForm = ({ data }) => {
     const client = useQueryClient();
+    const [error, setError] = useState(null);
     const {
         data: rols,
         isLoading,
         isFetching,
+        error: rolErrors,
     } = useQuery({
         queryKey: ["catalog", CATALOGS.role],
         queryFn: () => getAllCatalogs(CATALOGS.role),
@@ -50,10 +54,15 @@ export const AssigmentRequestForm = ({ data }) => {
         },
     });
 
+    if (rolErrors) {
+        setError(rolErrors);
+    }
+
     const {
         data: statusRequest,
         isLoading: loadingStatus,
         isFetching: fetchingStatus,
+        error: statusErrors,
     } = useQuery({
         queryKey: ["catalog", CATALOGS.statusRequest],
         queryFn: () => getAllCatalogs(CATALOGS.statusRequest),
@@ -66,6 +75,10 @@ export const AssigmentRequestForm = ({ data }) => {
                 }));
         },
     });
+
+    if (statusErrors) {
+        setError(statusErrors);
+    }
 
     const sendForms = async (form) => {
         form.requestId = data.id;
@@ -82,6 +95,10 @@ export const AssigmentRequestForm = ({ data }) => {
 
     const { form, errors, handleChange, handleSubmit, loading, response } =
         useForm(initialForm, validateForm, sendForms);
+
+    if (error) {
+        return <NotFound Message={error.message} Number={error.statusCode} />;
+    }
 
     return (
         <section className="mx-4 flex flex-wrap justify-center gap-4">

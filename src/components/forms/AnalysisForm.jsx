@@ -12,6 +12,7 @@ import { InputSelect } from "../inputs/InputSelect";
 import { FaFilePdf } from "react-icons/fa";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { AnalysisPDF } from "../../reports/analysis/AnalysisPDF";
+import NotFound from "../../pages/error/NotFound";
 
 const validateForm = (form) => {
     const errors = {};
@@ -29,7 +30,7 @@ const validateForm = (form) => {
 };
 
 export const AnalysisForm = ({ initialForm, sendForm, data }) => {
-    const { data: analysisDocumentType } = useQuery({
+    const { data: analysisDocumentType, error } = useQuery({
         queryKey: ["catalog", CATALOGS.analysisDocumentType],
         queryFn: () => getAllCatalogs(CATALOGS.analysisDocumentType),
     });
@@ -43,6 +44,10 @@ export const AnalysisForm = ({ initialForm, sendForm, data }) => {
         loading,
         response,
     } = useForm(initialForm, validateForm, sendForm);
+
+    if (error) {
+        return <NotFound Message={error.message} Number={error.statusCode} />;
+    }
 
     return (
         <section>

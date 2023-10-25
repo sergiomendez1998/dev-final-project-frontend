@@ -7,14 +7,19 @@ import { getSupportTypeCatalogsByUserType } from "../../services/catalogService"
 import { useAuth } from "../../hooks/useAuth";
 import { USER_TYPES } from "../../config/constants";
 import { Button } from "flowbite-react";
+import NotFound from "../../pages/error/NotFound";
 
 export const SupportRequest = ({ form, errors, onChange, onVerify }) => {
   const { userType } = useAuth();
 
-  const { data } = useQuery({
+  const { data, error } = useQuery({
     queryFn: () => getSupportTypeCatalogsByUserType(userType),
     queryKey: ["catalog", userType],
   });
+
+  if (error) {
+    return <NotFound Message={error.message} Number={error.statusCode} />;
+  }
 
 
   return (

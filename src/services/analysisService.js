@@ -12,24 +12,16 @@ export const generalInformationForPDFAnalysis = async (sampleId) => {
 }
 
 export const UploadAnalysisDocument = async (data) => {
-    try {
-        const convert = toFormData(data)
-        const response = await api.post(`/analysis-document/upload`, convert, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        return response;
-    } catch (error) {
-        console.log(error)
-    }
+    const convert = toFormData(data)
+    const response = await api.post(`/analysis-document/upload`, convert, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    return response;
 }
 
 export const getAnalysisDocument = async (sampleId) => {
-    try {
-        const response = await api.get(`/analysis-document/${sampleId}`);
-        return response.data;
-    } catch (error) {
-        console.log(error)
-    }
+    const response = await api.get(`/analysis-document/${sampleId}`);
+    return response.data;
 }

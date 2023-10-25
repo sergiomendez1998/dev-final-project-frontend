@@ -8,6 +8,7 @@ import { Flowbite } from 'flowbite-react';
 import { pageTheme } from './theme/pageTheme';
 import { ToastContainer } from 'react-toastify';
 import { SaleProvider } from './context/SaleContext';
+import { ErrorBoundary } from './pages/error/ErrorBoundary';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,17 +22,19 @@ const queryClient = new QueryClient({
 const App = () => {
   register();
   return (
-    <Flowbite theme={{ theme: pageTheme }}>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <SaleProvider>
-            <Browser />
-            <ToastContainer />
-          </SaleProvider>
-        </Provider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </Flowbite>
+    <ErrorBoundary>
+      <Flowbite theme={{ theme: pageTheme }}>
+        <QueryClientProvider client={queryClient}>
+          <Provider store={store}>
+            <SaleProvider>
+              <Browser />
+              <ToastContainer />
+            </SaleProvider>
+          </Provider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </Flowbite>
+    </ErrorBoundary>
   );
 };
 

@@ -63,4 +63,13 @@ export const SELECTED_MESSAGE = {
   message: 'Seleccionado(s)',
 };
 
+
+export const ERROR_TYPES = {
+  401: "UnauthorizedError",
+  403: "ForbiddenError",
+  404: "NotFoundError",
+  400: "BadRequestError",
+  500: "InternalServerError",
+};
+
 export const Alert = withReactContent(Swal);

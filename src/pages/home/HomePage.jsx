@@ -9,13 +9,18 @@ import { useSale } from "../../hooks/useSale";
 import { FooterForHomePage } from "./FooterForHomePage.jsx";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
+import NotFound from "../error/NotFound";
 
 const HomePage = () => {
     const { open, setOpen } = useSale();
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, error } = useQuery({
         queryFn: () => getAllCatalogs(CATALOGS.testType),
         queryKey: ["catalog", CATALOGS.testType],
     });
+
+    if (error) {
+        return <NotFound Message={error.message} Number={error.statusCode} />;
+    }
 
     return (
         <LayoutSale>

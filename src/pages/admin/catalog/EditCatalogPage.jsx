@@ -6,6 +6,7 @@ import { getAllCatalogs, updateCatalog } from "../../../services/catalogService"
 import { CATALOGS } from "../../../config/constants";
 import { useQuery } from "@tanstack/react-query";
 import { HeaderPage } from "../../../components/layout/HeaderPage";
+import NotFound from "../../error/NotFound";
 
 const initialForm = {
   id: 0,
@@ -17,10 +18,14 @@ const initialForm = {
 const EditCatalogPage = () => {
   const { type, id } = useParams();
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, error } = useQuery({
     queryKey: ["catalog", type],
     queryFn: () => getAllCatalogs(type),
   });
+
+  if (error) {
+    return <NotFound Message={error.message} Number={error.statusCode} />;
+  }
 
   const catalog = data?.find((item) => item.id === parseInt(id)) ?? initialForm;
   catalog.catalogType = type ?? CATALOGS.analysisDocumentType;

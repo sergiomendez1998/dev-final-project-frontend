@@ -13,15 +13,20 @@ import { FaPlus, FaPen, FaTrash } from "react-icons/fa";
 import { Button } from "flowbite-react";
 import { AnimatedLink } from "../../../components/links/AnimatedLink";
 import { HeaderPage } from "../../../components/layout/HeaderPage";
+import NotFound from "../../error/NotFound";
 
-const CatalogPage = () => { 
+const CatalogPage = () => {
 
   const [catalogType, setCatalogType] = useState(CATALOGS.department);
 
-  const { data, isLoading, isFetching, refetch } = useQuery({
+  const { data, isLoading, isFetching, refetch, error } = useQuery({
     queryKey: ["catalog", catalogType],
     queryFn: () => getAllCatalogs(catalogType),
   });
+
+  if (error) {
+    return <NotFound Message={error.message} Number={error.statusCode} />;
+  }
 
   const catalogColumns = [
     {

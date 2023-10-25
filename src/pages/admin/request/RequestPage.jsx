@@ -9,6 +9,7 @@ import { SampleContext } from "../../../context/SampleContext";
 import { Modal, Tabs } from "flowbite-react";
 import { AssigmentRequestForm } from "../../../components/forms/AssigmentRequestForm";
 import { ChangeStateForm } from "../../../components/forms/ChangeStateForm";
+import NotFound from "../../error/NotFound";
 
 const requestColumns = [
   {
@@ -76,10 +77,14 @@ const RequestPage = () => {
     setIsOpen(!isOpen);
   };
 
-  const { data, isLoading, isFetching } = useQuery({
+  const { data, isLoading, isFetching, error } = useQuery({
     queryKey: ["requests"],
     queryFn: getRequests,
   });
+
+  if (error) {
+    return <NotFound Message={error.message} Number={error.statusCode} />;
+  }
 
   return (
     <SampleContext.Provider

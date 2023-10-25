@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import { object } from "prop-types";
 import { Card } from "flowbite-react";
 import { getGeneralInformationRequest } from "../../services/requestService";
 
@@ -28,5 +28,5 @@ export const GeneralInformation = ({ data }) => {
 };
 
 GeneralInformation.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: object.isRequired,
 };

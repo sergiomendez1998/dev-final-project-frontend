@@ -7,6 +7,7 @@ import { deleteEmployee, getAllEmployees } from "../../../services/userService";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "flowbite-react";
 import { ButtonDelete } from "../../../components/buttons/ButtonDelete";
+import NotFound from "../../error/NotFound";
 
 const employeeColumns = [
   {
@@ -62,10 +63,14 @@ const employeeColumns = [
 ];
 
 const UserPage = () => {
-  const { data, isLoading, isFetching } = useQuery({
+  const { data, isLoading, isFetching, error } = useQuery({
     queryKey: ["employees"],
     queryFn: getAllEmployees,
   });
+
+  if (error) {
+    return <NotFound Message={error.message} Number={error.statusCode} />;
+  }
 
   return (
     <section>

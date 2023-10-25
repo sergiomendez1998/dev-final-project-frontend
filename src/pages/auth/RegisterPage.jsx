@@ -90,7 +90,6 @@ const RegisterPage = () => {
   const petition = async (form) => {
     const customer = convertToCustomerRegister(form);
     const response = await registerUser(customer);
-    console.log(response);
     return response;
   };
 
@@ -257,8 +256,8 @@ const RegisterPage = () => {
               color="secondary"
               className="rounded-full py-2"
               processingSpinner={
-              <AiOutlineLoading className="h-6 w-6 animate-spin" />
-            }
+                <AiOutlineLoading className="h-6 w-6 animate-spin" />
+              }
             >
               Registrarme y Crear Una Cuenta
             </Button>

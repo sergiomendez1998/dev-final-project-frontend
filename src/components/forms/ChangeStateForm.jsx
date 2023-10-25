@@ -10,6 +10,7 @@ import { Button } from 'flowbite-react';
 import { AiOutlineLoading } from 'react-icons/ai';
 import { changeStatusRequest } from "../../services/requestService";
 import { toast } from "react-toastify";
+import NotFound from "../../pages/error/NotFound";
 
 const initialForm = {
     statusId: "",
@@ -32,6 +33,7 @@ export const ChangeStateForm = ({ data }) => {
         data: statusRequest,
         isLoading: loadingStatus,
         isFetching: fetchingStatus,
+        error,
     } = useQuery({
         queryKey: ["catalog", CATALOGS.statusRequest],
         queryFn: () => getAllCatalogs(CATALOGS.statusRequest),
@@ -60,6 +62,10 @@ export const ChangeStateForm = ({ data }) => {
 
     const { form, errors, handleChange, handleSubmit, loading, response } =
         useForm(initialForm, validateForm, sendForms);
+
+    if (error) {
+        return <NotFound Message={error.message} Number={error.statusCode} />;
+    }
 
     return (
         <article className="mx-4">

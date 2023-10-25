@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { object, func } from 'prop-types';
 import { Col } from '../grid/Col';
 import { InputForm } from '../inputs/InputForm';
 import { InputSelect } from '../inputs/InputSelect';
@@ -94,6 +94,6 @@ export const CatalogForm = ({ initialForm, sendForm }) => {
 };
 
 CatalogForm.propTypes = {
-  initialForm: PropTypes.object.isRequired,
-  sendForm: PropTypes.func.isRequired,
+  initialForm: object.isRequired,
+  sendForm: func.isRequired,
 };

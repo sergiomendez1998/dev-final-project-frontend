@@ -9,6 +9,7 @@ import {
   convertToEmployeeUpdate,
 } from "../../../util/utilConvert";
 import { useQuery } from "@tanstack/react-query";
+import NotFound from "../../error/NotFound";
 
 const initialFormEmployee = {
   cui: "",
@@ -29,15 +30,19 @@ const initialFormEmployee = {
 const UpdateUserPage = () => {
   const { id } = useParams();
 
-  const { data } = useQuery({
+  const { data, error } = useQuery({
     queryKey: ["employees"],
     queryFn: getAllEmployees,
   });
 
+  if (error) {
+    return <NotFound Message={error.message} Number={error.statusCode} />;
+  }
+
   const initialForm =
     convertToEmployee(data?.find((item) => item.id === parseInt(id))) ??
     initialFormEmployee;
-    initialForm.gender = "";
+  initialForm.gender = "";
 
   const sendForm = async (form) => {
     const convert = convertToEmployeeUpdate(form);

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { ERROR_TYPES } from "../config/constants";
+import { useNavigate } from "react-router-dom";
 
 export const useForm = (initialForm, validateForm, onSubmit) => {
+  const navigate = useNavigate();
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -71,7 +74,20 @@ export const useForm = (initialForm, validateForm, onSubmit) => {
         response.successful ? setForm(initialForm) : setErrors(response.errors ?? {});
         setResponse(response);
       } catch (error) {
-        console.log(error);
+        const typeError = ERROR_TYPES[error.statusCode];
+
+        typeError ?
+          navigate('/Error', {
+            state: {
+              statusCode: error.statusCode,
+              message: error.message,
+              name: error.name,
+            },
+          }) : setResponse({
+            success: false,
+            data: null,
+            message: `${error?.name} ${error?.message}`,
+          });
       }
     } else {
       setResponse("");

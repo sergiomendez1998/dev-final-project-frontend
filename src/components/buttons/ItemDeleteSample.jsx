@@ -5,16 +5,18 @@ import { HiTrash } from "react-icons/hi"
 import { deleteSample } from "../../services/sampleService"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "react-toastify"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 
 export const ItemDeleteSample = ({ data }) => {
     const client = useQueryClient();
+    const navigate = useNavigate();
     const { id } = useParams();
 
     const {
         mutate,
-        isLoading
+        isLoading,
+        error,
     } = useMutation({
         mutationFn: (id) => deleteSample(id),
         onSuccess: async (data) => {
@@ -26,6 +28,16 @@ export const ItemDeleteSample = ({ data }) => {
             }
         },
     });
+
+    if (error) {
+        navigate('/Error', {
+            state: {
+                statusCode: error?.statusCode ?? "500",
+                message: error.message,
+                name: error.name,
+            },
+        })
+    }
 
     return (
         <ListGroup.Item
