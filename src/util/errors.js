@@ -43,3 +43,12 @@ export class InternalServerError extends Error {
         this.statusCode = "500";
     }
 }
+
+export class NetworkError extends Error {
+    statusCode = "";
+    constructor(message) {
+        super(message);
+        this.name = "NetworkError";
+        this.statusCode = "ERR_NETWORK";
+    }
+}

@@ -1,4 +1,4 @@
-import { string, number } from "prop-types";
+import { string, number, oneOfType } from "prop-types";
 import { useState, useEffect } from "react";
 import { Col } from "../../components/grid/Col";
 import { Row } from "../../components/grid/Row";
@@ -20,7 +20,7 @@ const NotFound = ({ Message, Number }) => {
   }, [Number]);
 
   const handleClick = () => {
-    if (Number === "404") {
+    if (Number) {
       navigate(-1);
     } else if (Number === "500" || Number === "401") {
       handlerLogout();
@@ -31,8 +31,8 @@ const NotFound = ({ Message, Number }) => {
     <div className="container mx-auto">
       <Row className="min-h-[80vh] items-center justify-center">
         <Col xs={12} className="text-center">
-          <span className="block text-8xl font-bold">{Number}</span>
-          <div className="mb-4 text-3xl italic">{Message}</div>
+          <span className="block text-3xl font-bold lg:text-8xl">{Number}</span>
+          <div className="mb-4 text-2xl italic md:text-3xl">{Message}</div>
           <span
             className="cursor-pointer font-bold text-sky-700 hover:text-sky-500"
             onClick={handleClick}
@@ -49,5 +49,5 @@ export default NotFound;
 
 NotFound.propTypes = {
   Message: string.isRequired,
-  Number: number.isRequired,
+  Number: oneOfType([string, number]).isRequired,
 };

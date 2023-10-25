@@ -70,6 +70,7 @@ export const ERROR_TYPES = {
   404: "NotFoundError",
   400: "BadRequestError",
   500: "InternalServerError",
+  ERR_NETWORK: "ERR_NETWORK",
 };
 
 export const Alert = withReactContent(Swal);

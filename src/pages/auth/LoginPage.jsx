@@ -107,7 +107,7 @@ const LoginPage = () => {
           </p>
           <p className="mt-4 text-center font-bold text-gray-600">
             <AnimatedLink
-              to={'/home'}
+              to={'/'}
               className="text-cyan-500 hover:text-cyan-700 focus:text-cyan-900"
             >
               Ver Portal

@@ -34,8 +34,8 @@ const ErrorPage = () => {
         <div className="container mx-auto">
             <Row className="min-h-[60vh] items-center justify-center">
                 <Col xs={12} className="text-center">
-                    <span className="block text-8xl font-bold">{state.statusCode}</span>
-                    <div className="mb-4 text-3xl italic">{state.message}</div>
+                    <span className="block text-3xl font-bold lg:text-8xl">{state.statusCode}</span>
+                    <div className="mb-4 text-2xl italic md:text-3xl">{state.message}</div>
                     <span className="cursor-pointer font-bold text-sky-700 hover:text-sky-500" onClick={handleClick}>
                         {text}
                     </span>

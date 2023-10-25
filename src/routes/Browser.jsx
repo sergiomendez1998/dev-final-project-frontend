@@ -3,8 +3,9 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { URL_BASE_APP } from "../config/constants.js";
 import { LoadingPage } from "../pages/LoadingPage";
-import ProtectedPage from "./ProtectedPage";
 
+const ProtectedPage = lazy(() => import("./ProtectedPage"));
+const ErrorPage = lazy(() => import("../pages/error/ErrorPage"));
 const DocumentAnalysisPage = lazy(() =>
   import("../pages/admin/analysis/DocumentAnalysisPage"),
 );
@@ -178,6 +179,7 @@ export const Browser = () => {
                 />
               }
             />
+            <Route path="/Error" element={<ErrorPage />} />
             <Route
               path="*"
               element={
