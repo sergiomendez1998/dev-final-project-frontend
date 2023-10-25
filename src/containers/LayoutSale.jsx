@@ -48,7 +48,7 @@ export const LayoutSale = ({ children }) => {
                             >
                                 <FaTrash
                                     className="absolute right-5 top-3 cursor-pointer text-red-600"
-                                    size={15}
+                                    size={15}F
                                     onClick={() => {
                                         removeProduct(item);
                                     }}

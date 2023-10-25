@@ -47,7 +47,7 @@ const employeeColumns = [
     selector: (row) => (
       <Button.Group>
         <Button color="primary" className="gap-2">
-          <AnimatedLink to={`/user/edit/${row.id}`} className="flex">
+          <AnimatedLink to={`/Employee/edit/${row.id}`} className="flex">
             <FaPen className="me-2" />
           </AnimatedLink>
         </Button>
@@ -77,7 +77,7 @@ const UserPage = () => {
       <HeaderPage title="Mantenimiento Analistas" pref="Consultar" />
       <Row className="justify-end">
         <AnimatedLink
-          to={`/user/create/`}
+          to={`/Employee/create/`}
           className="btn btn-primary mt-4 flex justify-between py-3 font-bold md:mt-11"
         >
           <FaPlus /> Crear Nuevo Analista
