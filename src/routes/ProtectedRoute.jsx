@@ -3,14 +3,13 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 const ProtectedRoute = ({ children, operation }) => {
-  const { isLogedIn } = useAuth();
-  const allOperations = [];
+  const { isLogedIn, authorities } = useAuth();
 
   if (!isLogedIn) {
     return <Navigate to={'/login'} />;
   }
 
-  if (!allOperations.some((op) => op.id === operation))
+  if (!authorities.some((op) => op.id === operation))
     return <Navigate to={'/Unauthorized'} />;
 
 

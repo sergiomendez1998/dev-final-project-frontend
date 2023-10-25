@@ -1,28 +1,23 @@
-import { useEffect, useState } from 'react';
-import { useRef } from 'react';
-import { motion } from 'framer-motion';
-
-// * React icons
-import { IoIosArrowBack } from 'react-icons/io';
-import { SlLogout, SlSettings } from 'react-icons/sl';
-import { AiOutlineAppstore } from 'react-icons/ai';
-import { BsPerson } from 'react-icons/bs';
-import { HiOutlineDatabase } from 'react-icons/hi';
-import { TbReportAnalytics } from 'react-icons/tb';
-import { RiBuilding3Line } from 'react-icons/ri';
-import { useMediaQuery } from 'react-responsive';
-import { MdMenu } from 'react-icons/md';
-import { useLocation } from 'react-router-dom';
-import { SubMenu } from '../components/links/SubMenu';
-import { useAuth } from '../hooks/useAuth';
-import { useLogin } from '../hooks/useLogin';
-import { AnimatedLink } from '../components/links/AnimatedLink';
-import { IMAGE_PREFIX } from '../config/constants';
+import { useEffect, useState } from "react";
+import { useRef } from "react";
+import { motion } from "framer-motion";
+import { IoIosArrowBack } from "react-icons/io";
+import { SlLogout } from "react-icons/sl";
+import { AiOutlineAppstore } from "react-icons/ai";
+import { useMediaQuery } from "react-responsive";
+import { MdMenu } from "react-icons/md";
+import { Link, useLocation } from "react-router-dom";
+// import { SubMenu } from '../components/links/SubMenu';
+import { useAuth } from "../hooks/useAuth";
+import { useLogin } from "../hooks/useLogin";
+import { AnimatedLink } from "../components/links/AnimatedLink";
+import { IMAGE_PREFIX } from "../config/constants";
+import { IConMenu } from "../util/IconMenu";
 
 export const Sidebar = () => {
-  const { email, name } = useAuth();
+  const { email, name, modules } = useAuth();
   const { handlerLogout } = useLogin();
-  let isTabletMid = useMediaQuery({ query: '(max-width: 768px)' });
+  let isTabletMid = useMediaQuery({ query: "(max-width: 768px)" });
   const [open, setOpen] = useState(isTabletMid ? false : true);
   const sidebarRef = useRef();
   const { pathname } = useLocation();
@@ -43,7 +38,7 @@ export const Sidebar = () => {
     ? {
       open: {
         x: 0,
-        width: '16rem',
+        width: "16rem",
         transition: {
           damping: 40,
         },
@@ -59,44 +54,44 @@ export const Sidebar = () => {
     }
     : {
       open: {
-        width: '16rem',
+        width: "16rem",
         transition: {
           damping: 40,
         },
       },
       closed: {
-        width: '4rem',
+        width: "4rem",
         transition: {
           damping: 40,
         },
       },
     };
 
-  const subMenusList = [
-    {
-      name: 'build',
-      icon: RiBuilding3Line,
-      menus: ['auth', 'app_settings', 'stroage', 'hosting', 'functions'],
-    },
-    {
-      name: 'analytics',
-      icon: TbReportAnalytics,
-      menus: ['dashboard', 'realtime', 'events', 'audience', 'funnel'],
-    },
-  ];
+  // const subMenusList = [
+  //   {
+  //     name: 'build',
+  //     icon: RiBuilding3Line,
+  //     menus: ['auth', 'app_settings', 'stroage', 'hosting', 'functions'],
+  //   },
+  //   {
+  //     name: 'analytics',
+  //     icon: TbReportAnalytics,
+  //     menus: ['dashboard', 'realtime', 'events', 'audience', 'funnel'],
+  //   },
+  // ];
 
   return (
     <div>
       <div
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-[998] max-h-screen md:hidden ${open ? 'block' : 'hidden'
+        className={`fixed inset-0 z-[998] max-h-screen md:hidden ${open ? "block" : "hidden"
           } `}
       ></div>
       <motion.div
         ref={sidebarRef}
         variants={Nav_animation}
         initial={{ x: isTabletMid ? -250 : 0 }}
-        animate={open ? 'open' : 'closed'}
+        animate={open ? "open" : "closed"}
         className="fixed z-[999] h-screen w-[16rem] max-w-[16rem] overflow-hidden bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-gray-700  via-gray-900 
             to-black text-white shadow-xl
          md:relative "
@@ -104,7 +99,7 @@ export const Sidebar = () => {
         <div className="mx-3 flex items-center justify-center gap-2.5 border-b border-slate-300 py-3 font-medium">
           <img
             src={`${IMAGE_PREFIX}img/logo.jpg`}
-            className={`${!open ? 'w-100 height-10' : 'w-33 height-24'
+            className={`${!open ? "w-100 height-10" : "w-33 height-24"
               } rounded-xl`}
             alt=""
           />
@@ -113,42 +108,30 @@ export const Sidebar = () => {
         <div className="flex h-full  flex-col">
           <ul className="flex h-[70%] flex-col gap-1 overflow-x-hidden whitespace-pre px-2.5  py-5 text-[0.9rem] font-medium scrollbar-thin  scrollbar-track-indigo-700 md:h-[68%]">
             <li>
-              <AnimatedLink to={'/'} className="link">
+              <AnimatedLink to={"/Dashboard"} className="link">
                 <AiOutlineAppstore size={23} className="min-w-max" />
                 Dashboard
               </AnimatedLink>
             </li>
-            <li>
-              <AnimatedLink to={'/user'} className="link">
-                <BsPerson size={23} className="min-w-max" />
-                Authentication
-              </AnimatedLink>
-            </li>
-            <li>
-              <AnimatedLink to={'/stroage'} className="link">
-                <HiOutlineDatabase size={23} className="min-w-max" />
-                Stroage
-              </AnimatedLink>
-            </li>
-
-            {(open || isTabletMid) && (
-              <div className="border-y border-slate-300 py-3 ">
-                <small className="mb-2 inline-block pl-3 text-slate-500">
-                  Mantenimientos
-                </small>
-                {subMenusList?.map((menu) => (
-                  <div key={menu.name} className="flex flex-col gap-1">
-                    <SubMenu data={menu} />
-                  </div>
-                ))}
+            {modules?.map((menu) => (
+              <div key={menu.id} className="flex flex-col gap-1">
+                {/* <SubMenu data={menu} /> */}
+                <Link
+                  to={menu.path}
+                  className={`link ${pathname.includes(menu.path) && "text-sky-500"
+                    }`}
+                >
+                  {<IConMenu id={menu.id} />}
+                  <p className="flex-1 capitalize">{menu.description}</p>
+                </Link>
               </div>
-            )}
-            <li>
-              <AnimatedLink to={'/settings'} className="link">
+            ))}
+            {/* <li>
+              <AnimatedLink to={"/settings"} className="link">
                 <SlSettings size={23} className="min-w-max" />
                 Settings
               </AnimatedLink>
-            </li>
+            </li> */}
             <li>
               <a
                 href="#"

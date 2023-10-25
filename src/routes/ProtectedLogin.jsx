@@ -6,7 +6,7 @@ const ProtectedLogin = ({ children }) => {
   const { isLogedIn } = useAuth();
 
   if (isLogedIn) {
-    return <Navigate to={`/`} />;
+    return <Navigate to={`/Dashboard`} />;
   }
 
   return children;

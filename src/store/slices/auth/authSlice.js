@@ -1,9 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { setToken } from '../../../apis/usersApi';
-import { initializeStateOfApplication } from '../../../util/initializeStateOfApplication';
+import { createSlice } from "@reduxjs/toolkit";
+import { setToken } from "../../../apis/usersApi";
+import {
+  initialState,
+  initializeStateOfApplication,
+} from "../../../util/initializeStateOfApplication";
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: initializeStateOfApplication(),
   reducers: {
     onLogin: (state, action) => {
@@ -12,27 +15,17 @@ export const authSlice = createSlice({
         isLogedIn: true,
         ...action.payload,
       };
-
-      sessionStorage.setItem('login', JSON.stringify(newState));
+      sessionStorage.setItem("login", JSON.stringify(newState));
       setToken(newState.token);
-      sessionStorage.setItem('token', `Bearer ${newState.token}`);
-
+      sessionStorage.setItem("token", `Bearer ${newState.token}`);
       return newState;
     },
     onLogout: () => {
-      const newState = {
-        isAuth: false,
-        isAdmin: false,
-        user: undefined,
-        token: undefined,
-        userId: 0,
-        roles: [],
-      };
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('login');
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("login");
       sessionStorage.clear();
-      setToken(newState.token);
-      return newState;
+      setToken(initialState.token);
+      return initialState;
     },
   },
 });
